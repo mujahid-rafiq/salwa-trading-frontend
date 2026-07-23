@@ -1,4 +1,46 @@
+import { useFormik, type FormikHelpers } from "formik";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../../hooks/useAuth";
+import { LoginDto } from "../../dto/login.dto";
+import { ROUTES } from "../../app-routes/constants";
+import toast from "react-hot-toast";
+import { EyeIcon, EyeOffIcon } from "../../svg";
+
 const Login = () => {
+  const navigate = useNavigate();
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const loginMutation = useLoginMutation();
+
+  const formik = useFormik<LoginDto>({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: LoginDto.yupSchema(),
+    onSubmit: async (values: LoginDto, { setSubmitting }: FormikHelpers<LoginDto>) => {
+      setSubmitError(null);
+      try {
+          const res: any = await toast.promise(loginMutation.mutateAsync(values), {
+            loading: "Signing in...",
+            success: "Welcome back!",
+            error: (err: any) => err?.response?.data?.message || "Login failed",
+          });
+
+          if (res?.accessToken) {
+            localStorage.setItem("accessToken", res.accessToken);
+          }
+
+          navigate(ROUTES.DASHBOARD);
+        } catch (error: any) {
+          setSubmitError(error?.response?.data?.message || "Login failed. Please try again.");
+        } finally {
+          setSubmitting(false);
+        }
+    },
+  });
+
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#0B0B0B] px-4">
 
@@ -35,59 +77,91 @@ const Login = () => {
           </div>
 
           {/* Form */}
-          <form className="mt-8 space-y-5">
+          <form onSubmit={formik.handleSubmit} className="mt-8 space-y-5">
 
             <div>
-              <label className="mb-2 block text-sm text-gray-300">
-                Email Address
-              </label>
-
+              <label className="mb-2 block text-sm text-gray-300">Email Address</label>
               <input
+                name="email"
                 type="email"
                 placeholder="Enter your email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 className="w-full rounded-xl border border-gray-700 bg-[#1E1E1E] px-4 py-3 text-white placeholder:text-gray-500 outline-none transition-all duration-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-yellow-500/20"
               />
+              {formik.touched.email && formik.errors.email ? (
+                <p className="mt-2 text-xs text-red-400">{formik.errors.email}</p>
+              ) : null}
             </div>
 
             <div>
-              <label className="mb-2 block text-sm text-gray-300">
-                Password
-              </label>
-
-              <input
-                type="password"
-                placeholder="Enter your password"
-                className="w-full rounded-xl border border-gray-700 bg-[#1E1E1E] px-4 py-3 text-white placeholder:text-gray-500 outline-none transition-all duration-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-yellow-500/20"
-              />
+              <label className="mb-2 block text-sm text-gray-300">Password</label>
+              <div className="relative">
+                <input
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className="w-full rounded-xl border border-gray-700 bg-[#1E1E1E] px-4 py-3 pr-10 text-white placeholder:text-gray-500 outline-none transition-all duration-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-yellow-500/20"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((s) => !s)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-200 cursor-pointer"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? (
+                    <EyeOffIcon className="h-5 w-5" />
+                  ) : (
+                    <EyeIcon className="h-5 w-5" />
+                  )}
+                </button>
+              </div>
+              {formik.touched.password && formik.errors.password ? (
+                <p className="mt-2 text-xs text-red-400">{formik.errors.password}</p>
+              ) : null}
             </div>
 
             <div className="flex items-center justify-between text-sm">
-
-              <label className="flex items-center gap-2 text-gray-400">
-                <input
-                  type="checkbox"
-                  className="rounded border-gray-600 bg-transparent"
-                />
+              <label className="flex items-center gap-2 text-gray-400 cursor-pointer">
+                <input type="checkbox" className="rounded border-gray-600 bg-transparent" />
                 Remember Me
               </label>
 
-              <button
-                type="button"
-                className="text-[#D4AF37] transition hover:text-yellow-300"
-              >
+              <button type="button" className="text-[#D4AF37] transition hover:text-yellow-300 cursor-pointer">
                 Forgot Password?
               </button>
-
             </div>
 
+            {submitError ? (
+              <div className="rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+                {submitError}
+              </div>
+            ) : null}
+
             <button
-              type="button"
-              className="w-full rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] py-3 font-semibold text-black shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-yellow-500/30"
+              type="submit"
+              disabled={formik.isSubmitting}
+              className="w-full rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] py-3 font-semibold text-black shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-yellow-500/30 disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer"
             >
-              Sign In
+              {formik.isSubmitting ? "Signing in..." : "Sign In"}
             </button>
 
           </form>
+
+          <div className="mt-4 text-center text-sm text-gray-300">
+            Don't have an account?{' '}
+            <button
+              type="button"
+              onClick={() => navigate(ROUTES.SIGNUP)}
+              className="ml-2 font-semibold text-[#D4AF37] hover:text-yellow-300 cursor-pointer"
+            >
+              Create account
+            </button>
+          </div>
 
           <div className="mt-8 border-t border-gray-800 pt-5 text-center text-xs text-gray-500">
             © 2026 Salwa Trading. All Rights Reserved.

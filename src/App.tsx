@@ -4,6 +4,8 @@ import SignupPage from "./pages/Auth/SignupPage";
 import { ROUTES } from "./app-routes/constants";
 import ProfilePage from "./pages/Auth/ProfilePage";
 import OtpVerificationPage from "./pages/Auth/VerifyOtpPage";
+import Layout from "./components/Layout/Layout";
+import DashboardPage from "./pages/Dashboard/DashboardPage";
 // import { ROUTES } from "./routes/routes";
 
 const App = () => {
@@ -19,6 +21,11 @@ const App = () => {
       <Route
         path={ROUTES.SIGNUP}
         element={<SignupPage />}
+      />
+
+       <Route
+        path={ROUTES.DASHBOARD}
+        element={<Layout><DashboardPage/></Layout>}
       />
 
        <Route
