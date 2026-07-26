@@ -1,4 +1,42 @@
+import { useEffect, useState, type KeyboardEvent } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { ROUTES } from "../../app-routes/constants";
+
 const OtpVerificationPage = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const email = location.state?.email || "your email";
+
+  useEffect(() => {
+    if (!location.state?.email) {
+      navigate(ROUTES.FORGOTPASSWORD);
+    }
+  }, [location.state, navigate]);
+
+  const handleChange = (index: number, value: string) => {
+    if (!/\d?/.test(value)) return;
+
+    const nextOtp = [...otp];
+    nextOtp[index] = value;
+    setOtp(nextOtp);
+
+    if (value && index < otp.length - 1) {
+      const nextInput = document.querySelectorAll<HTMLInputElement>("input[name^='otp-']");
+      if (nextInput[index + 1]) nextInput[index + 1].focus();
+    }
+  };
+
+  const handleKeyDown = (index: number, e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Backspace" && !otp[index] && index > 0) {
+      const prevOtp = [...otp];
+      prevOtp[index - 1] = "";
+      setOtp(prevOtp);
+      const prevInput = document.querySelectorAll<HTMLInputElement>("input[name^='otp-']");
+      if (prevInput[index - 1]) prevInput[index - 1].focus();
+    }
+  };
+
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#0B0B0B] px-4">
 
@@ -30,18 +68,23 @@ const OtpVerificationPage = () => {
             </p>
 
             <p className="font-medium text-[#D4AF37]">
-              admin@salwatrading.com
+              {email}
             </p>
           </div>
 
           {/* OTP Inputs */}
           <div className="mt-10 flex justify-between gap-3">
 
-            {[1, 2, 3, 4, 5, 6].map((item) => (
+            {otp.map((digit, index) => (
               <input
-                key={item}
+                key={index}
+                name={`otp-${index}`}
                 type="text"
+                inputMode="numeric"
                 maxLength={1}
+                value={digit}
+                onChange={(e) => handleChange(index, e.target.value)}
+                onKeyDown={(e) => handleKeyDown(index, e)}
                 className="h-14 w-14 rounded-xl border border-gray-700 bg-[#1E1E1E] text-center text-xl font-bold text-white outline-none transition-all duration-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-yellow-500/20"
               />
             ))}

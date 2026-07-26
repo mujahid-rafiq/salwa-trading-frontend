@@ -24,6 +24,11 @@ export default class AuthApi extends BaseApi {
     return data;
   }
 
+  async logout() {
+    const { data } = await this.post(`${this.baseUrl}/logout`, {});
+    return data;
+  }
+
   async register(dto: RegisterDto) {
     const { data } = await this.post(`${this.baseUrl}/register`, dto);
     return data;

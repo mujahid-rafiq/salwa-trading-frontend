@@ -4,6 +4,7 @@ import SignupPage from "./pages/Auth/SignupPage";
 import { ROUTES } from "./app-routes/constants";
 import ProfilePage from "./pages/Auth/ProfilePage";
 import OtpVerificationPage from "./pages/Auth/VerifyOtpPage";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
 import Layout from "./components/Layout/Layout";
 import DashboardPage from "./pages/Dashboard/DashboardPage";
 // import { ROUTES } from "./routes/routes";
@@ -36,6 +37,11 @@ const App = () => {
        <Route
         path={ROUTES.VERIFYOTP}
         element={<OtpVerificationPage/>}
+      />
+
+      <Route
+        path={ROUTES.FORGOTPASSWORD}
+        element={<ForgotPassword />}
       />
     </Routes>
   );

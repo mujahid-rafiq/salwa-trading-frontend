@@ -1,6 +1,6 @@
 import { useFormik, type FormikHelpers } from "formik";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../hooks/useAuth";
 import { LoginDto } from "../../dto/login.dto";
 import { ROUTES } from "../../app-routes/constants";
@@ -139,9 +139,9 @@ const Login = () => {
                 Remember Me
               </label>
 
-              <button type="button" className="text-[#D4AF37] transition hover:text-yellow-300 cursor-pointer">
+              <Link to={ROUTES.FORGOTPASSWORD} className="text-[#D4AF37] transition hover:text-yellow-300 cursor-pointer">
                 Forgot Password?
-              </button>
+              </Link>
             </div>
 
             {submitError ? (

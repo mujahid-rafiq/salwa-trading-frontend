@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { ROUTES } from "../../app-routes/constants";
+import AuthApi from "../../api/AuthApi";
 
 const NavItem: React.FC<{ to: string; label: string }> = ({ to, label }) => (
   <NavLink
@@ -66,8 +68,25 @@ const ParentNavItem: React.FC<{ label: string; children: { label: string; to?: s
 };
 
 const Sidebar: React.FC = () => {
+  const navigate = useNavigate();
+  const authApi = new AuthApi();
+
+  const handleLogout = async () => {
+    try {
+      await authApi.logout();
+      toast.success("Logged out successfully");
+    } catch (error) {
+      console.error("Logout failed", error);
+      toast.error("Logout failed. Please try again.");
+    } finally {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("persist:root");
+      navigate(ROUTES.LOGIN);
+    }
+  };
+
   return (
-    <aside className="w-64 min-h-screen bg-[#0f1724] border-r border-gray-800 p-4">
+    <aside className="w-64 min-h-screen bg-[#0f1724] border-r border-gray-800 p-4 flex flex-col">
       <div className="mb-8 flex items-center gap-3 px-2">
         <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-yellow-400 to-amber-600 flex items-center justify-center text-black font-bold">S</div>
         <div>
@@ -76,7 +95,7 @@ const Sidebar: React.FC = () => {
         </div>
       </div>
 
-      <nav className="space-y-1">
+      <nav className="flex-1 space-y-1">
         <NavItem to={ROUTES.DASHBOARD} label="Dashboard" />
         <NavItem to={ROUTES.SIGNUP} label="Signup" />
 
@@ -117,6 +136,17 @@ const Sidebar: React.FC = () => {
 
         <ParentNavItem label="Support" children={[{ label: 'Inbox' }, { label: 'Compose Mail' }, { label: 'Sent Items' }]} />
       </nav>
+
+      <div className="mt-4 border-t border-gray-800 pt-4 ">
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="flex w-full items-center gap-3 cursor-pointer rounded-lg px-4 py-3 text-left text-sm font-medium text-red-400 transition hover:bg-red-500/10 hover:text-red-300"
+        >
+          <span className="flex h-5 w-5 items-center justify-center">⎋</span>
+          <span>Log Out</span>
+        </button>
+      </div>
     </aside>
   );
 };

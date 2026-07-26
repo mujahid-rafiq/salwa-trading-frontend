@@ -4,4 +4,5 @@ export const ROUTES = {
   DASHBOARD: "/dashboard",
  PROFILEPAGE: "/profile-page",
  VERIFYOTP: "/verify-otp",
+ FORGOTPASSWORD: "/forgot-password",
 };
