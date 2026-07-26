@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../hooks/useAuth";
 import { LoginDto } from "../../dto/login.dto";
 import { ROUTES } from "../../app-routes/constants";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 import { EyeIcon, EyeOffIcon } from "../../svg";
 
 const Login = () => {
@@ -22,22 +22,30 @@ const Login = () => {
     onSubmit: async (values: LoginDto, { setSubmitting }: FormikHelpers<LoginDto>) => {
       setSubmitError(null);
       try {
-          const res: any = await toast.promise(loginMutation.mutateAsync(values), {
-            loading: "Signing in...",
+      
+        const res: any = await toast.promise(
+          loginMutation.mutateAsync(values),
+          {
+            pending: "Signing in...",
             success: "Welcome back!",
-            error: (err: any) => err?.response?.data?.message || "Login failed",
-          });
-
-          if (res?.accessToken) {
-            localStorage.setItem("accessToken", res.accessToken);
+            error: {
+              render({ data }: any) {
+                return data?.response?.data?.message || "Login failed";
+              },
+            },
           }
+        );
 
-          navigate(ROUTES.DASHBOARD);
-        } catch (error: any) {
-          setSubmitError(error?.response?.data?.message || "Login failed. Please try again.");
-        } finally {
-          setSubmitting(false);
+        if (res?.accessToken) {
+          localStorage.setItem("accessToken", res.accessToken);
         }
+
+        navigate(ROUTES.DASHBOARD);
+      } catch (error: any) {
+        setSubmitError(error?.response?.data?.message || "Login failed. Please try again.");
+      } finally {
+        setSubmitting(false);
+      }
     },
   });
 

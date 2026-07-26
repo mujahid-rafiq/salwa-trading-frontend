@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRegisterMutation } from "../../hooks/useAuth";
 import { RegisterDto } from "../../dto/register.dto";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 import { EyeIcon, EyeOffIcon } from "../../svg";
 
 const Signup = () => {
@@ -25,26 +25,30 @@ const Signup = () => {
     onSubmit: async (values: RegisterDto, { setSubmitting }: FormikHelpers<RegisterDto>) => {
       setSubmitError(null);
       try {
-          await toast.promise(
-            registerMutation.mutateAsync({
-              fullName: values.fullName,
-              email: values.email,
-              phoneNumber: values.phoneNumber,
-              password: values.password,
-            }),
-            {
-              loading: "Creating account...",
-              success: "Account created. Please login.",
-              error: (err: any) => err?.response?.data?.message || "Registration failed",
-            }
-          );
+        await toast.promise(
+          registerMutation?.mutateAsync({
+            fullName: values?.fullName,
+            email: values?.email,
+            phoneNumber: values?.phoneNumber,
+            password: values?.password,
+          }),
+          {
+            pending: "Creating account...",
+            success: "Account created successfully! Please login.",
+            error: {
+              render({ data }: any) {
+                return data?.response?.data?.message || "Registration failed";
+              },
+            },
+          }
+        );
 
-          navigate("/login");
-        } catch (error: any) {
-          setSubmitError(error?.response?.data?.message || "Registration failed. Please try again.");
-        } finally {
-          setSubmitting(false);
-        }
+        navigate("/login");
+      } catch (error: any) {
+        setSubmitError(error?.response?.data?.message || "Registration failed. Please try again.");
+      } finally {
+        setSubmitting(false);
+      }
     },
   });
 
