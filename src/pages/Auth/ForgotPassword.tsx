@@ -1,15 +1,28 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useForgotPasswordMutation } from "../../hooks/useAuth";
 import { ROUTES } from "../../app-routes/constants";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const forgotPasswordMutation = useForgotPasswordMutation();
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!email.trim()) return;
-    navigate(ROUTES.VERIFYOTP, { state: { email } });
+    if (!email.trim()) {
+      toast.error("Please enter your registered email.");
+      return;
+    }
+
+    try {
+      await forgotPasswordMutation.mutateAsync({ email });
+      toast.success("OTP has been sent to your email.");
+      navigate(ROUTES.VERIFYOTP, { state: { email, mode: 'reset' } });
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || "Unable to send OTP. Please try again.");
+    }
   };
 
   return (
@@ -66,9 +79,10 @@ const ForgotPassword = () => {
 
             <button
               type="submit"
-              className="w-full cursor-pointer rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] py-3 font-semibold text-black shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-yellow-500/30"
+              disabled={forgotPasswordMutation.isLoading}
+              className="w-full cursor-pointer rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] py-3 font-semibold text-black shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-yellow-500/30 disabled:cursor-not-allowed disabled:opacity-70"
             >
-              Send OTP
+              {forgotPasswordMutation.isLoading ? "Sending OTP..." : "Send OTP"}
             </button>
 
           </form>
