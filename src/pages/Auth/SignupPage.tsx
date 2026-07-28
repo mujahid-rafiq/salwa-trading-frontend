@@ -34,7 +34,7 @@ const Signup = () => {
           }),
           {
             pending: "Creating account...",
-            success: "Account created successfully! Please login.",
+            success: "Account created successfully! Check your email to verify.",
             error: {
               render({ data }: any) {
                 return data?.response?.data?.message || "Registration failed";
@@ -43,7 +43,7 @@ const Signup = () => {
           }
         );
 
-        navigate("/login");
+        navigate("/verify-otp", { state: { email: values?.email, mode: 'activation' } });
       } catch (error: any) {
         setSubmitError(error?.response?.data?.message || "Registration failed. Please try again.");
       } finally {

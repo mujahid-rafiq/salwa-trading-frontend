@@ -1,12 +1,21 @@
-import { useEffect, useState, type KeyboardEvent } from "react";
+import { useEffect, useState, type KeyboardEvent, type FormEvent } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useVerifyOtpMutation, useActivateAccountMutation, useResetPasswordMutation } from "../../hooks/useAuth";
 import { ROUTES } from "../../app-routes/constants";
 
 const OtpVerificationPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const email = location.state?.email || "your email";
+  const [isVerified, setIsVerified] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const email = location.state?.email || "";
+  const mode = location.state?.mode || "reset";
+  const verifyOtpMutation = useVerifyOtpMutation();
+  const activateAccountMutation = useActivateAccountMutation();
+  const resetPasswordMutation = useResetPasswordMutation();
 
   useEffect(() => {
     if (!location.state?.email) {
@@ -37,6 +46,54 @@ const OtpVerificationPage = () => {
     }
   };
 
+  const otpCode = otp.join("");
+
+  const handleVerifyOtp = async (e: FormEvent) => {
+    e.preventDefault();
+    if (otpCode.length !== 6 || !email) {
+      toast.error("Please enter the 6-digit OTP code.");
+      return;
+    }
+
+    try {
+      if (mode === "activation") {
+        await activateAccountMutation.mutateAsync({ email, otp: otpCode });
+        toast.success("Account verified successfully. Please login.");
+        navigate(ROUTES.LOGIN);
+        return;
+      }
+
+      await verifyOtpMutation.mutateAsync({ email, otp: otpCode });
+      toast.success("OTP verified successfully.");
+      setIsVerified(true);
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || "Unable to verify OTP.");
+    }
+  };
+
+  const handleResetPassword = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!newPassword || !confirmPassword) {
+      toast.error("Please enter both password fields.");
+      return;
+    }
+
+    try {
+      await resetPasswordMutation.mutateAsync({
+        email,
+        otpCode,
+        newPassword,
+        confirmPassword,
+      });
+      toast.success("Password reset successful. Please login again.");
+      navigate(ROUTES.LOGIN);
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || "Unable to reset password.");
+    }
+  };
+
+  const isActivation = mode === "activation";
+
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#0B0B0B] px-4">
 
@@ -64,7 +121,7 @@ const OtpVerificationPage = () => {
             </h1>
 
             <p className="mt-3 text-sm text-gray-400">
-              We've sent a 6-digit verification code to
+              {isActivation ? "We've sent a 6-digit verification code to" : "We've sent a 6-digit verification code to"}
             </p>
 
             <p className="font-medium text-[#D4AF37]">
@@ -91,12 +148,44 @@ const OtpVerificationPage = () => {
 
           </div>
 
-          {/* Verify Button */}
-          <button
-            className="mt-8 w-full rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] py-3 font-semibold text-black shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-yellow-500/30"
-          >
-            Verify OTP
-          </button>
+          <form onSubmit={isActivation ? handleVerifyOtp : (isVerified ? handleResetPassword : handleVerifyOtp)} className="space-y-6">
+            <button
+              type="submit"
+              className="mt-8 w-full rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] py-3 font-semibold text-black shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-yellow-500/30"
+              disabled={verifyOtpMutation.isLoading || resetPasswordMutation.isLoading || activateAccountMutation.isLoading}
+            >
+              {isActivation
+                ? (activateAccountMutation.isLoading ? "Verifying OTP..." : "Verify Account")
+                : isVerified
+                ? (resetPasswordMutation.isLoading ? "Resetting password..." : "Reset Password")
+                : (verifyOtpMutation.isLoading ? "Verifying OTP..." : "Verify OTP")}
+            </button>
+
+            {!isActivation && isVerified ? (
+              <div className="space-y-4">
+                <div>
+                  <label className="mb-2 block text-sm text-gray-300">New Password</label>
+                  <input
+                    type="password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    placeholder="Enter new password"
+                    className="w-full rounded-xl border border-gray-700 bg-[#1E1E1E] px-4 py-3 text-white placeholder:text-gray-500 outline-none transition-all duration-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-yellow-500/20"
+                  />
+                </div>
+                <div>
+                  <label className="mb-2 block text-sm text-gray-300">Confirm Password</label>
+                  <input
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    placeholder="Confirm new password"
+                    className="w-full rounded-xl border border-gray-700 bg-[#1E1E1E] px-4 py-3 text-white placeholder:text-gray-500 outline-none transition-all duration-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-yellow-500/20"
+                  />
+                </div>
+              </div>
+            ) : null}
+          </form>
 
           {/* Resend */}
           <div className="mt-6 text-center">
