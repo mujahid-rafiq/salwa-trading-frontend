@@ -97,7 +97,7 @@ const ForgotPassword = () => {
             </Link>
           </div>
 
-          {/* Footer */}
+          {/* Footer.. */}
           <div className="mt-8 border-t border-gray-800 pt-5 text-center text-xs text-gray-500">
             © 2026 Salwa Trading. All Rights Reserved.
           </div>
