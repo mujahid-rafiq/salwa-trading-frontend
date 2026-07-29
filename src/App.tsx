@@ -7,6 +7,8 @@ import OtpVerificationPage from "./pages/Auth/VerifyOtpPage";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import Layout from "./components/Layout/Layout";
 import DashboardPage from "./pages/Dashboard/DashboardPage";
+import Packages from "./pages/Packages/Packages";
+import PackageDetails from "./pages/PackageDetails/PackageDetails";
 // import { ROUTES } from "./routes/routes";
 
 const App = () => {
@@ -24,24 +26,32 @@ const App = () => {
         element={<SignupPage />}
       />
 
-       <Route
+      <Route
         path={ROUTES.DASHBOARD}
-        element={<Layout><DashboardPage/></Layout>}
+        element={<Layout><DashboardPage /></Layout>}
       />
 
-       <Route
+      <Route
         path={ROUTES.PROFILEPAGE}
-        element={<ProfilePage/>}
+        element={<ProfilePage />}
       />
 
-       <Route
+      <Route
         path={ROUTES.VERIFYOTP}
-        element={<OtpVerificationPage/>}
+        element={<OtpVerificationPage />}
       />
 
       <Route
         path={ROUTES.FORGOTPASSWORD}
         element={<ForgotPassword />}
+      />
+      <Route
+        path={ROUTES.PACKAGES}
+        element={<Packages />}
+      />
+      <Route
+        path={ROUTES.PACKAGE_DETAILS}
+        element={<PackageDetails />}
       />
     </Routes>
   );
