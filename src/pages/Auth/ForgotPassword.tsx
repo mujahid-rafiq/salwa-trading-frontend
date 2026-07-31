@@ -96,9 +96,10 @@ const ForgotPassword = () => {
 
             <button
               type="submit"
-              className="w-full cursor-pointer rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] py-3 font-semibold text-black shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-yellow-500/30"
+              disabled={forgotPasswordMutation.isLoading}
+              className="w-full cursor-pointer rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] py-3 font-semibold text-black shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-yellow-500/30 disabled:cursor-not-allowed disabled:opacity-70"
             >
-              Send OTP
+              {forgotPasswordMutation.isLoading ? "Sending OTP..." : "Send OTP"}
             </button>
 
           </form>
@@ -113,7 +114,7 @@ const ForgotPassword = () => {
             </Link>
           </div>
 
-          {/* Footer */}
+          {/* Footer.. */}
           <div className="mt-8 border-t border-gray-800 pt-5 text-center text-xs text-gray-500">
             © 2026 Salwa Trading. All Rights Reserved.
           </div>

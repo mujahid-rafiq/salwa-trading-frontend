@@ -12,6 +12,31 @@ export type RegisterDto = {
   password: string;
 };
 
+export type ForgotPasswordDto = {
+  email: string;
+};
+
+export type VerifyOtpDto = {
+  email: string;
+  otp: string;
+};
+
+export type ActivateAccountDto = {
+  email: string;
+  otp: string;
+};
+
+export type ResendActivationCodeDto = {
+  email: string;
+};
+
+export type ResetPasswordDto = {
+  email: string;
+  otpCode: string;
+  newPassword: string;
+  confirmPassword: string;
+};
+
 export default class AuthApi extends BaseAPIService {
   private readonly baseUrl = "/auth";
 
@@ -34,12 +59,12 @@ export default class AuthApi extends BaseAPIService {
     return data;
   }
 
-  async activateAccount(dto: { email: string; otp: string }) {
+  async activateAccount(dto: ActivateAccountDto) {
     const { data } = await this.post(`${this.baseUrl}/activate-account`, dto);
     return data;
   }
 
-  async resendActivationCode(dto: { email: string }) {
+  async resendActivationCode(dto: ResendActivationCodeDto) {
     const { data } = await this.post(`${this.baseUrl}/resend-activation-code`, dto);
     return data;
   }
@@ -49,17 +74,17 @@ export default class AuthApi extends BaseAPIService {
     return data;
   }
 
-  async forgotPassword(dto: { email: string }) {
+  async forgotPassword(dto: ForgotPasswordDto) {
     const { data } = await this.post(`${this.baseUrl}/forgot-password`, dto);
     return data;
   }
 
-  async resetPassword(dto: {
-    email: string;
-    otpCode: string;
-    newPassword: string;
-    confirmPassword: string;
-  }) {
+  async verifyOtp(dto: VerifyOtpDto) {
+    const { data } = await this.post(`${this.baseUrl}/verify-otp`, dto);
+    return data;
+  }
+
+  async resetPassword(dto: ResetPasswordDto) {
     const { data } = await this.post(`${this.baseUrl}/reset-password`, dto);
     return data;
   }
