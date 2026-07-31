@@ -1,5 +1,5 @@
-import AuthApi from "../api/AuthApi";
-import type { LoginDto, RegisterDto } from "../api/AuthApi";
+import AuthApi from "./AuthApi";
+import type { LoginDto, RegisterDto } from "./AuthApi";
 
 const authApi = new AuthApi();
 

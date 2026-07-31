@@ -1,4 +1,4 @@
-import BaseApi from "./BaseApi";
+import { BaseAPIService } from "../services/baseApi.service";
 
 export type LoginDto = {
   email: string;
@@ -12,7 +12,7 @@ export type RegisterDto = {
   password: string;
 };
 
-export default class AuthApi extends BaseApi {
+export default class AuthApi extends BaseAPIService {
   private readonly baseUrl = "/auth";
 
   constructor() {
@@ -34,17 +34,12 @@ export default class AuthApi extends BaseApi {
     return data;
   }
 
-  async activateAccount(dto: {
-    code: string | number;
-    type: string;
-    email: string;
-    userId?: string;
-  }) {
+  async activateAccount(dto: { email: string; otp: string }) {
     const { data } = await this.post(`${this.baseUrl}/activate-account`, dto);
     return data;
   }
 
-  async resendActivationCode(dto: { email: string; type: string; userId?: string }) {
+  async resendActivationCode(dto: { email: string }) {
     const { data } = await this.post(`${this.baseUrl}/resend-activation-code`, dto);
     return data;
   }
@@ -66,6 +61,11 @@ export default class AuthApi extends BaseApi {
     confirmPassword: string;
   }) {
     const { data } = await this.post(`${this.baseUrl}/reset-password`, dto);
+    return data;
+  }
+
+  async verifyOtp(dto: { email: string; otp: string }) {
+    const { data } = await this.post(`${this.baseUrl}/verify-otp`, dto);
     return data;
   }
 

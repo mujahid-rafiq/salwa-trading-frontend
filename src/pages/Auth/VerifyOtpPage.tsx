@@ -1,18 +1,22 @@
 import { useEffect, useState, type KeyboardEvent } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../app-routes/constants";
+import { useActivateAccountMutation, useVerifyOtpMutation } from "../../mutation/useAuth";
 
 const OtpVerificationPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const email = location.state?.email || "your email";
+  const email = location.state?.email as string | undefined;
+  const mode = location.state?.mode as "activate" | "reset" | undefined;
+  const verifyOtpMutation = useVerifyOtpMutation();
+  const activateAccountMutation = useActivateAccountMutation();
 
   useEffect(() => {
-    if (!location.state?.email) {
-      navigate(ROUTES.FORGOTPASSWORD);
+    if (!email) {
+      navigate(mode === "activate" ? ROUTES.SIGNUP : ROUTES.FORGOTPASSWORD, { replace: true });
     }
-  }, [location.state, navigate]);
+  }, [email, mode, navigate]);
 
   const handleChange = (index: number, value: string) => {
     if (!/\d?/.test(value)) return;
@@ -64,7 +68,9 @@ const OtpVerificationPage = () => {
             </h1>
 
             <p className="mt-3 text-sm text-gray-400">
-              We've sent a 6-digit verification code to
+              {mode === "activate"
+                ? "We've sent a 6-digit verification code to"
+                : "Enter the 6-digit OTP sent to"}
             </p>
 
             <p className="font-medium text-[#D4AF37]">
@@ -93,9 +99,29 @@ const OtpVerificationPage = () => {
 
           {/* Verify Button */}
           <button
+            type="button"
+            onClick={async () => {
+              const otpValue = otp.join("");
+
+              if (!email || otpValue.length !== 6) {
+                return;
+              }
+
+              try {
+                if (mode === "activate") {
+                  await activateAccountMutation.mutateAsync({ email, otp: otpValue });
+                  navigate(ROUTES.LOGIN);
+                } else {
+                  await verifyOtpMutation.mutateAsync({ email, otp: otpValue });
+                  navigate(ROUTES.RESET_PASSWORD, { state: { email, otp: otpValue } });
+                }
+              } catch (error) {
+                console.error(error);
+              }
+            }}
             className="mt-8 w-full rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] py-3 font-semibold text-black shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-yellow-500/30"
           >
-            Verify OTP
+            {mode === "activate" ? "Verify & Activate" : "Verify OTP"}
           </button>
 
           {/* Resend */}

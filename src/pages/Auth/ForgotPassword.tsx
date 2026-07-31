@@ -1,15 +1,39 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { ROUTES } from "../../app-routes/constants";
+import { useForgotPasswordMutation } from "../../mutation/useAuth";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const forgotPasswordMutation = useForgotPasswordMutation();
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
-    navigate(ROUTES.VERIFYOTP, { state: { email } });
+
+    setSubmitError(null);
+
+    try {
+      await toast.promise(
+        forgotPasswordMutation.mutateAsync({ email }),
+        {
+          pending: "Sending reset OTP...",
+          success: "OTP sent successfully. Check your email.",
+          error: {
+            render({ data }: any) {
+              return data?.response?.data?.message || "Failed to send OTP";
+            },
+          },
+        }
+      );
+
+      navigate(ROUTES.VERIFYOTP, { state: { email, mode: "reset" } });
+    } catch (error: any) {
+      setSubmitError(error?.response?.data?.message || "Failed to send OTP. Please try again.");
+    }
   };
 
   return (
@@ -63,6 +87,12 @@ const ForgotPassword = () => {
                 className="w-full rounded-xl border border-gray-700 bg-[#1E1E1E] px-4 py-3 text-white placeholder:text-gray-500 outline-none transition-all duration-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-yellow-500/20"
               />
             </div>
+
+            {submitError ? (
+              <div className="rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+                {submitError}
+              </div>
+            ) : null}
 
             <button
               type="submit"

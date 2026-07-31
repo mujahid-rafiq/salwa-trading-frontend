@@ -1,10 +1,11 @@
 import { useFormik, type FormikHelpers } from "formik";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRegisterMutation } from "../../hooks/useAuth";
+import { useRegisterMutation } from "../../mutation/useAuth";
 import { RegisterDto } from "../../dto/register.dto";
 import { toast } from "react-toastify";
 import { EyeIcon, EyeOffIcon } from "../../svg";
+import { ROUTES } from "../../app-routes/constants";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const Signup = () => {
           }),
           {
             pending: "Creating account...",
-            success: "Account created successfully! Please login.",
+            success: "Account created successfully! Please verify your email.",
             error: {
               render({ data }: any) {
                 return data?.response?.data?.message || "Registration failed";
@@ -43,7 +44,7 @@ const Signup = () => {
           }
         );
 
-        navigate("/login");
+        navigate(ROUTES.VERIFYOTP, { state: { email: values.email, mode: "activate" } });
       } catch (error: any) {
         setSubmitError(error?.response?.data?.message || "Registration failed. Please try again.");
       } finally {

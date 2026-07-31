@@ -1,5 +1,4 @@
-import React from "react";
-import { Landmark, Wallet, User } from "lucide-react";
+import { Landmark, Wallet } from "lucide-react";
 import CopyButton from "./CopyButton";
 
 const PaymentInfo = () => {
