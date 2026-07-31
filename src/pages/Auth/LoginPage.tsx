@@ -1,14 +1,18 @@
 import { useFormik, type FormikHelpers } from "formik";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../mutation/useAuth";
 import { LoginDto } from "../../dto/login.dto";
 import { ROUTES } from "../../app-routes/constants";
 import { toast } from "react-toastify";
 import { EyeIcon, EyeOffIcon } from "../../svg";
+import { setAuth } from "../../redux/slices/authSlice";
+import { Role } from "../../enums/Role";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const loginMutation = useLoginMutation();
@@ -37,10 +41,14 @@ const Login = () => {
         );
 
         if (res?.accessToken) {
-          localStorage.setItem("accessToken", res.accessToken);
+          dispatch(setAuth({ accessToken: res.accessToken, user: res.user }));
         }
 
-        navigate(ROUTES.DASHBOARD);
+        if (res?.user?.role === Role.ADMIN) {
+          navigate(ROUTES.ADMIN_DASHBOARD);
+        } else {
+          navigate(ROUTES.DASHBOARD);
+        }
       } catch (error: any) {
         setSubmitError(error?.response?.data?.message || "Login failed. Please try again.");
       } finally {

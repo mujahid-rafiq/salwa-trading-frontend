@@ -49,6 +49,11 @@ export default class AuthApi extends BaseAPIService {
     return data;
   }
 
+  async getProfile() {
+    const { data } = await this.get(`${this.baseUrl}/profile`);
+    return data;
+  }
+
   async logout() {
     const { data } = await this.post(`${this.baseUrl}/logout`, {});
     return data;
@@ -89,10 +94,10 @@ export default class AuthApi extends BaseAPIService {
     return data;
   }
 
-  async verifyOtp(dto: { email: string; otp: string }) {
-    const { data } = await this.post(`${this.baseUrl}/verify-otp`, dto);
-    return data;
-  }
+  // async verifyOtp(dto: { email: string; otp: string }) {
+  //   const { data } = await this.post(`${this.baseUrl}/verify-otp`, dto);
+  //   return data;
+  // }
 
   async setupMfa() {
     const { data } = await this.post(`${this.baseUrl}/mfa/setup`, {});
