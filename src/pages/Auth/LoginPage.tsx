@@ -1,7 +1,7 @@
 import { useFormik, type FormikHelpers } from "formik";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useLoginMutation } from "../../hooks/useAuth";
+import { useLoginMutation } from "../../mutation/useAuth";
 import { LoginDto } from "../../dto/login.dto";
 import { ROUTES } from "../../app-routes/constants";
 import { toast } from "react-toastify";

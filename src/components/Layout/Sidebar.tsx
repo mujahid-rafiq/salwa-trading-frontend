@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ROUTES } from "../../app-routes/constants";
-import AuthApi from "../../api/AuthApi";
+import AuthApi from "../../services/AuthApi";
 
 const NavItem: React.FC<{ to: string; label: string }> = ({ to, label }) => (
   <NavLink

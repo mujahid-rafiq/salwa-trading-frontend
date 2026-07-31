@@ -1,4 +1,4 @@
-import BaseApi from "./BaseApi";
+import { BaseAPIService } from "../services/baseApi.service";
 
 export type LoginDto = {
   email: string;
@@ -37,7 +37,7 @@ export type ResetPasswordDto = {
   confirmPassword: string;
 };
 
-export default class AuthApi extends BaseApi {
+export default class AuthApi extends BaseAPIService {
   private readonly baseUrl = "/auth";
 
   constructor() {
@@ -86,6 +86,11 @@ export default class AuthApi extends BaseApi {
 
   async resetPassword(dto: ResetPasswordDto) {
     const { data } = await this.post(`${this.baseUrl}/reset-password`, dto);
+    return data;
+  }
+
+  async verifyOtp(dto: { email: string; otp: string }) {
+    const { data } = await this.post(`${this.baseUrl}/verify-otp`, dto);
     return data;
   }
 

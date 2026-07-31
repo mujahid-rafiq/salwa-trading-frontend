@@ -1,7 +1,7 @@
 import { useEffect, useState, type KeyboardEvent, type FormEvent } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useVerifyOtpMutation, useActivateAccountMutation, useResetPasswordMutation } from "../../hooks/useAuth";
+import { useVerifyOtpMutation, useActivateAccountMutation, useResetPasswordMutation } from "../../mutation/useAuth";
 import { ROUTES } from "../../app-routes/constants";
 
 const OtpVerificationPage = () => {
@@ -18,10 +18,10 @@ const OtpVerificationPage = () => {
   const resetPasswordMutation = useResetPasswordMutation();
 
   useEffect(() => {
-    if (!location.state?.email) {
-      navigate(ROUTES.FORGOTPASSWORD);
+    if (!email) {
+      navigate(mode === "activate" ? ROUTES.SIGNUP : ROUTES.FORGOTPASSWORD, { replace: true });
     }
-  }, [location.state, navigate]);
+  }, [email, mode, navigate]);
 
   const handleChange = (index: number, value: string) => {
     if (!/\d?/.test(value)) return;
@@ -56,7 +56,7 @@ const OtpVerificationPage = () => {
     }
 
     try {
-      if (mode === "activation") {
+      if (mode === "activate") {
         await activateAccountMutation.mutateAsync({ email, otp: otpCode });
         toast.success("Account verified successfully. Please login.");
         navigate(ROUTES.LOGIN);
