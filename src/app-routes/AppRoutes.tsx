@@ -10,10 +10,14 @@ import OtpVerificationPage from "../pages/auth/VerifyOtpPage";
 import ForgotPassword from "../pages/auth/ForgotPassword";
 // import ResetPasswordPage from "../pages/auth/ResetPassword";
 import DashboardPage from "../pages/dashboard/DashboardPage";
+import AdminDashboardPage from "../pages/dashboard/AdminDashboardPage";
 import Packages from "../pages/packages/Packages";
 import PackageDetails from "../pages/packagedetails/PackageDetails";
 import Layout from "../components/layout/Layout";
 import ResetPasswordPage from "../pages/auth/ResetPassword";
+import RequireAuth from "../components/auth/RequireAuth";
+import RequireRole from "../components/auth/RequireRole";
+import { Role } from "../enums/Role";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -24,10 +28,31 @@ const AppRoutes: React.FC = () => {
       <Route path={ROUTES.VERIFYOTP} element={<OtpVerificationPage />} />
       <Route path={ROUTES.RESET_PASSWORD} element={<ResetPasswordPage/>} />
       <Route path={ROUTES.FORGOTPASSWORD} element={<ForgotPassword />} />
-      <Route path={ROUTES.DASHBOARD} element={<Layout><DashboardPage /></Layout>} />
-      <Route path={ROUTES.PROFILEPAGE} element={<ProfilePage />} />
-      <Route path={ROUTES.PACKAGES} element={<Packages />} />
-      <Route path={ROUTES.PACKAGE_DETAILS} element={<PackageDetails />} />
+      <Route
+        path={ROUTES.DASHBOARD}
+        element={
+          <RequireAuth>
+            <Layout>
+              <DashboardPage />
+            </Layout>
+          </RequireAuth>
+        }
+      />
+      <Route
+        path={ROUTES.ADMIN_DASHBOARD}
+        element={
+          <RequireAuth>
+            <RequireRole role={Role.ADMIN}>
+              <Layout>
+                <AdminDashboardPage />
+              </Layout>
+            </RequireRole>
+          </RequireAuth>
+        }
+      />
+      <Route path={ROUTES.PROFILEPAGE} element={<RequireAuth><ProfilePage /></RequireAuth>} />
+      <Route path={ROUTES.PACKAGES} element={<RequireAuth><Packages /></RequireAuth>} />
+      <Route path={ROUTES.PACKAGE_DETAILS} element={<RequireAuth><PackageDetails /></RequireAuth>} />
     </Routes>
   );
 };

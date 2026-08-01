@@ -1,6 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+// import { RootState } from "../../redux/store";
+import AuthApi from "../../services/AuthApi";
+import { setAuth } from "../../redux/slices/authSlice";
+import dummyPicOne from "../../assets/dummyPicOne.jpg";
+import type { RootState } from "../../redux/store";
 
 const Topbar: React.FC = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.auth.user);
+  const authApi = new AuthApi();
+
+  useEffect(() => {
+    if (!user && localStorage.getItem("accessToken")) {
+      authApi
+        .getProfile()
+        .then((response: any) => {
+          if (response?.user) {
+            dispatch(setAuth({ accessToken: localStorage.getItem("accessToken") || "", user: response.user }));
+          }
+        })
+        .catch(() => {
+          // Ignore profile fetch errors; user will stay logged out or empty.
+        });
+    }
+  }, [authApi, dispatch, user]);
+
+  const displayName = user?.fullName || "User";
+  const displayId = user?.id ? String(user.id).padStart(6, "0") : "000000";
+
   return (
     <header className="w-full flex items-center justify-between px-6 py-4 bg-transparent">
       <div className="flex items-center gap-4">
@@ -9,14 +37,12 @@ const Topbar: React.FC = () => {
       </div>
 
       <div className="flex items-center gap-4">
-        <div className="hidden sm:flex items-center gap-3 text-sm text-gray-300">
-          <div className="px-3 py-1 rounded-full bg-[#111827]/60">EN</div>
-          <div className="px-3 py-1 rounded-full bg-[#111827]/60">Notifications</div>
-        </div>
-
         <div className="flex items-center gap-3">
-          <div className="text-sm text-gray-300">Mujahid Rafiq</div>
-          <div className="h-8 w-8 rounded-full bg-gray-700" />
+          <div className="text-lg text-gray-300">{displayName}</div>
+          <div className="flex flex-col items-center gap-1">
+            <img id="profile-avatar" src={dummyPicOne} alt="Profile" className="h-11 w-11 rounded-full" />
+            <div className="text-xs text-gray-400">User ID: {displayId}</div>
+          </div>
         </div>
       </div>
     </header>
