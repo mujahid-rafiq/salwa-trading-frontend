@@ -152,13 +152,13 @@ const OtpVerificationPage = () => {
             <button
               type="submit"
               className="mt-8 w-full rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] py-3 font-semibold text-black shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-yellow-500/30"
-              disabled={verifyOtpMutation.isLoading || resetPasswordMutation.isLoading || activateAccountMutation.isLoading}
+              disabled={verifyOtpMutation.isPending || resetPasswordMutation.isPending || activateAccountMutation.isPending}
             >
               {isActivation
-                ? (activateAccountMutation.isLoading ? "Verifying OTP..." : "Verify Account")
+                ? (activateAccountMutation.isPending ? "Verifying OTP..." : "Verify Account")
                 : isVerified
-                ? (resetPasswordMutation.isLoading ? "Resetting password..." : "Reset Password")
-                : (verifyOtpMutation.isLoading ? "Verifying OTP..." : "Verify OTP")}
+                ? (resetPasswordMutation.isPending ? "Resetting password..." : "Reset Password")
+                : (verifyOtpMutation.isPending ? "Verifying OTP..." : "Verify OTP")}
             </button>
 
             {!isActivation && isVerified ? (

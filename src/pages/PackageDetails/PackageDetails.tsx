@@ -1,4 +1,5 @@
 import { ArrowLeft } from "lucide-react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { ROUTES } from "../../app-routes/constants";
@@ -9,6 +10,7 @@ import StatusBadge from "../../components/packages/StatusBadge";
 
 const PackageDetails = () => {
   const navigate = useNavigate();
+  const [transactionId, setTransactionId] = useState("");
 
   const selectedPackage = {
     id: 1,
@@ -67,6 +69,8 @@ const PackageDetails = () => {
               </label>
               <input
                 type="text"
+                value={transactionId}
+                onChange={(e) => setTransactionId(e.target.value)}
                 placeholder="Enter your transaction ID"
                 className="w-full rounded-lg border border-gray-700 bg-[#1B1B1B] px-3 py-2.5 text-sm text-white outline-none transition-all placeholder:text-gray-500 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500/20"
               />
