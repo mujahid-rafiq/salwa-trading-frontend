@@ -1,4 +1,7 @@
+import { useState } from "react";
 import PackageCard from "../../components/packages/PackageCard";
+import BuyPackageModal from "../../components/packages/BuyPackageModal";
+import type { SelectedPackage } from "../../components/packages/BuyPackageModal";
 
 const packageData = [
   {
@@ -53,9 +56,95 @@ const packageData = [
       "Premium Benefits",
     ],
   },
+  {
+    id: 5,
+    name: "Diamond",
+    price: 1500,
+    profit: "3% Daily",
+    duration: "30 Days",
+    features: [
+      "Higher Returns",
+      "VIP Support",
+      "Fast Withdrawal",
+      "Exclusive Access",
+    ],
+  },
+  {
+    id: 6,
+    name: "Elite",
+    price: 2000,
+    profit: "3.5% Daily",
+    duration: "30 Days",
+    features: [
+      "Premium ROI",
+      "Dedicated Support",
+      "Fast Withdrawal",
+      "Priority Approval",
+    ],
+  },
+  {
+    id: 7,
+    name: "Supreme",
+    price: 2500,
+    profit: "4% Daily",
+    duration: "30 Days",
+    features: [
+      "Top Tier Returns",
+      "VIP Support",
+      "Priority Approval",
+      "Premium Benefits",
+    ],
+  },
+  {
+    id: 8,
+    name: "Executive",
+    price: 3000,
+    profit: "4.5% Daily",
+    duration: "30 Days",
+    features: [
+      "Maximum ROI",
+      "Dedicated Manager",
+      "Fast Withdraw",
+      "Exclusive Benefits",
+    ],
+  },
+  {
+    id: 9,
+    name: "Ultimate",
+    price: 4000,
+    profit: "5% Daily",
+    duration: "30 Days",
+    features: [
+      "Elite Returns",
+      "Priority Support",
+      "Instant Activation",
+      "Premium Perks",
+    ],
+  },
+  {
+    id: 10,
+    name: "VIP",
+    price: 5000,
+    profit: "5.5% Daily",
+    duration: "30 Days",
+    features: [
+      "Highest ROI",
+      "Dedicated Support",
+      "Priority Approval",
+      "Exclusive Withdrawal",
+    ],
+  },
 ];
 
 const Packages = () => {
+  const [selectedPackage, setSelectedPackage] = useState<SelectedPackage | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleBuy = (pkg: SelectedPackage) => {
+    setSelectedPackage(pkg);
+    setModalOpen(true);
+  };
+
   return (
     <div className="w-full space-y-8">
       {/* Header */}
@@ -82,9 +171,16 @@ const Packages = () => {
             profit={pkg.profit}
             duration={pkg.duration}
             features={pkg.features}
+            onBuy={() => handleBuy(pkg)}
           />
         ))}
       </div>
+
+      <BuyPackageModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        selectedPackage={selectedPackage}
+      />
     </div>
   );
 };

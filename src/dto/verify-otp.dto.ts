@@ -1,8 +1,8 @@
 import * as yup from "yup";
 
 export class VerifyOtpDto {
-  email?: string;
-  otp?: string;
+  email!: string;
+  otp!: string;
 
   static yupSchema() {
     return yup.object().shape({

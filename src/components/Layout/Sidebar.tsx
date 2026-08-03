@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { ROUTES } from "../../app-routes/constants";
 import AuthApi from "../../services/AuthApi";
+import type { RootState } from "../../redux/store";
+import { Role } from "../../enums/Role";
 
 const NavItem: React.FC<{ to: string; label: string }> = ({ to, label }) => (
   <NavLink
@@ -69,6 +72,7 @@ const ParentNavItem: React.FC<{ label: string; children: { label: string; to?: s
 
 const Sidebar: React.FC = () => {
   const navigate = useNavigate();
+  const user = useSelector((state: RootState) => state.auth.user);
   const authApi = new AuthApi();
 
   const handleLogout = async () => {
@@ -98,6 +102,20 @@ const Sidebar: React.FC = () => {
       <nav className="flex-1 space-y-1">
         <NavItem to={ROUTES.DASHBOARD} label="Dashboard" />
         <NavItem to={ROUTES.SIGNUP} label="Signup" />
+        {user?.role === Role.ADMIN && (
+          <div className="rounded-3xl border border-yellow-500/10 bg-yellow-500/5 p-3">
+            <div className="mb-3 flex items-center justify-between gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-yellow-300">
+              <span>Admin</span>
+              <span className="inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-yellow-500/20 px-2 text-[0.7rem] text-yellow-100">
+                {user.role}
+              </span>
+            </div>
+            <div className="space-y-1">
+              <NavItem to={ROUTES.ADMIN_DASHBOARD} label="Admin Dashboard" />
+              <NavItem to={ROUTES.ADMIN_REQUESTS} label="Pending Requests" />
+            </div>
+          </div>
+        )}
 
         <div className="mt-4 border-t border-gray-800 pt-3 text-xs text-gray-400 px-4">More</div>
 

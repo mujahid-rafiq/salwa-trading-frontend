@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../app-routes/constants";
+import PackageRequestApi from "../../services/PackageRequestApi";
+import StatusBadge from "../../components/packages/StatusBadge";
 
 const StatCard: React.FC<{
   title: string;
@@ -18,6 +20,37 @@ const StatCard: React.FC<{
 
 const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
+  const [requests, setRequests] = useState<{
+    id: number;
+    packageName: string;
+    amount: number;
+    profitRate: string;
+    duration: string;
+    transactionId?: string;
+    status: string;
+  }[]>([]);
+  const [loading, setLoading] = useState(true);
+  const packageRequestApi = new PackageRequestApi();
+
+  useEffect(() => {
+    const loadRequests = async () => {
+      setLoading(true);
+      try {
+        const data = await packageRequestApi.getMyRequests();
+        setRequests(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadRequests();
+  }, []);
+
+  const pendingCount = requests.filter((req) => req.status === "Pending").length;
+  const approvedCount = requests.filter((req) => req.status === "Approved").length;
+  const rejectedCount = requests.filter((req) => req.status === "Rejected").length;
 
   const handleClick = () => {
     navigate(ROUTES.PACKAGES);
@@ -53,27 +86,27 @@ const DashboardPage: React.FC = () => {
         />
 
         <StatCard
-          title="Activation Wallet"
-          value="$0.00"
-          subtitle="Pending activations"
+          title="Pending Requests"
+          value={loading ? "..." : `${pendingCount}`}
+          subtitle="Awaiting admin review"
         />
 
         <StatCard
-          title="E-Wallet"
-          value="$0.00"
-          subtitle="Quick withdraw"
+          title="Approved Requests"
+          value={loading ? "..." : `${approvedCount}`}
+          subtitle="Activated packages"
         />
 
         <StatCard
-          title="Active Package"
-          value="$0.00"
-          subtitle="Purchased count: 0"
+          title="Rejected Requests"
+          value={loading ? "..." : `${rejectedCount}`}
+          subtitle="Requires action"
         />
 
         <StatCard
-          title="Total Earnings"
-          value="$0.00"
-          subtitle="Estimated ROI"
+          title="Total Requests"
+          value={loading ? "..." : `${requests.length}`}
+          subtitle="Package submissions"
         />
 
         <StatCard
@@ -94,6 +127,40 @@ const DashboardPage: React.FC = () => {
           <div className="mt-4 rounded-lg border border-dashed border-gray-700 p-6 text-center text-sm text-gray-400">
             No recent activity found.
           </div>
+        </div>
+
+        {/* My Package Requests */}
+        <div className="rounded-2xl border border-gray-800 bg-[#0f1724] p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-semibold text-white">My Package Requests</h3>
+              <p className="text-sm text-gray-400">Track your deposit requests and admin review status.</p>
+            </div>
+            <span className="text-sm text-gray-400">{loading ? "Loading..." : `${requests.length} total`}</span>
+          </div>
+
+          {loading ? (
+            <div className="mt-6 text-center text-gray-400">Loading requests...</div>
+          ) : requests.length === 0 ? (
+            <div className="mt-6 rounded-lg border border-dashed border-gray-700 p-6 text-center text-sm text-gray-400">
+              No package requests yet. Buy a package to start the approval flow.
+            </div>
+          ) : (
+            <div className="mt-6 space-y-4">
+              {requests.slice(0, 3).map((request) => (
+                <div key={request.id} className="rounded-2xl border border-gray-700 bg-[#111827] p-4">
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="text-sm text-gray-400">{request.packageName}</p>
+                      <p className="mt-1 text-sm text-gray-300">${request.amount} • {request.duration}</p>
+                      <p className="mt-1 text-xs text-gray-500">Txn: {request.transactionId || "n/a"}</p>
+                    </div>
+                    <StatusBadge status={request.status as "Pending" | "Approved" | "Rejected"} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Quick Actions */}

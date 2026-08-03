@@ -1,5 +1,4 @@
-import { Landmark, Wallet } from "lucide-react";
-import CopyButton from "./CopyButton";
+import { Landmark } from "lucide-react";
 
 const PaymentInfo = () => {
   return (
@@ -18,7 +17,7 @@ const PaymentInfo = () => {
       <div className="space-y-5">
 
         {/* OKX UID */}
-        <div className="flex items-center justify-between rounded-xl border border-gray-800 bg-[#1A1A1A] p-4">
+        {/* <div className="flex items-center justify-between rounded-xl border border-gray-800 bg-[#1A1A1A] p-4">
 
           <div className="flex items-center gap-4">
 
@@ -40,7 +39,7 @@ const PaymentInfo = () => {
 
           <CopyButton value="758934562" />
 
-        </div>
+        </div> */}
 
         {/* Forex Account */}
         <div className="flex items-center justify-between rounded-xl border border-gray-800 bg-[#1A1A1A] p-4">
@@ -57,13 +56,13 @@ const PaymentInfo = () => {
               </p>
 
               <h4 className="text-lg font-semibold text-white">
-                123456789
+                 Add ink here
               </h4>
             </div>
 
           </div>
 
-          <CopyButton value="123456789" />
+          {/* <CopyButton value="123456789" /> */}
 
         </div>
 

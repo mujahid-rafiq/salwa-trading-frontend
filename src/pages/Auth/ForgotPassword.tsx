@@ -96,10 +96,10 @@ const ForgotPassword = () => {
 
             <button
               type="submit"
-              disabled={forgotPasswordMutation.isLoading}
+              disabled={forgotPasswordMutation.isPending}
               className="w-full cursor-pointer rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] py-3 font-semibold text-black shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-yellow-500/30 disabled:cursor-not-allowed disabled:opacity-70"
             >
-              {forgotPasswordMutation.isLoading ? "Sending OTP..." : "Send OTP"}
+              {forgotPasswordMutation.isPending ? "Sending OTP..." : "Send OTP"}
             </button>
 
           </form>

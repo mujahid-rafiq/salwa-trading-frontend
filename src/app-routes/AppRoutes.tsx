@@ -11,8 +11,9 @@ import ForgotPassword from "../pages/auth/ForgotPassword";
 // import ResetPasswordPage from "../pages/auth/ResetPassword";
 import DashboardPage from "../pages/dashboard/DashboardPage";
 import AdminDashboardPage from "../pages/dashboard/AdminDashboardPage";
-import Packages from "../pages/packages/Packages";
-import PackageDetails from "../pages/packagedetails/PackageDetails";
+import AdminRequestsPage from "../pages/admin/AdminRequestsPage";
+import Packages from "../pages/Packages/Packages";
+import PackageDetails from "../pages/PackageDetails/PackageDetails";
 import Layout from "../components/layout/Layout";
 import ResetPasswordPage from "../pages/auth/ResetPassword";
 import RequireAuth from "../components/auth/RequireAuth";
@@ -45,6 +46,18 @@ const AppRoutes: React.FC = () => {
             <RequireRole role={Role.ADMIN}>
               <Layout>
                 <AdminDashboardPage />
+              </Layout>
+            </RequireRole>
+          </RequireAuth>
+        }
+      />
+      <Route
+        path={ROUTES.ADMIN_REQUESTS}
+        element={
+          <RequireAuth>
+            <RequireRole role={Role.ADMIN}>
+              <Layout>
+                <AdminRequestsPage />
               </Layout>
             </RequireRole>
           </RequireAuth>

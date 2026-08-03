@@ -9,6 +9,7 @@ interface PackageCardProps {
   profit: string;
   duration: string;
   features: string[];
+  onBuy?: () => void;
 }
 
 const PackageCard: React.FC<PackageCardProps> = ({
@@ -18,6 +19,7 @@ const PackageCard: React.FC<PackageCardProps> = ({
   profit,
   duration,
   features,
+  onBuy,
 }) => {
   const navigate = useNavigate();
 
@@ -87,7 +89,13 @@ const PackageCard: React.FC<PackageCardProps> = ({
 
         {/* Buy Button */}
         <button
-          onClick={() => navigate(`/packages/${id}`)}
+          onClick={() => {
+            if (onBuy) {
+              onBuy();
+              return;
+            }
+            navigate(`/packages/${id}`);
+          }}
           className="mt-10 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] py-3 font-semibold text-black transition duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-yellow-500/30 cursor-pointer"
         >
           Buy Package
