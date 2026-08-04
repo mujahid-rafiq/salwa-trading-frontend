@@ -101,7 +101,6 @@ const Sidebar: React.FC = () => {
 
       <nav className="flex-1 space-y-1">
         <NavItem to={ROUTES.DASHBOARD} label="Dashboard" />
-        {user?.role !== Role.ADMIN && <NavItem to={ROUTES.SIGNUP} label="Signup" />}
         {user?.role === Role.ADMIN && (
           <div className="rounded-3xl border border-yellow-500/10 bg-yellow-500/5 p-3">
             <div className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-yellow-300">
