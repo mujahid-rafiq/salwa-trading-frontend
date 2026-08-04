@@ -101,14 +101,11 @@ const Sidebar: React.FC = () => {
 
       <nav className="flex-1 space-y-1">
         <NavItem to={ROUTES.DASHBOARD} label="Dashboard" />
-        <NavItem to={ROUTES.SIGNUP} label="Signup" />
+        {user?.role !== Role.ADMIN && <NavItem to={ROUTES.SIGNUP} label="Signup" />}
         {user?.role === Role.ADMIN && (
           <div className="rounded-3xl border border-yellow-500/10 bg-yellow-500/5 p-3">
-            <div className="mb-3 flex items-center justify-between gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-yellow-300">
+            <div className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-yellow-300">
               <span>Admin</span>
-              <span className="inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-yellow-500/20 px-2 text-[0.7rem] text-yellow-100">
-                {user.role}
-              </span>
             </div>
             <div className="space-y-1">
               <NavItem to={ROUTES.ADMIN_DASHBOARD} label="Admin Dashboard" />
@@ -117,42 +114,46 @@ const Sidebar: React.FC = () => {
           </div>
         )}
 
-        <div className="mt-4 border-t border-gray-800 pt-3 text-xs text-gray-400 px-4">More</div>
+        {user?.role !== Role.ADMIN && (
+          <>
+            <div className="mt-4 border-t border-gray-800 pt-3 text-xs text-gray-400 px-4">More</div>
 
-        <ParentNavItem
-          label="Account"
-          children={[
-            { label: 'Deposit' },
-            { label: 'Withdraw' },
-            { label: 'Internal Transfer' },
-            { label: 'Ewallet Transfer' },
-            { label: 'Cash - External Transfer' },
-            { label: 'Bonus Summary' },
-            { label: 'Activation - External Transfer' },
-            { label: 'Trading bonus history' },
-          ]}
-        />
+            <ParentNavItem
+              label="Account"
+              children={[
+                { label: 'Deposit' },
+                { label: 'Withdraw' },
+                { label: 'Internal Transfer' },
+                { label: 'Ewallet Transfer' },
+                { label: 'Cash - External Transfer' },
+                { label: 'Bonus Summary' },
+                { label: 'Activation - External Transfer' },
+                { label: 'Trading bonus history' },
+              ]}
+            />
 
-        <ParentNavItem
-          label="Network"
-          children={[{ label: 'Binary Tree' }, { label: 'Invite Link' }, { label: 'Direct referrals' }, { label: 'My Team' }]}
-        />
+            <ParentNavItem
+              label="Network"
+              children={[{ label: 'Binary Tree' }, { label: 'Invite Link' }, { label: 'Direct referrals' }, { label: 'My Team' }]}
+            />
 
-        <ParentNavItem label="Settings" children={[{ label: 'Send PIN' }, { label: 'Change Pass&PIN' }]} />
+            <ParentNavItem label="Settings" children={[{ label: 'Send PIN' }, { label: 'Change Pass&PIN' }]} />
 
-        <ParentNavItem
-          label="Reports"
-          children={[
-            { label: 'Deposit History' },
-            { label: 'Withdraw History' },
-            { label: 'Package History' },
-            { label: 'Bonus History' },
-            { label: 'Activation wallet' },
-            { label: 'External Transfer' },
-          ]}
-        />
+            <ParentNavItem
+              label="Reports"
+              children={[
+                { label: 'Deposit History' },
+                { label: 'Withdraw History' },
+                { label: 'Package History' },
+                { label: 'Bonus History' },
+                { label: 'Activation wallet' },
+                { label: 'External Transfer' },
+              ]}
+            />
 
-        <ParentNavItem label="Support" children={[{ label: 'Inbox' }, { label: 'Compose Mail' }, { label: 'Sent Items' }]} />
+            <ParentNavItem label="Support" children={[{ label: 'Inbox' }, { label: 'Compose Mail' }, { label: 'Sent Items' }]} />
+          </>
+        )}
       </nav>
 
       <div className="mt-4 border-t border-gray-800 pt-4 ">

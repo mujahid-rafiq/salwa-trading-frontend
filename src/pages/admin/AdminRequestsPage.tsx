@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import PackageRequestApi from "../../services/PackageRequestApi";
 import type { PackageRequest } from "../../types/PackageRequest";
+import AdminRequestsTable from "../../components/admin/AdminRequestsTable";
 
 const adminApi = new PackageRequestApi();
 
@@ -8,6 +9,8 @@ const AdminRequestsPage: React.FC = () => {
   const [requests, setRequests] = useState<PackageRequest[]>([]);
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState<number | null>(null);
+  const [page, setPage] = useState(1);
+  const pageSize = 5;
 
   const fetchRequests = async () => {
     setLoading(true);
@@ -24,6 +27,12 @@ const AdminRequestsPage: React.FC = () => {
   useEffect(() => {
     fetchRequests();
   }, []);
+
+  useEffect(() => {
+    if (page > 1 && requests.length <= (page - 1) * pageSize) {
+      setPage(Math.max(1, Math.ceil(requests.length / pageSize)));
+    }
+  }, [page, pageSize, requests.length]);
 
   const handleApprove = async (id: number) => {
     setActionLoading(id);
@@ -66,38 +75,15 @@ const AdminRequestsPage: React.FC = () => {
       ) : requests.length === 0 ? (
         <div className="rounded-2xl border border-gray-800 bg-[#0f1724] p-6 text-center text-gray-300">No pending requests found.</div>
       ) : (
-        <div className="grid gap-6">
-          {requests.map((request) => (
-            <div key={request.id} className="rounded-2xl border border-gray-800 bg-[#0f1724] p-6">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <h3 className="text-lg font-semibold text-white">{request.packageName}</h3>
-                  <p className="text-sm text-gray-400">${request.amount} • {request.profitRate} • {request.duration}</p>
-                  <p className="mt-2 text-sm text-gray-300">Transaction ID: {request.transactionId || "Not provided"}</p>
-                  <p className="mt-1 text-sm text-gray-300">User: {request.user?.email}</p>
-                </div>
-                <div className="flex flex-wrap gap-3">
-                  <button
-                    type="button"
-                    onClick={() => handleApprove(request.id)}
-                    disabled={actionLoading === request.id}
-                    className="rounded-xl bg-green-500 px-4 py-2 text-sm font-semibold text-black transition hover:bg-green-400 disabled:opacity-50"
-                  >
-                    {actionLoading === request.id ? "Approving..." : "Approve"}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleReject(request.id)}
-                    disabled={actionLoading === request.id}
-                    className="rounded-xl bg-red-500 px-4 py-2 text-sm font-semibold text-black transition hover:bg-red-400 disabled:opacity-50"
-                  >
-                    {actionLoading === request.id ? "Rejecting..." : "Reject"}
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <AdminRequestsTable
+          requests={requests}
+          page={page}
+          pageSize={pageSize}
+          actionLoading={actionLoading}
+          onApprove={handleApprove}
+          onReject={handleReject}
+          onPageChange={setPage}
+        />
       )}
     </div>
   );

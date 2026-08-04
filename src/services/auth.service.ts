@@ -15,6 +15,10 @@ export const register = async (data: RegisterDto) => {
   return authApi.register(data);
 };
 
+export const registerAdmin = async (data: RegisterDto) => {
+  return authApi.registerAdmin(data);
+};
+
 export const forgotPassword = async (data: ForgotPasswordDto) => {
   return authApi.forgotPassword(data);
 };

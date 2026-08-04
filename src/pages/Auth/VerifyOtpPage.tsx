@@ -151,7 +151,7 @@ const OtpVerificationPage = () => {
           <form onSubmit={isActivation ? handleVerifyOtp : (isVerified ? handleResetPassword : handleVerifyOtp)} className="space-y-6">
             <button
               type="submit"
-              className="mt-8 w-full rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] py-3 font-semibold text-black shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-yellow-500/30"
+              className="mt-8 w-full rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] py-3 font-semibold text-black shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-yellow-500/30 cursor-pointer"
               disabled={verifyOtpMutation.isPending || resetPasswordMutation.isPending || activateAccountMutation.isPending}
             >
               {isActivation
@@ -195,7 +195,7 @@ const OtpVerificationPage = () => {
             </p>
 
             <button
-              className="mt-2 font-semibold text-[#D4AF37] transition hover:text-yellow-300"
+              className="mt-2 font-semibold text-[#D4AF37] transition hover:text-yellow-300 cursor-pointer"
             >
               Resend OTP
             </button>

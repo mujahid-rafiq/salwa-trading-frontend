@@ -64,6 +64,11 @@ export default class AuthApi extends BaseAPIService {
     return data;
   }
 
+  async registerAdmin(dto: RegisterDto) {
+    const { data } = await this.post(`${this.baseUrl}/register-admin`, dto);
+    return data;
+  }
+
   async activateAccount(dto: ActivateAccountDto) {
     const { data } = await this.post(`${this.baseUrl}/activate-account`, dto);
     return data;
