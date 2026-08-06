@@ -3,6 +3,7 @@ import { X } from "lucide-react";
 import { toast } from "react-toastify";
 import PaymentInfo from "./PaymentInfo";
 import FileUpload from "./FileUpload";
+import PurchaseSuccessModal from "./PurchaseSuccessModal";
 import PackageRequestApi from "../../services/PackageRequestApi";
 import type { CreatePackageRequestDto } from "../../services/PackageRequestApi";
 
@@ -29,8 +30,14 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
 }) => {
   const [transactionId, setTransactionId] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successOpen, setSuccessOpen] = useState(false);
 
   if (!open || !selectedPackage) return null;
+
+  const handleSuccessClose = () => {
+    setSuccessOpen(false);
+    onClose();
+  };
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
@@ -46,7 +53,7 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
     try {
       await packageRequestApi.submitRequest(dto);
       toast.success("Package request sent to admin for verification.");
-      onClose();
+      setSuccessOpen(true);
     } catch (error) {
       console.error(error);
       toast.error("Failed to submit request. Please try again.");
@@ -54,6 +61,16 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
       setIsSubmitting(false);
     }
   };
+
+  if (successOpen) {
+    return (
+      <PurchaseSuccessModal
+        open={successOpen}
+        onClose={handleSuccessClose}
+        packageName={selectedPackage.name}
+      />
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 p-4 backdrop-blur-sm">
@@ -123,6 +140,11 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
           </div>
         </div>
       </div>
+      <PurchaseSuccessModal
+        open={successOpen}
+        onClose={handleSuccessClose}
+        packageName={selectedPackage.name}
+      />
     </div>
   );
 };
