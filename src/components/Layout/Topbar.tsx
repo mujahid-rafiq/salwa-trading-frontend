@@ -5,8 +5,9 @@ import AuthApi from "../../services/AuthApi";
 import { setAuth } from "../../redux/slices/authSlice";
 import dummyPicOne from "../../assets/dummyPicOne.jpg";
 import type { RootState } from "../../redux/store";
+import { MenuIcon, CloseIcon } from "../../svg";
 
-const Topbar: React.FC = () => {
+const Topbar: React.FC<{ menuOpen?: boolean; onToggle?: () => void }> = ({ menuOpen, onToggle }) => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
   const authApi = new AuthApi();
@@ -32,7 +33,9 @@ const Topbar: React.FC = () => {
   return (
     <header className="w-full flex items-center justify-between px-6 py-4 bg-transparent">
       <div className="flex items-center gap-4">
-        <button className="text-gray-300 md:hidden">☰</button>
+        <button onClick={onToggle} aria-label="Toggle menu" className="text-gray-300 md:hidden p-2 cursor-pointer">
+          <MenuIcon className="h-6 w-6 text-gray-300" />
+        </button>
         <div className="text-lg font-semibold text-white">Dashboard</div>
       </div>
 

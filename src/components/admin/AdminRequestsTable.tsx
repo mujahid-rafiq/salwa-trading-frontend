@@ -1,4 +1,5 @@
 import type { PackageRequest } from "../../types/PackageRequest";
+import AdminRequestCard from "./AdminRequestCard";
 
 interface AdminRequestsTableProps {
   requests: PackageRequest[];
@@ -24,7 +25,7 @@ const AdminRequestsTable = ({
 
   return (
     <div className="space-y-4">
-      <div className="overflow-x-auto rounded-2xl border border-gray-800 bg-[#0f1724]">
+      <div className="hidden md:block overflow-x-auto rounded-2xl border border-gray-800 bg-[#0f1724]">
         <table className="min-w-full border-collapse text-left text-sm">
           <thead>
             <tr className="border-b border-gray-800 bg-[#111827] text-gray-400">
@@ -70,6 +71,18 @@ const AdminRequestsTable = ({
             ))}
           </tbody>
         </table>
+      </div>
+
+      <div className="space-y-4 md:hidden">
+        {pagedRequests?.map((request) => (
+          <AdminRequestCard
+            key={request?.id}
+            request={request}
+            actionLoading={actionLoading}
+            onApprove={onApprove}
+            onReject={onReject}
+          />
+        ))}
       </div>
 
       <div className="flex flex-col gap-3 rounded-2xl border border-gray-800 bg-[#0f1724] p-4 sm:flex-row sm:items-center sm:justify-between">

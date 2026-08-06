@@ -6,10 +6,12 @@ import { ROUTES } from "../../app-routes/constants";
 import AuthApi from "../../services/AuthApi";
 import type { RootState } from "../../redux/store";
 import { Role } from "../../enums/Role";
+import { CloseIcon } from "../../svg";
 
-const NavItem: React.FC<{ to: string; label: string }> = ({ to, label }) => (
+const NavItem: React.FC<{ to: string; label: string; onClick?: () => void }> = ({ to, label, onClick }) => (
   <NavLink
     to={to}
+    onClick={onClick}
     className={({ isActive }) =>
       `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-gray-200 hover:bg-yellow-500/10 cursor-pointer ${
         isActive ? "bg-yellow-500/10 ring-1 ring-yellow-500/20 text-white" : ""
@@ -70,7 +72,7 @@ const ParentNavItem: React.FC<{ label: string; children: { label: string; to?: s
   );
 };
 
-const Sidebar: React.FC = () => {
+const Sidebar: React.FC<{ onClose?: () => void; hideHeader?: boolean; fullWidth?: boolean }> = ({ onClose, hideHeader, fullWidth }) => {
   const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.auth.user);
   const authApi = new AuthApi();
@@ -90,25 +92,34 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <aside className="w-64 min-h-screen bg-[#0f1724] border-r border-gray-800 p-4 flex flex-col">
-      <div className="mb-8 flex items-center gap-3 px-2">
-        <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-yellow-400 to-amber-600 flex items-center justify-center text-black font-bold">S</div>
-        <div>
-          <div className="text-sm font-semibold text-white">Salwa Trading</div>
-          <div className="text-xs text-gray-400">Dashboard</div>
+    <aside className={`${fullWidth ? "w-full" : "w-64"} min-h-screen bg-[#0f1724] ${fullWidth ? "border-none" : "border-r border-gray-800"} p-4 flex flex-col`}>
+      {!hideHeader && (
+        <div className="mb-8 flex items-center gap-3 px-2">
+          <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-yellow-400 to-amber-600 flex items-center justify-center text-black font-bold">S</div>
+          <div className="ml-auto md:hidden">
+            {onClose && (
+              <button onClick={onClose} aria-label="Close menu" className="text-gray-300 p-2 cursor-pointer">
+                <CloseIcon className="h-5 w-5" />
+              </button>
+            )}
+          </div>
+          <div>
+            <div className="text-sm font-semibold text-white">Salwa Trading</div>
+            <div className="text-xs text-gray-400">Dashboard</div>
+          </div>
         </div>
-      </div>
+      )}
 
       <nav className="flex-1 space-y-1">
-        <NavItem to={ROUTES.DASHBOARD} label="Dashboard" />
+        <NavItem to={ROUTES.DASHBOARD} label="Dashboard" onClick={onClose} />
         {user?.role === Role.ADMIN && (
           <div className="rounded-3xl border border-yellow-500/10 bg-yellow-500/5 p-3">
             <div className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-yellow-300">
               <span>Admin</span>
             </div>
             <div className="space-y-1">
-              <NavItem to={ROUTES.ADMIN_DASHBOARD} label="Admin Dashboard" />
-              <NavItem to={ROUTES.ADMIN_REQUESTS} label="Pending Requests" />
+              <NavItem to={ROUTES.ADMIN_DASHBOARD} label="Admin Dashboard" onClick={onClose} />
+              <NavItem to={ROUTES.ADMIN_REQUESTS} label="Pending Requests" onClick={onClose} />
             </div>
           </div>
         )}
