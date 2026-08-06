@@ -1,4 +1,5 @@
 import React from "react";
+import { FiMenu, FiX } from "react-icons/fi";
 
 export const EyeIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
@@ -15,4 +16,7 @@ export const EyeOffIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
-export default { EyeIcon, EyeOffIcon };
+export const MenuIcon: React.FC<any> = (props) => <FiMenu {...props} />;
+export const CloseIcon: React.FC<any> = (props) => <FiX {...props} />;
+
+export default { EyeIcon, EyeOffIcon, MenuIcon, CloseIcon };

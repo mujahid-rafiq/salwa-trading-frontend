@@ -17,6 +17,7 @@
     "dom": "^0.0.3",
     "formik": "^2.4.9",
     "lucide-react": "^1.27.0",
+    "react-icons": "^4.11.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-redux": "^9.3.0",
