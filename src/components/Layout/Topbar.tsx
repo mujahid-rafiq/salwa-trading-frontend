@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../app-routes/constants";
 // import { RootState } from "../../redux/store";
 import AuthApi from "../../services/AuthApi";
 import { setAuth } from "../../redux/slices/authSlice";
 import dummyPicOne from "../../assets/dummyPicOne.jpg";
 import type { RootState } from "../../redux/store";
-import { MenuIcon, CloseIcon } from "../../svg";
+import { MenuIcon } from "../../svg";
 
-const Topbar: React.FC<{ menuOpen?: boolean; onToggle?: () => void }> = ({ menuOpen, onToggle }) => {
+const Topbar: React.FC<{ onToggle?: () => void }> = ({ onToggle }) => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
   const authApi = new AuthApi();
@@ -18,7 +20,9 @@ const Topbar: React.FC<{ menuOpen?: boolean; onToggle?: () => void }> = ({ menuO
         .getProfile()
         .then((response: any) => {
           if (response?.user) {
-            dispatch(setAuth({ accessToken: localStorage.getItem("accessToken") || "", user: response.user }));
+            dispatch(
+              setAuth({ accessToken: localStorage.getItem("accessToken") || "", user: response?.user ?? null })
+            );
           }
         })
         .catch(() => {
@@ -27,8 +31,11 @@ const Topbar: React.FC<{ menuOpen?: boolean; onToggle?: () => void }> = ({ menuO
     }
   }, [authApi, dispatch, user]);
 
+  const navigate = useNavigate();
   const displayName = user?.fullName || "User";
   const displayId = user?.id ? String(user.id).padStart(6, "0") : "000000";
+  const backendOrigin = import.meta.env.VITE_REACT_APP_BASE_API_URL || import.meta.env.VITE_REACT_APP_LIVE_SERVER_URL || "http://localhost:3000";
+  const profileSrc = user?.profileImage ? `${backendOrigin}${user.profileImage}` : dummyPicOne;
 
   return (
     <header className="w-full flex items-center justify-between px-6 py-4 bg-transparent">
@@ -43,7 +50,13 @@ const Topbar: React.FC<{ menuOpen?: boolean; onToggle?: () => void }> = ({ menuO
         <div className="flex items-center gap-3">
           <div className="text-lg text-gray-300">{displayName}</div>
           <div className="flex flex-col items-center gap-1">
-            <img id="profile-avatar" src={dummyPicOne} alt="Profile" className="h-11 w-11 rounded-full" />
+            <img
+              id="profile-avatar"
+              src={profileSrc}
+              alt="Profile"
+              className="h-11 w-11 rounded-full cursor-pointer"
+              onClick={() => navigate(ROUTES.PROFILEPAGE)}
+            />
             <div className="text-xs text-gray-400">User ID: {displayId}</div>
           </div>
         </div>

@@ -14,7 +14,7 @@ import AdminDashboardPage from "../pages/Dashboard/AdminDashboardPage";
 import AdminRequestsPage from "../pages/admin/AdminRequestsPage";
 import Packages from "../pages/Packages/Packages";
 import PackageDetails from "../pages/PackageDetails/PackageDetails";
-import Layout from "../components/layout/Layout";
+import Layout from "../components/Layout/Layout";
 import ResetPasswordPage from "../pages/Auth/ResetPassword";
 import RequireAuth from "../components/auth/RequireAuth";
 import RequireRole from "../components/auth/RequireRole";

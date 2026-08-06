@@ -41,7 +41,7 @@ const Login = () => {
         );
 
         if (res?.accessToken) {
-          dispatch(setAuth({ accessToken: res.accessToken, user: res.user }));
+          dispatch(setAuth({ accessToken: res.accessToken, user: res?.user ?? null }));
         }
 
         if (res?.user?.role === Role.ADMIN) {
