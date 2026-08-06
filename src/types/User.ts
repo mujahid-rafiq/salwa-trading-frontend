@@ -6,4 +6,5 @@ export interface User {
   fullName?: string;
   phoneNumber?: string;
   role: Role;
+  profileImage?: string | null;
 }

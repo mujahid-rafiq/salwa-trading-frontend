@@ -26,7 +26,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       {!isMobile && <Sidebar />}
 
       <div className="flex-1 min-h-screen">
-        <Topbar menuOpen={menuOpen} onToggle={() => setMenuOpen((s) => !s)} />
+        <Topbar onToggle={() => setMenuOpen((s) => !s)} />
 
         <main className="p-6">{children}</main>
       </div>

@@ -1,4 +1,39 @@
+import React, { useRef } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+// import AuthApi from "../../services/AuthApi";
+// import { setAuth } from "../../redux/slices/authSlice";
+import useUploadProfileImage from "../../mutation/useUploadProfileImage";
+import dummyPicOne from "../../assets/dummyPicOne.jpg";
+import type { RootState } from "../../redux/store";
+
 const EditProfilePage = () => {
+  const fileRef = useRef<HTMLInputElement | null>(null);
+  // const dispatch = useDispatch();
+  // const authApi = new AuthApi();
+  const user = useSelector((state: RootState) => state.auth.user);
+
+  const navigate = useNavigate();
+
+  const onUploadClick = () => {
+    fileRef.current?.click();
+  };
+
+  const uploadMutation = useUploadProfileImage();
+
+  const backendOrigin = import.meta.env.VITE_REACT_APP_BASE_API_URL || import.meta.env.VITE_REACT_APP_LIVE_SERVER_URL || "http://localhost:3000";
+  const profileSrc = user?.profileImage ? `${backendOrigin}${user.profileImage}` : dummyPicOne;
+
+  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    uploadMutation.mutate(formData);
+  };
+
   return (
     <div className="min-h-screen bg-[#0B0B0B] px-4 py-10">
 
@@ -23,105 +58,79 @@ const EditProfilePage = () => {
 
           {/* Profile Image */}
           <div className="mt-8 flex flex-col items-center">
-
             <div className="relative">
-
-              <div className="flex h-32 w-32 items-center justify-center rounded-full border-4 border-[#D4AF37] bg-[#1F1F1F]">
-
-                <span className="text-5xl font-bold text-[#D4AF37]">
-                  M
-                </span>
-
-              </div>
-
               <button
-                className="absolute bottom-1 right-1 rounded-full bg-[#D4AF37] p-2 text-black shadow-lg transition hover:scale-110"
+                type="button"
+                onClick={onUploadClick}
+                className="relative flex h-36 w-36 items-center justify-center overflow-hidden rounded-full border-4 border-[#D4AF37] bg-[#111111] shadow-lg transition hover:scale-[1.02]"
+                aria-label="Upload profile photo"
               >
-                ✏️
+                <img
+                  src={profileSrc}
+                  alt="profile"
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/0 transition duration-200 hover:bg-black/20"></div>
+                <div className="absolute bottom-2 right-2 flex h-10 w-10 items-center justify-center rounded-full bg-[#D4AF37] text-black shadow-lg">
+                  ✏️
+                </div>
+                {uploadMutation.status === 'pending' && (
+                  <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/60 text-white">
+                    Uploading...
+                  </div>
+                )}
               </button>
 
+              <input ref={fileRef} onChange={onFileChange} type="file" accept="image/*" className="hidden" />
             </div>
 
             <button
               className="mt-4 rounded-lg border border-[#D4AF37] px-5 py-2 text-sm font-semibold text-[#D4AF37] transition hover:bg-[#D4AF37] hover:text-black"
+              type="button"
+              onClick={onUploadClick}
+              disabled={uploadMutation?.status === 'pending'}
             >
-              Upload Photo
+              {uploadMutation.status === 'pending' ? 'Uploading...' : 'Change Profile Photo'}
             </button>
 
+            <p className="mt-3 max-w-xs text-center text-sm text-gray-400">
+              Only your profile picture can be updated here. Full name, email, and password are not editable on this page.
+            </p>
           </div>
 
-          {/* Form */}
-          <form className="mt-10 space-y-6">
-
+          {/* Profile Info */}
+          <div className="mt-10 grid gap-6 sm:grid-cols-2">
             <div>
-              <label className="mb-2 block text-sm text-gray-300">
-                Full Name
-              </label>
-
-              <input
-                type="text"
-                placeholder="Enter your full name"
-                className="w-full rounded-xl border border-gray-700 bg-[#1E1E1E] px-4 py-3 text-white placeholder:text-gray-500 outline-none transition duration-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-yellow-500/20"
-              />
+              <label className="mb-2 block text-sm text-gray-300">Full Name</label>
+              <div className="w-full rounded-xl border border-gray-700 bg-[#1E1E1E] px-4 py-3 text-white">
+                {user?.fullName ?? 'Not provided'}
+              </div>
             </div>
 
             <div>
-              <label className="mb-2 block text-sm text-gray-300">
-                Phone Number
-              </label>
-
-              <input
-                type="tel"
-                placeholder="+92 300 1234567"
-                className="w-full rounded-xl border border-gray-700 bg-[#1E1E1E] px-4 py-3 text-white placeholder:text-gray-500 outline-none transition duration-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-yellow-500/20"
-              />
+              <label className="mb-2 block text-sm text-gray-300">Email</label>
+              <div className="w-full rounded-xl border border-gray-700 bg-[#1E1E1E] px-4 py-3 text-white">
+                {user?.email ?? 'Not provided'}
+              </div>
             </div>
 
-            <div>
-              <label className="mb-2 block text-sm text-gray-300">
-                New Password
-              </label>
-
-              <input
-                type="password"
-                placeholder="Enter new password"
-                className="w-full rounded-xl border border-gray-700 bg-[#1E1E1E] px-4 py-3 text-white placeholder:text-gray-500 outline-none transition duration-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-yellow-500/20"
-              />
+            <div className="sm:col-span-2">
+              <label className="mb-2 block text-sm text-gray-300">Phone Number</label>
+              <div className="w-full rounded-xl border border-gray-700 bg-[#1E1E1E] px-4 py-3 text-white">
+                {user?.phoneNumber ?? 'Not provided'}
+              </div>
             </div>
+          </div>
 
-            <div>
-              <label className="mb-2 block text-sm text-gray-300">
-                Confirm Password
-              </label>
-
-              <input
-                type="password"
-                placeholder="Confirm new password"
-                className="w-full rounded-xl border border-gray-700 bg-[#1E1E1E] px-4 py-3 text-white placeholder:text-gray-500 outline-none transition duration-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-yellow-500/20"
-              />
-            </div>
-
-            {/* Buttons */}
-
-            <div className="flex flex-col gap-4 pt-4 sm:flex-row">
-
-              <button
-                type="submit"
-                className="flex-1 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] py-3 font-semibold text-black transition-all duration-300 hover:scale-[1.02]"
-              >
-                Save Changes
-              </button>
-
-              <button
-                type="button"
-                className="flex-1 rounded-xl border border-[#D4AF37] py-3 font-semibold text-[#D4AF37] transition hover:bg-[#D4AF37] hover:text-black"
-              >
-                Cancel
-              </button>
-
-            </div>
-
-          </form>
+          <div className="mt-8 flex justify-center ">
+            <button
+              type="button"
+              onClick={() => navigate(-1)}
+              className="w-full max-w-md rounded-lg cursor-pointer border border-[#D4AF37] bg-transparent px-6 py-3 text-sm font-semibold text-[#D4AF37] transition hover:bg-[#D4AF37] hover:text-black"
+            >
+              Go Back
+            </button>
+          </div>
 
         </div>
 
