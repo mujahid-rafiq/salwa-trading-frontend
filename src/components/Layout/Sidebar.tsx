@@ -92,7 +92,9 @@ const Sidebar: React.FC<{ onClose?: () => void; hideHeader?: boolean; fullWidth?
   };
 
   return (
-    <aside className={`${fullWidth ? "w-full" : "w-64"} min-h-screen bg-[#0f1724] ${fullWidth ? "border-none" : "border-r border-gray-800"} p-4 flex flex-col`}>
+<div
+  className={`${fullWidth ? "w-full" : "w-64"} sticky top-0 h-screen bg-[#0f1724] ${fullWidth ? "border-none" : "border-r border-gray-800"} p-4 flex flex-col`}
+>
       {!hideHeader && (
         <div className="mb-8 flex items-center gap-3 px-2">
           <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-yellow-400 to-amber-600 flex items-center justify-center text-black font-bold">S</div>
@@ -126,42 +128,11 @@ const Sidebar: React.FC<{ onClose?: () => void; hideHeader?: boolean; fullWidth?
 
         {user?.role !== Role.ADMIN && (
           <>
-            <div className="mt-4 border-t border-gray-800 pt-3 text-xs text-gray-400 px-4">More</div>
+            <div className="mt-4 border-t border-gray-800 pt-3 text-xs text-gray-400 px-4">Investments</div>
 
-            <ParentNavItem
-              label="Account"
-              children={[
-                { label: 'Deposit' },
-                { label: 'Withdraw' },
-                { label: 'Internal Transfer' },
-                { label: 'Ewallet Transfer' },
-                { label: 'Cash - External Transfer' },
-                { label: 'Bonus Summary' },
-                { label: 'Activation - External Transfer' },
-                { label: 'Trading bonus history' },
-              ]}
-            />
-
-            <ParentNavItem
-              label="Network"
-              children={[{ label: 'Binary Tree' }, { label: 'Invite Link' }, { label: 'Direct referrals' }, { label: 'My Team' }]}
-            />
-
-            <ParentNavItem label="Settings" children={[{ label: 'Send PIN' }, { label: 'Change Pass&PIN' }]} />
-
-            <ParentNavItem
-              label="Reports"
-              children={[
-                { label: 'Deposit History' },
-                { label: 'Withdraw History' },
-                { label: 'Package History' },
-                { label: 'Bonus History' },
-                { label: 'Activation wallet' },
-                { label: 'External Transfer' },
-              ]}
-            />
-
-            <ParentNavItem label="Support" children={[{ label: 'Inbox' }, { label: 'Compose Mail' }, { label: 'Sent Items' }]} />
+            <NavItem to={ROUTES.MEDICAL_INVESTMENT} label="Medical Investment" onClick={onClose} />
+            <NavItem to={ROUTES.PROPERTY_INVESTMENT} label="Property Investment" onClick={onClose} />
+            <NavItem to={ROUTES.TRADING_INVESTMENT} label="Trading Investment" onClick={onClose} />
           </>
         )}
       </nav>
@@ -176,7 +147,7 @@ const Sidebar: React.FC<{ onClose?: () => void; hideHeader?: boolean; fullWidth?
           <span>Log Out</span>
         </button>
       </div>
-    </aside>
+    </div>
   );
 };
 

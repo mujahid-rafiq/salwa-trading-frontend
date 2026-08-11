@@ -8,6 +8,9 @@ export const ROUTES = {
   FORGOTPASSWORD: "/forgot-password",
   PACKAGES: "/packages",
   PACKAGE_DETAILS: "/packages/:id",
+  MEDICAL_INVESTMENT: "/investments/medical",
+  PROPERTY_INVESTMENT: "/investments/property",
+  TRADING_INVESTMENT: "/investments/trading",
   ADMIN_DASHBOARD: "/admin/dashboard",
   ADMIN_REQUESTS: "/admin/requests",
 };
