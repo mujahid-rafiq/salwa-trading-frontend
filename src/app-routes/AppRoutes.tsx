@@ -3,28 +3,34 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import { ROUTES } from "./constants";
 
-import LoginPage from "../pages/Auth/LoginPage";
-import Signup from "../pages/Auth/SignupPage";
-import ProfilePage from "../pages/Auth/ProfilePage";
-import OtpVerificationPage from "../pages/Auth/VerifyOtpPage";
-import ForgotPassword from "../pages/Auth/ForgotPassword";
+import LoginPage from "../pages/auth/LoginPage";
+import Signup from "../pages/auth/SignupPage";
+import ProfilePage from "../pages/auth/ProfilePage";
+import OtpVerificationPage from "../pages/auth/VerifyOtpPage";
+import ForgotPassword from "../pages/auth/ForgotPassword";
 // import ResetPasswordPage from "../pages/Auth/ResetPassword";
-import DashboardPage from "../pages/Dashboard/DashboardPage";
-import AdminDashboardPage from "../pages/Dashboard/AdminDashboardPage";
+// import DashboardPage from "../pages/Dashboard/DashboardPage";
+// import AdminDashboardPage from "../pages/Dashboard/AdminDashboardPage";
 import AdminRequestsPage from "../pages/admin/AdminRequestsPage";
 import Packages from "../pages/Packages/Packages";
 import PackageDetails from "../pages/PackageDetails/PackageDetails";
-import Layout from "../components/Layout/Layout";
-import ResetPasswordPage from "../pages/Auth/ResetPassword";
+import MedicalInvestmentPage from "../pages/investments/MedicalInvestmentPage";
+import PropertyInvestmentPage from "../pages/investments/PropertyInvestmentPage";
+import TradingInvestmentPage from "../pages/investments/TradingInvestmentPage";
+import Layout from "../components/layout/Layout";
+// import ResetPasswordPage from "../pages/Auth/ResetPassword";
 import RequireAuth from "../components/auth/RequireAuth";
 import RequireRole from "../components/auth/RequireRole";
 import { Role } from "../enums/Role";
+import ResetPasswordPage from "../pages/auth/ResetPassword";
+import DashboardPage from "../pages/dashboard/DashboardPage";
+import AdminDashboardPage from "../pages/dashboard/AdminDashboardPage";
 
 const AppRoutes: React.FC = () => {
   return (
     <Routes>
       <Route path="/" element={<Navigate to={ROUTES.LOGIN} replace />} />
-      <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+      <Route path={ROUTES.LOGIN} element={<LoginPage/>} />
       <Route path={ROUTES.SIGNUP} element={<Signup />} />
       <Route path={ROUTES.VERIFYOTP} element={<OtpVerificationPage />} />
       <Route path={ROUTES.RESET_PASSWORD} element={<ResetPasswordPage/>} />
@@ -65,6 +71,27 @@ const AppRoutes: React.FC = () => {
       />
       <Route path={ROUTES.PROFILEPAGE} element={<RequireAuth><ProfilePage /></RequireAuth>} />
       <Route path={ROUTES.PACKAGES} element={<RequireAuth><Packages /></RequireAuth>} />
+      <Route path={ROUTES.MEDICAL_INVESTMENT} element={
+        <RequireAuth>
+          <Layout>
+            <MedicalInvestmentPage />
+          </Layout>
+        </RequireAuth>
+      } />
+      <Route path={ROUTES.PROPERTY_INVESTMENT} element={
+        <RequireAuth>
+          <Layout>
+            <PropertyInvestmentPage />
+          </Layout>
+        </RequireAuth>
+      } />
+      <Route path={ROUTES.TRADING_INVESTMENT} element={
+        <RequireAuth>
+          <Layout>
+            <TradingInvestmentPage />
+          </Layout>
+        </RequireAuth>
+      } />
       <Route path={ROUTES.PACKAGE_DETAILS} element={<RequireAuth><PackageDetails /></RequireAuth>} />
     </Routes>
   );
