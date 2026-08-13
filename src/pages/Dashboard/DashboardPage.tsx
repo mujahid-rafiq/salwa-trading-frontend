@@ -126,15 +126,24 @@ const DashboardPage: React.FC = () => {
           <div className="flex flex-wrap items-center gap-3">
             <span className="text-sm text-gray-400">{loading ? "Loading..." : `${requests.length} total`}</span>
             <button
-              className="rounded-lg bg-yellow-500 px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-yellow-400"
+              type="button"
+              className="cursor-pointer rounded-lg bg-yellow-500 px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-yellow-400"
               onClick={() => navigate(ROUTES.PACKAGES)}
             >
               Buy Package
             </button>
-            <button className="rounded-lg border border-gray-700 px-5 py-2.5 text-sm text-gray-200 transition hover:border-yellow-500 hover:text-yellow-400">
+            <button
+              type="button"
+              className="cursor-pointer rounded-lg border border-gray-700 px-5 py-2.5 text-sm text-gray-200 transition hover:border-yellow-500 hover:text-yellow-400"
+              onClick={() => navigate(ROUTES.WITHDRAW)}
+            >
               Withdraw
             </button>
-            <button className="rounded-lg border border-gray-700 px-5 py-2.5 text-sm text-gray-200 transition hover:border-yellow-500 hover:text-yellow-400">
+            <button
+              type="button"
+              className="cursor-pointer rounded-lg border border-gray-700 px-5 py-2.5 text-sm text-gray-200 transition hover:border-yellow-500 hover:text-yellow-400"
+              onClick={() => navigate(ROUTES.SETTINGS)}
+            >
               Settings
             </button>
           </div>

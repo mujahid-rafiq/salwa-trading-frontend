@@ -8,6 +8,8 @@ export const ROUTES = {
   FORGOTPASSWORD: "/forgot-password",
   PACKAGES: "/packages",
   PACKAGE_DETAILS: "/packages/:id",
+  WITHDRAW: "/withdraw",
+  SETTINGS: "/settings",
   MEDICAL_INVESTMENT: "/investments/medical",
   PROPERTY_INVESTMENT: "/investments/property",
   TRADING_INVESTMENT: "/investments/trading",

@@ -19,6 +19,8 @@ import TradingChartHero from "../../assets/TradingChartHero.jpg";
 // import tradingChart from "../../assets/TradingChart.jpg";
 import tradingGraph from "../../assets/tradingGraph.jpg";
 import UnlockTrading from "../../assets/UnlockTrading.jpg";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../app-routes/constants";
 
 const introCards = [
   {
@@ -59,16 +61,16 @@ const whyCards = [
     description: "Understanding market trends and price movements is an important part of trading.",
     icon: BarChart3,
   },
-  {
-    title: "Flexible Opportunities",
-    description: "Market opportunities can develop across different trading sessions and market conditions.",
-    icon: Zap,
-  },
-  {
-    title: "Account Tracking",
-    description: "Keep track of your investment activity through your Salwa Trading account.",
-    icon: Wallet,
-  },
+  // {
+  //   title: "Flexible Opportunities",
+  //   description: "Market opportunities can develop across different trading sessions and market conditions.",
+  //   icon: Zap,
+  // },
+  // {
+  //   title: "Account Tracking",
+  //   description: "Keep track of your investment activity through your Salwa Trading account.",
+  //   icon: Wallet,
+  // },
 ];
 
 const steps = [
@@ -196,10 +198,15 @@ function GlobeIcon(props: React.SVGProps<SVGSVGElement>) {
 
 const TradingInvestmentPage: React.FC = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+   const navigate = useNavigate();
+
+   const handleExploreInvestment = () => {
+      navigate(ROUTES.PACKAGES);
+    };
 
   return (
     <div className="space-y-10 pb-10">
-      <section className="relative overflow-hidden rounded-[2rem] border border-yellow-500/20 bg-[#0f1724] shadow-[0_0_40px_rgba(0,0,0,0.28)]">
+      <div className="relative overflow-hidden rounded-[2rem] border border-yellow-500/20 bg-[#0f1724] shadow-[0_0_40px_rgba(0,0,0,0.28)]">
         <img src={tradingLandingPic} alt="Trading investment hero" className="h-[620px] w-full object-cover object-center" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#0b1118]/70 via-[#0b1118]/40 to-[#0b1118]/90" />
         <div className="absolute inset-0 flex items-center justify-center px-6 text-center sm:px-8 lg:px-10">
@@ -215,10 +222,10 @@ const TradingInvestmentPage: React.FC = () => {
                 Access a professionally structured trading investment opportunity designed for users who want to participate in global financial markets without managing every trading decision themselves.
               </p>
               <div className="mx-auto flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <button className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-8 py-3 text-sm font-semibold text-black transition duration-300 hover:shadow-[0_0_30px_rgba(212,175,55,0.24)]">
+                <button className="cursor-pointer inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-8 py-3 text-sm font-semibold text-black transition duration-300 hover:shadow-[0_0_30px_rgba(212,175,55,0.24)]"onClick={handleExploreInvestment}>
                   Start Investing
                 </button>
-                <button className="inline-flex items-center justify-center rounded-full border border-gray-700 bg-[#0f1724]/80 px-8 py-3 text-sm font-semibold text-gray-200 transition duration-300 hover:border-yellow-500/40 hover:text-white">
+                <button className="cursor-pointer inline-flex items-center justify-center rounded-full border border-gray-700 bg-[#0f1724]/80 px-8 py-3 text-sm font-semibold text-gray-200 transition duration-300 hover:border-yellow-500/40 hover:text-white">
                   Explore Trading
                 </button>
               </div>
@@ -228,9 +235,9 @@ const TradingInvestmentPage: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         <div className="rounded-[2rem] border border-gray-800 bg-[#111827] p-8 sm:p-10">
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-yellow-300">Invest in Global Trading Opportunities</p>
@@ -260,9 +267,9 @@ const TradingInvestmentPage: React.FC = () => {
             })}
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         <div className="rounded-[2rem] border border-gray-800 bg-[#111827] p-8 sm:p-10">
           <div className="grid gap-6 lg:grid-cols-3">
             <div className="lg:col-span-1">
@@ -288,9 +295,9 @@ const TradingInvestmentPage: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         <div className="rounded-[2rem] border border-gray-800 bg-[#0f1724] p-8 sm:p-10">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-yellow-300">How Trading Investment Works</p>
@@ -308,9 +315,9 @@ const TradingInvestmentPage: React.FC = () => {
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
           <div className="rounded-[2rem] border border-gray-800 bg-[#111827] p-8 sm:p-10">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-yellow-300">Focused on Smarter Market Decisions</p>
@@ -337,7 +344,7 @@ const TradingInvestmentPage: React.FC = () => {
             <img src={tradingGraph} alt="Trading strategy image" className="h-full min-h-[360px] w-full object-cover object-center" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0b1118]/95 via-[#0b1118]/40 to-[#0b1118]/95" />
             <div className="absolute inset-0 flex items-end p-8">
-              <div className="max-w-md rounded-[2rem] border border-white/10 bg-[#091018]/70 p-6 backdrop-blur-2xl shadow-[0_0_40px_rgba(0,0,0,0.35)]">
+              <div className="max-w-md rounded-[2rem] border border-white/10 p-3">
                 <p className="text-sm font-semibold uppercase tracking-[0.3em] text-yellow-300">Insight in Every Move</p>
                 <h3 className="mt-4 text-2xl font-semibold text-white">Premium market clarity</h3>
                 <p className="mt-4 text-sm leading-7 text-gray-300">
@@ -347,9 +354,9 @@ const TradingInvestmentPage: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         <div className="rounded-[2rem] border border-gray-800 bg-[#111827] p-8 sm:p-10">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-yellow-300">What You Can Expect</p>
@@ -364,9 +371,9 @@ const TradingInvestmentPage: React.FC = () => {
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         <div className="rounded-[2rem] border border-gray-800 bg-[#0f1724] p-8 sm:p-10">
           <div className="grid gap-8 lg:grid-cols-[0.95fr_0.95fr] xl:grid-cols-[0.95fr_0.9fr]">
             <div>
@@ -390,16 +397,16 @@ const TradingInvestmentPage: React.FC = () => {
                 <p className="mt-4 text-sm leading-7 text-gray-300">
                   Participate in market opportunities while monitoring your investment through your Salwa Trading account.
                 </p>
-                <button className="mt-6 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-6 py-3 text-sm font-semibold text-black transition duration-300 hover:shadow-[0_0_24px_rgba(212,175,55,0.24)]">
+                <button className="cursor-pointer mt-6 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-6 py-3 text-sm font-semibold text-black transition duration-300 hover:shadow-[0_0_24px_rgba(212,175,55,0.24)]" onClick={handleExploreInvestment}>
                   Explore Investment Options
                 </button>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         <div className="rounded-[2rem] border border-gray-800 bg-[#111827] p-8 sm:p-10">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-yellow-300">Markets & Opportunities</p>
@@ -420,9 +427,9 @@ const TradingInvestmentPage: React.FC = () => {
             })}
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         <div className="rounded-[2rem] border border-blue-500/20 bg-gradient-to-br from-blue-500/10 to-[#0f1724] p-8 sm:p-10">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-300">Trading Risk Notice</p>
@@ -437,9 +444,9 @@ const TradingInvestmentPage: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         <div className="rounded-[2rem] border border-gray-800 bg-[#111827] p-8 sm:p-10">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-yellow-300">Frequently Asked Questions</p>
@@ -464,20 +471,10 @@ const TradingInvestmentPage: React.FC = () => {
             })}
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-[2rem] border border-gray-800 bg-[#0f1724]">
-          <img src={UnlockTrading} alt="Trading final CTA background" className="h-[520px] w-full object-cover object-center" />
-          {/* <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,15,20,0.92)_0%,rgba(11,15,20,0.58)_30%,rgba(11,15,20,0.92)_100%)]" /> */}
-         
-
-
-
-         
-         
-         
-        </div>
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
+      
            <div className=" mt-11 mx-auto max-w-5xl overflow-hidden rounded-lg">
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-yellow-300">Trading Opportunity</p>
               <h2 className="mt-4 text-3xl font-semibold text-white sm:text-4xl">Ready to Explore Trading Opportunities?</h2>
@@ -485,7 +482,7 @@ const TradingInvestmentPage: React.FC = () => {
                 Discover trading investment opportunities with Salwa Trading and take the next step toward putting your capital to work in global financial markets.
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <button className=" cursor-pointer inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-8 py-3 text-sm font-semibold text-black transition duration-300 hover:shadow-[0_0_24px_rgba(212,175,55,0.24)]">
+                <button className=" cursor-pointer inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-8 py-3 text-sm font-semibold text-black transition duration-300 hover:shadow-[0_0_24px_rgba(212,175,55,0.24)]" onClick={handleExploreInvestment}>
                   Start Investing
                 </button>
                 <button className="cursor-pointer inline-flex items-center justify-center rounded-full border border-gray-700 bg-[#0f1724]/80 px-8 py-3 text-sm font-semibold text-gray-200 transition duration-300 hover:border-yellow-500/40 hover:text-white">
@@ -496,7 +493,7 @@ const TradingInvestmentPage: React.FC = () => {
                 Invest responsibly. Understand the risks. Make informed decisions.
               </p>
             </div>  
-      </section>
+      </div>
     </div>
   );
 };

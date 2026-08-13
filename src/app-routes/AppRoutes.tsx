@@ -25,6 +25,8 @@ import { Role } from "../enums/Role";
 import ResetPasswordPage from "../pages/auth/ResetPassword";
 import DashboardPage from "../pages/dashboard/DashboardPage";
 import AdminDashboardPage from "../pages/dashboard/AdminDashboardPage";
+import SettingsPage from "../pages/settings/SettingsPage";
+import WithdrawPage from "../pages/withdraw/WithdrawPage";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -71,6 +73,8 @@ const AppRoutes: React.FC = () => {
       />
       <Route path={ROUTES.PROFILEPAGE} element={<RequireAuth><ProfilePage /></RequireAuth>} />
       <Route path={ROUTES.PACKAGES} element={<RequireAuth><Packages /></RequireAuth>} />
+      <Route path={ROUTES.WITHDRAW} element={<RequireAuth><Layout><WithdrawPage /></Layout></RequireAuth>} />
+      <Route path={ROUTES.SETTINGS} element={<RequireAuth><Layout><SettingsPage /></Layout></RequireAuth>} />
       <Route path={ROUTES.MEDICAL_INVESTMENT} element={
         <RequireAuth>
           <Layout>

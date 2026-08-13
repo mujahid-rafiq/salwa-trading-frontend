@@ -208,14 +208,14 @@ const MedicalInvestmentPage: React.FC = () => {
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <button
                   onClick={handleExploreInvestment}
-                  className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-6 py-3 text-sm font-semibold text-black transition hover:scale-[1.01] hover:shadow-[0_0_24px_rgba(212,175,55,0.25)]"
+                  className="cursor-pointer inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-6 py-3 text-sm font-semibold text-black transition hover:scale-[1.01] hover:shadow-[0_0_24px_rgba(212,175,55,0.25)]"
                 >
                   Explore Investment
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </button>
                 <button
                   onClick={handleLearnMore}
-                  className="inline-flex items-center justify-center rounded-full border border-gray-700 bg-[#0f1724]/70 px-6 py-3 text-sm font-semibold text-gray-200 transition hover:border-yellow-500/40 hover:text-white"
+                  className="cursor-pointer inline-flex items-center justify-center rounded-full border border-gray-700 bg-[#0f1724]/70 px-6 py-3 text-sm font-semibold text-gray-200 transition hover:border-yellow-500/40 hover:text-white"
                 >
                   Learn More
                 </button>
@@ -463,14 +463,14 @@ const MedicalInvestmentPage: React.FC = () => {
           <div className="flex flex-col gap-3 sm:flex-row">
             <button
               onClick={handleBottomStart}
-              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-6 py-3 text-sm font-semibold text-black transition hover:scale-[1.01]"
+              className="cursor-pointer inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-6 py-3 text-sm font-semibold text-black transition hover:scale-[1.01]"
             >
               Start Investing
               <ArrowRight className="ml-2 h-4 w-4" />
             </button>
             <button
               onClick={handleBottomDashboard}
-              className="inline-flex items-center justify-center rounded-full border border-gray-700 bg-[#0f1724]/70 px-6 py-3 text-sm font-semibold text-gray-200 transition hover:border-yellow-500/40 hover:text-white"
+              className="inline-flex cursor-pointer items-center justify-center rounded-full border border-gray-700 bg-[#0f1724]/70 px-6 py-3 text-sm font-semibold text-gray-200 transition hover:border-yellow-500/40 hover:text-white"
             >
               Back to Dashboard
             </button>
