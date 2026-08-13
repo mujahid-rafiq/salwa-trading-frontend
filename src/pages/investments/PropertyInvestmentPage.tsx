@@ -18,6 +18,8 @@ import homePool from "../../assets/homePool.jpg";
 import HomeOne from "../../assets/HomeOne.jpg";
 import homehills from "../../assets/homehills.jpg";
 import homeFour from "../../assets/homeFour.jpg";
+import { ROUTES } from "../../app-routes/constants";
+import { useNavigate } from "react-router-dom";
 
 const overviewCards = [
   {
@@ -98,28 +100,28 @@ const propertyTypes = [
   },
 ];
 
-const developmentFeatures = [
-  {
-    title: "Construction",
-    description: "Planning and building form the foundation of property development projects.",
-    icon: CheckCircle2,
-  },
-  {
-    title: "Location",
-    description: "Site selection and location are key to property opportunity and long-term use.",
-    icon: MapPin,
-  },
-  {
-    title: "Property Design",
-    description: "Thoughtful architecture and design support modern property value and appeal.",
-    icon: Sparkles,
-  },
-  {
-    title: "Asset Development",
-    description: "Improving real estate assets can create new opportunity and potential value.",
-    icon: Layers,
-  },
-];
+// const developmentFeatures = [
+//   {
+//     title: "Construction",
+//     description: "Planning and building form the foundation of property development projects.",
+//     icon: CheckCircle2,
+//   },
+//   {
+//     title: "Location",
+//     description: "Site selection and location are key to property opportunity and long-term use.",
+//     icon: MapPin,
+//   },
+//   {
+//     title: "Property Design",
+//     description: "Thoughtful architecture and design support modern property value and appeal.",
+//     icon: Sparkles,
+//   },
+//   {
+//     title: "Asset Development",
+//     description: "Improving real estate assets can create new opportunity and potential value.",
+//     icon: Layers,
+//   },
+// ];
 
 const valueCards = [
   {
@@ -200,6 +202,11 @@ const faqItems = [
 
 const PropertyInvestmentPage: React.FC = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+    const navigate = useNavigate();
+
+   const handleExploreInvestment = () => {
+      navigate(ROUTES.PACKAGES);
+    };
 
   return (
     <div className="space-y-12 pb-10">
@@ -214,10 +221,10 @@ const PropertyInvestmentPage: React.FC = () => {
               Build long-term value through real estate. Explore property investment opportunities connected to residential, commercial and development-focused real estate while building exposure to one of the world&apos;s most established investment sectors.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <button className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-8 py-3 text-sm font-semibold text-black transition duration-300 hover:shadow-[0_0_30px_rgba(212,175,55,0.24)]">
+              <button className="cursor-pointer inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-8 py-3 text-sm font-semibold text-black transition duration-300 hover:shadow-[0_0_30px_rgba(212,175,55,0.24)]" onClick={handleExploreInvestment}>
                 Start Investing
               </button>
-              <button className="inline-flex items-center justify-center rounded-full border border-gray-700 bg-[#0f1724]/80 px-8 py-3 text-sm font-semibold text-gray-200 transition duration-300 hover:border-yellow-500/40 hover:text-white">
+              <button className="cursor-pointer inline-flex items-center justify-center rounded-full border border-gray-700 bg-[#0f1724]/80 px-8 py-3 text-sm font-semibold text-gray-200 transition duration-300 hover:border-yellow-500/40 hover:text-white">
                 Explore Properties
               </button>
             </div>
@@ -226,7 +233,7 @@ const PropertyInvestmentPage: React.FC = () => {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         <div className="rounded-[2rem] border border-gray-800 bg-[#111827] p-8 sm:p-10 text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-yellow-300">Property Investment Overview</p>
           <h2 className="mt-4 text-3xl font-semibold text-white sm:text-4xl">Invest in Property. Build Long-Term Value.</h2>
@@ -254,27 +261,27 @@ const PropertyInvestmentPage: React.FC = () => {
             );
           })}
         </div>
-      </section>
+      </div>
 
-      <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         <div className="relative overflow-hidden rounded-[2rem] border border-gray-800 bg-[#0f1724]">
           <img src={homePool} alt="Property investment image" className="h-[520px] w-full object-cover object-center" />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,15,20,0.88)_0%,rgba(11,15,20,0.45)_35%,rgba(11,15,20,0.9)_100%)]" />
           <div className="absolute inset-0 flex items-center justify-center px-6 py-16 text-center">
-            <div className="w-full max-w-3xl rounded-[2rem] border border-white/10 bg-[#08101a]/80 p-10 shadow-[0_0_40px_rgba(0,0,0,0.35)] backdrop-blur-2xl">
+            <div className="w-full max-w-3xl rounded-[2rem] border border-white/10 p-10 ">
               <h2 className="text-3xl font-semibold text-white sm:text-4xl">Real Assets. Real Opportunities.</h2>
               <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-gray-300 sm:text-lg">
                 Property investment connects capital with physical assets such as residential buildings, commercial spaces and development projects.
               </p>
-              <button className="mt-8 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-8 py-3 text-sm font-semibold text-black transition duration-300 hover:shadow-[0_0_24px_rgba(212,175,55,0.24)]">
+              <button className="cursor-pointer mt-8 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-8 py-3 text-sm font-semibold text-black transition duration-300 hover:shadow-[0_0_24px_rgba(212,175,55,0.24)]" onClick={handleExploreInvestment}>
                 Explore Opportunities
               </button>
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         <div className="rounded-[2rem] border border-gray-800 bg-[#111827] p-8 sm:p-10">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-yellow-300">Why Property Investment?</p>
@@ -297,7 +304,7 @@ const PropertyInvestmentPage: React.FC = () => {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-yellow-300">Explore Different Property Opportunities</p>
           <h2 className="mt-4 text-3xl font-semibold text-white sm:text-4xl">Explore Different Property Opportunities</h2>
@@ -319,9 +326,9 @@ const PropertyInvestmentPage: React.FC = () => {
             </div>
           ))}
         </div>
-      </section>
+      </div>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         <div className="rounded-[2rem] border border-gray-800 bg-[#111827] p-8 sm:p-10">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-yellow-300">How Property Investment Works</p>
@@ -356,15 +363,15 @@ const PropertyInvestmentPage: React.FC = () => {
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         <div className="relative overflow-hidden rounded-[2rem] border border-gray-800 bg-[#0f1724]">
           <img src={HomeOne} alt="Property development image" className="h-[520px] w-full object-cover object-center" />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,15,20,0.9)_0%,rgba(11,15,20,0.55)_35%,rgba(11,15,20,0.94)_100%)]" />
           <div className="absolute inset-0 flex items-center justify-center px-6 py-16 text-center">
-            <div className="w-full max-w-3xl rounded-[2rem] border border-white/10 bg-[#08101a]/85 p-10 shadow-[0_0_40px_rgba(0,0,0,0.35)] backdrop-blur-2xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-yellow-300">Investing in Property Development</p>
+            <div className="p-3 w-full max-w-3xl rounded-[2rem] border border-white/10">
+              <p className="p-3text-sm font-semibold uppercase tracking-[0.3em] text-yellow-300">Investing in Property Development</p>
               <h2 className="mt-4 text-3xl font-semibold text-white sm:text-4xl">Investing in Property Development</h2>
               <p className="mt-5 text-base leading-8 text-gray-300 sm:text-lg">
                 Property development brings together land, construction, architecture, planning and investment capital to create or improve real estate assets.
@@ -372,7 +379,7 @@ const PropertyInvestmentPage: React.FC = () => {
               <p className="mt-4 text-base leading-8 text-gray-300 sm:text-lg">
                 Development projects can range from residential communities and apartment buildings to commercial spaces and mixed-use developments.
               </p>
-              <div className="mt-10 grid gap-4 sm:grid-cols-2">
+              {/* <div className="mt-10 grid gap-4 sm:grid-cols-2">
                 {developmentFeatures.map((feature) => {
                   const Icon = feature.icon;
                   return (
@@ -385,13 +392,13 @@ const PropertyInvestmentPage: React.FC = () => {
                     </div>
                   );
                 })}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         <div className="rounded-[2rem] border border-gray-800 bg-[#111827] p-8 sm:p-10">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-yellow-300">Where Property Value Can Come From</p>
@@ -412,9 +419,9 @@ const PropertyInvestmentPage: React.FC = () => {
             })}
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         <div className="rounded-[2rem] border border-gray-800 bg-[#111827] p-8 sm:p-10">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-yellow-300">A Simple Property Investment Experience</p>
@@ -435,9 +442,9 @@ const PropertyInvestmentPage: React.FC = () => {
             })}
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         <div className="rounded-[2rem] border border-gray-800 bg-[#111827] p-8 sm:p-10">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-yellow-300">Why Real Estate Remains Important</p>
@@ -465,9 +472,9 @@ const PropertyInvestmentPage: React.FC = () => {
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         <div className="rounded-[2rem] border border-gray-800 bg-[#0f1724] p-8 sm:p-10">
           <div className="grid gap-8 lg:grid-cols-[0.95fr_0.95fr] xl:grid-cols-[0.95fr_0.85fr]">
             <div>
@@ -495,9 +502,9 @@ const PropertyInvestmentPage: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         <div className="rounded-[2rem] border border-blue-500/20 bg-gradient-to-br from-blue-500/10 to-[#0f1724] p-8 sm:p-10">
           <div className="max-w-4xl">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-300">Property Investment Risk Notice</p>
@@ -515,9 +522,9 @@ const PropertyInvestmentPage: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         <div className="rounded-[2rem] border border-gray-800 bg-[#111827] p-8 sm:p-10">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-yellow-300">Frequently Asked Questions</p>
@@ -527,11 +534,11 @@ const PropertyInvestmentPage: React.FC = () => {
             {faqItems.map((item, index) => {
               const isOpen = openFaq === index;
               return (
-                <div key={item.question} className="overflow-hidden rounded-3xl border border-gray-800 bg-[#0f1724]">
+                <div key={item?.question} className="overflow-hidden rounded-3xl border cursor-p border-gray-800 bg-[#0f1724]">
                   <button
                     type="button"
                     onClick={() => setOpenFaq(isOpen ? null : index)}
-                    className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left text-white transition hover:bg-[#111827]"
+                    className="flex cursor-pointer w-full items-center justify-between gap-4 px-6 py-5 text-left text-white transition hover:bg-[#111827]"
                   >
                     <span className="text-base font-semibold">{item.question}</span>
                     <span className="text-yellow-300">{isOpen ? "−" : "+"}</span>
@@ -542,31 +549,31 @@ const PropertyInvestmentPage: React.FC = () => {
             })}
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
         <div className="relative overflow-hidden rounded-[2rem] border border-gray-800 bg-[#0f1724]">
           <img src={homehills} alt="Property final CTA background" className="h-[520px] w-full object-cover object-center" />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,15,20,0.9)_0%,rgba(11,15,20,0.55)_35%,rgba(11,15,20,0.95)_100%)]" />
+          <div className="absolute inset-0 de" />
           <div className="absolute inset-0 flex items-center justify-center px-6 py-16 text-center">
-            <div className="w-full max-w-3xl rounded-[2rem] border border-white/10 bg-[#08101a]/85 p-10 shadow-[0_0_40px_rgba(0,0,0,0.35)] backdrop-blur-2xl">
+            <div className="w-full max-w-3xl rounded-[2rem] border border-white/10  p-10 ">
               <h2 className="text-3xl font-semibold text-white sm:text-4xl">Ready to Explore Property Investment?</h2>
-              <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-gray-300 sm:text-lg">
+              <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-white sm:text-lg">
                 Discover real estate investment opportunities with Salwa and take the next step toward building exposure to real assets.
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <button className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-8 py-3 text-sm font-semibold text-black transition duration-300 hover:shadow-[0_0_24px_rgba(212,175,55,0.24)]">
+                <button className="cursor-pointer inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-8 py-3 text-sm font-semibold text-black transition duration-300 hover:shadow-[0_0_24px_rgba(212,175,55,0.24)]" onClick={handleExploreInvestment}>
                   Start Investing
                 </button>
-                <button className="inline-flex items-center justify-center rounded-full border border-gray-700 bg-[#0f1724]/80 px-8 py-3 text-sm font-semibold text-gray-200 transition duration-300 hover:border-yellow-500/40 hover:text-white">
+                <button className="cursor-pointer inline-flex items-center justify-center rounded-full border border-gray-700 bg-[#0f1724]/80 px-8 py-3 text-sm font-semibold text-gray-200 transition duration-300 hover:border-yellow-500/40 hover:text-white">
                   Back to Dashboard
                 </button>
               </div>
-              <p className="mt-6 text-sm text-gray-400">Invest responsibly. Understand the risks. Make informed decisions.</p>
+              <p className="mt-6 text-sm text-white">Invest responsibly. Understand the risks. Make informed decisions.</p>
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };

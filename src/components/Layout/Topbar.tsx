@@ -47,18 +47,16 @@ const Topbar: React.FC<{ onToggle?: () => void }> = ({ onToggle }) => {
       </div>
 
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-3">
-          <div className="text-lg text-gray-300">{displayName}</div>
-          <div className="flex flex-col items-center gap-1">
-            <img
-              id="profile-avatar"
-              src={profileSrc}
-              alt="Profile"
-              className="h-11 w-11 rounded-full cursor-pointer"
-              onClick={() => navigate(ROUTES.PROFILEPAGE)}
-            />
-            <div className="text-xs text-gray-400">User ID: {displayId}</div>
-          </div>
+        <div className="flex flex-col items-center gap-1">
+          <img
+            id="profile-avatar"
+            src={profileSrc}
+            alt="Profile"
+            className="h-11 w-11 rounded-full cursor-pointer"
+            onClick={() => navigate(ROUTES.PROFILEPAGE)}
+          />
+          <div className="text-xs font-medium text-gray-200">{displayName}</div>
+          <div className="text-[10px] text-gray-400">User ID: {displayId}</div>
         </div>
       </div>
     </header>
