@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -22,55 +22,6 @@ const NavItem: React.FC<{ to: string; label: string; onClick?: () => void }> = (
     <span className="text-sm font-medium">{label}</span>
   </NavLink>
 );
-
-const ParentNavItem: React.FC<{ label: string; children: { label: string; to?: string }[] }> = ({ label, children }) => {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <div>
-      <button
-        onClick={() => setOpen((s) => !s)}
-        className={`w-full flex items-center justify-between gap-3 px-4 py-3 rounded-lg transition-colors text-gray-200 hover:bg-yellow-500/10 cursor-pointer ${
-          open ? "bg-yellow-500/10 ring-1 ring-yellow-500/20 text-white" : ""
-        }`}
-        aria-expanded={open}
-      >
-        <div className="flex items-center gap-3">
-          <span className="w-5 h-5 flex items-center justify-center text-yellow-400">●</span>
-          <span className="text-sm font-medium">{label}</span>
-        </div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className={`h-4 w-4 transform transition-transform ${open ? "rotate-180" : "rotate-0"}`}
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-        </svg>
-      </button>
-
-      {open && (
-        <div className="mt-1 ml-6 flex flex-col space-y-1">
-          {children.map((c) => (
-            <NavLink
-              key={c.label}
-              to={c.to ?? '#'}
-              className={({ isActive }) =>
-                `px-3 py-2 rounded-md text-gray-300 text-sm hover:bg-yellow-500/5 cursor-pointer ${
-                  isActive ? 'text-white font-medium' : ''
-                }`
-              }
-            >
-              {c.label}
-            </NavLink>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
 
 const Sidebar: React.FC<{ onClose?: () => void; hideHeader?: boolean; fullWidth?: boolean }> = ({ onClose, hideHeader, fullWidth }) => {
   const navigate = useNavigate();

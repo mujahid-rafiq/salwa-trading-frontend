@@ -9,9 +9,7 @@ import {
   Layers,
   LayoutGrid,
   ListChecks,
-  MapPin,
   ShieldCheck,
-  Sparkles,
 } from "lucide-react";
 import propertyLanding from "../../assets/propertyLanding.jpg";
 import homePool from "../../assets/homePool.jpg";

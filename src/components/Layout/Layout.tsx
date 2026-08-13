@@ -3,8 +3,8 @@ import { useLocation } from "react-router-dom";
 
 import useResponsive from "../../hooks/useResponsive";
 import { CloseIcon } from "../../svg";
-import Sidebar from "../layout/Sidebar";
-import Topbar from "../layout/Topbar";
+import Sidebar from "../Layout/Sidebar";
+import Topbar from "../Layout/Topbar";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { pathname } = useLocation();

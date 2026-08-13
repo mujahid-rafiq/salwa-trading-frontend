@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Activity,
   BarChart3,
   BookOpen,
   ChartLine,
@@ -10,15 +11,10 @@ import {
   Shield,
   Sparkles,
   TrendingUp,
-  Wallet,
-  Activity,
-  Zap,
 } from "lucide-react";
 import tradingLandingPic from "../../assets/tradingLandingPic.jpg";
-import TradingChartHero from "../../assets/TradingChartHero.jpg";
 // import tradingChart from "../../assets/TradingChart.jpg";
 import tradingGraph from "../../assets/tradingGraph.jpg";
-import UnlockTrading from "../../assets/UnlockTrading.jpg";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../app-routes/constants";
 
