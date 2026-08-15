@@ -133,8 +133,12 @@ const DashboardPage: React.FC = () => {
               Buy Package
             </button>
             <button
+<<<<<<< Updated upstream
               type="button"
               className="cursor-pointer rounded-lg border border-gray-700 px-5 py-2.5 text-sm text-gray-200 transition hover:border-yellow-500 hover:text-yellow-400"
+=======
+              className="rounded-lg border border-gray-700 px-5 py-2.5 text-sm text-gray-200 transition hover:border-yellow-500 hover:text-yellow-400"
+>>>>>>> Stashed changes
               onClick={() => navigate(ROUTES.WITHDRAW)}
             >
               Withdraw

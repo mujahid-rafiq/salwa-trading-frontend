@@ -9,7 +9,10 @@ export const ROUTES = {
   PACKAGES: "/packages",
   PACKAGE_DETAILS: "/packages/:id",
   WITHDRAW: "/withdraw",
+<<<<<<< Updated upstream
   SETTINGS: "/settings",
+=======
+>>>>>>> Stashed changes
   MEDICAL_INVESTMENT: "/investments/medical",
   PROPERTY_INVESTMENT: "/investments/property",
   TRADING_INVESTMENT: "/investments/trading",

@@ -18,11 +18,19 @@ import Layout from "../components/Layout/Layout";
 import RequireAuth from "../components/auth/RequireAuth";
 import RequireRole from "../components/auth/RequireRole";
 import { Role } from "../enums/Role";
+<<<<<<< Updated upstream
 import ResetPasswordPage from "../pages/Auth/ResetPassword";
 import DashboardPage from "../pages/Dashboard/DashboardPage";
 import AdminDashboardPage from "../pages/Dashboard/AdminDashboardPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import WithdrawPage from "../pages/withdraw/WithdrawPage";
+=======
+import ResetPasswordPage from "../pages/auth/ResetPassword";
+import DashboardPage from "../pages/dashboard/DashboardPage";
+import AdminDashboardPage from "../pages/dashboard/AdminDashboardPage";
+import WithdrawPage from "../pages/dashboard/WithdrawPage";
+
+>>>>>>> Stashed changes
 
 const AppRoutes: React.FC = () => {
   return (
@@ -93,6 +101,7 @@ const AppRoutes: React.FC = () => {
         </RequireAuth>
       } />
       <Route path={ROUTES.PACKAGE_DETAILS} element={<RequireAuth><PackageDetails /></RequireAuth>} />
+      <Route path={ROUTES.WITHDRAW} element={<RequireAuth><Layout><WithdrawPage /></Layout></RequireAuth>} />
     </Routes>
   );
 };
