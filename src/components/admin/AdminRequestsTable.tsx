@@ -1,4 +1,5 @@
 import type { PackageRequest } from "../../types/PackageRequest";
+import { Eye } from "lucide-react";
 import AdminRequestCard from "./AdminRequestCard";
 
 interface AdminRequestsTableProps {
@@ -34,6 +35,7 @@ const AdminRequestsTable = ({
               <th className="px-4 py-3">Profit</th>
               <th className="px-4 py-3">Duration</th>
               <th className="px-4 py-3">Transaction ID</th>
+              <th className="px-4 py-3">Receipt</th>
               <th className="px-4 py-3">User</th>
               <th className="px-4 py-3">Actions</th>
             </tr>
@@ -46,6 +48,20 @@ const AdminRequestsTable = ({
                 <td className="px-4 py-4 text-gray-300">{request.profitRate}</td>
                 <td className="px-4 py-4 text-gray-300">{request.duration}</td>
                 <td className="px-4 py-4 text-gray-300">{request.transactionId || "N/A"}</td>
+                <td className="px-4 py-4 text-gray-300">
+                  {request.paymentScreenshotUrl ? (
+                    <a
+                      href={request.paymentScreenshotUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 rounded-lg border border-yellow-500/40 bg-yellow-500/10 px-2.5 py-1.5 text-yellow-300 hover:bg-yellow-500/20"
+                    >
+                      <Eye size={14} /> View
+                    </a>
+                  ) : (
+                    "N/A"
+                  )}
+                </td>
                 <td className="px-4 py-4 text-gray-300">{request.user?.email ?? "Unknown"}</td>
                 <td className="px-4 py-4">
                   <div className="flex flex-wrap gap-2">

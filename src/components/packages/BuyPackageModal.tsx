@@ -1,3 +1,5 @@
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { useState } from "react";
 import { X } from "lucide-react";
 import { toast } from "react-toastify";
@@ -21,6 +23,11 @@ interface BuyPackageModalProps {
   selectedPackage: SelectedPackage | null;
 }
 
+interface PurchaseFormValues {
+  transactionId: string;
+  paymentScreenshot: File | null;
+}
+
 const packageRequestApi = new PackageRequestApi();
 
 const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
@@ -28,38 +35,64 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
   onClose,
   selectedPackage,
 }) => {
-  const [transactionId, setTransactionId] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
+
+  const formik = useFormik<PurchaseFormValues>({
+    initialValues: {
+      transactionId: "",
+      paymentScreenshot: null,
+    },
+    validationSchema: Yup.object({
+      transactionId: Yup.string()
+        .trim()
+        .required("Transaction ID is required")
+        .min(3, "Transaction ID is too short"),
+      paymentScreenshot: Yup.mixed<File>()
+        .nullable()
+        .required("Payment screenshot is required")
+        .test("fileType", "Only JPG, JPEG, PNG, or WEBP images are allowed", (value) => {
+          if (!value) return false;
+          return ["image/jpeg", "image/jpg", "image/png", "image/webp"].includes(value.type);
+        })
+        .test("fileSize", "File must be smaller than 5MB", (value) => {
+          if (!value) return false;
+          return value.size <= 5 * 1024 * 1024;
+        }),
+    }),
+    onSubmit: async (values) => {
+      try {
+        let paymentScreenshotUrl: string | undefined;
+
+        if (values.paymentScreenshot) {
+          const uploadResponse = await packageRequestApi.uploadPaymentImage(values.paymentScreenshot);
+          paymentScreenshotUrl = uploadResponse?.url || uploadResponse?.data?.url;
+        }
+
+        const dto: CreatePackageRequestDto = {
+          packageName: selectedPackage?.name ?? "",
+          amount: selectedPackage?.price ?? 0,
+          profitRate: selectedPackage?.profit ?? "",
+          duration: selectedPackage?.duration ?? "",
+          transactionId: values.transactionId.trim(),
+          paymentScreenshotUrl,
+        };
+
+        await packageRequestApi.submitRequest(dto);
+        toast.success("Package request sent to admin for verification.");
+        setSuccessOpen(true);
+      } catch (error) {
+        console.error(error);
+        toast.error("Failed to submit request. Please try again.");
+      }
+    },
+  });
 
   if (!open || !selectedPackage) return null;
 
   const handleSuccessClose = () => {
     setSuccessOpen(false);
     onClose();
-  };
-
-  const handleSubmit = async () => {
-    setIsSubmitting(true);
-
-    const dto: CreatePackageRequestDto = {
-      packageName: selectedPackage.name,
-      amount: selectedPackage.price,
-      profitRate: selectedPackage.profit,
-      duration: selectedPackage.duration,
-      transactionId: transactionId || undefined,
-    };
-
-    try {
-      await packageRequestApi.submitRequest(dto);
-      toast.success("Package request sent to admin for verification.");
-      setSuccessOpen(true);
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to submit request. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
+    formik.resetForm();
   };
 
   if (successOpen) {
@@ -88,7 +121,7 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
           </button>
         </div>
 
-        <div className="space-y-8 p-8">
+        <form onSubmit={formik.handleSubmit} className="space-y-8 p-8">
           <div className="rounded-2xl border border-yellow-500/20 bg-yellow-500/5 p-5">
             <div className="flex items-center justify-between gap-4">
               <div>
@@ -106,16 +139,29 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
           <div>
             <label className="mb-2 block text-sm text-gray-300">Transaction ID</label>
             <input
-              value={transactionId}
-              onChange={(e) => setTransactionId(e.target.value)}
+              name="transactionId"
+              value={formik.values.transactionId}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               type="text"
               placeholder="Enter transaction ID"
               className="w-full rounded-xl border border-gray-700 bg-[#1D1D1D] px-4 py-3 text-white outline-none transition focus:border-yellow-500"
             />
+            {formik.touched.transactionId && formik.errors.transactionId ? (
+              <p className="mt-2 text-xs text-red-400">{formik.errors.transactionId}</p>
+            ) : null}
           </div>
 
           <PaymentInfo />
-          <FileUpload />
+          <FileUpload
+            value={formik.values.paymentScreenshot}
+            onChange={(file) => {
+              formik.setFieldValue("paymentScreenshot", file);
+              formik.setFieldTouched("paymentScreenshot", true, false);
+            }}
+            error={formik.errors.paymentScreenshot as string | undefined}
+            touched={Boolean(formik.touched.paymentScreenshot)}
+          />
 
           <div className="rounded-xl border border-blue-500/20 bg-blue-500/10 p-4">
             <p className="text-sm leading-6 text-blue-300">
@@ -125,20 +171,21 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
 
           <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
             <button
+              type="button"
               onClick={onClose}
               className="rounded-xl border border-gray-700 px-6 py-3 text-white transition hover:border-gray-500"
             >
               Cancel
             </button>
             <button
-              onClick={handleSubmit}
-              disabled={isSubmitting}
+              type="submit"
+              disabled={formik.isSubmitting}
               className="rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-6 py-3 font-semibold text-black transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {isSubmitting ? "Submitting..." : "Submit Purchase"}
+              {formik.isSubmitting ? "Submitting..." : "Submit Purchase"}
             </button>
           </div>
-        </div>
+        </form>
       </div>
       <PurchaseSuccessModal
         open={successOpen}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../app-routes/constants";
 import PackageRequestApi from "../../services/PackageRequestApi";
+import WithdrawApi from "../../services/WithdrawApi";
 import StatusBadge from "../../components/packages/StatusBadge";
 
 const StatCard: React.FC<{
@@ -29,15 +30,25 @@ const DashboardPage: React.FC = () => {
     transactionId?: string;
     status: string;
   }[]>([]);
+  const [balances, setBalances] = useState({ earnings: 0, bonus: 0 });
   const [loading, setLoading] = useState(true);
   const packageRequestApi = new PackageRequestApi();
+  const withdrawApi = new WithdrawApi();
 
   useEffect(() => {
-    const loadRequests = async () => {
+    const loadDashboardData = async () => {
       setLoading(true);
       try {
-        const data = await packageRequestApi.getMyRequests();
-        setRequests(data);
+        const [requestData, balanceData] = await Promise.all([
+          packageRequestApi.getMyRequests(),
+          withdrawApi.getBalances(),
+        ]);
+
+        setRequests(requestData ?? []);
+        setBalances({
+          earnings: Number(balanceData?.earnings ?? 0),
+          bonus: Number(balanceData?.bonus ?? 0),
+        });
       } catch (error) {
         console.error(error);
       } finally {
@@ -45,12 +56,16 @@ const DashboardPage: React.FC = () => {
       }
     };
 
-    loadRequests();
+    loadDashboardData();
   }, []);
 
-  const pendingCount = requests.filter((req) => req.status === "Pending").length;
-  const approvedCount = requests.filter((req) => req.status === "Approved").length;
-  const rejectedCount = requests.filter((req) => req.status === "Rejected").length;
+  const depositAmount = requests.reduce((sum, request) => sum + Number(request.amount || 0), 0);
+
+  const formatCurrency = (value: number) =>
+    `$${Number(value || 0).toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
 
   return (
     <div className="space-y-6">
@@ -74,29 +89,17 @@ const DashboardPage: React.FC = () => {
       </div>
 
       {/* Wallet Cards */}
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard
-          title="Cash Wallet"
-          value="$0.00"
-          subtitle="Available balance"
+          title="Deposit Amount"
+          value={loading ? "..." : formatCurrency(depositAmount)}
+          subtitle="Total deposits"
         />
 
         <StatCard
-          title="Pending Requests"
-          value={loading ? "..." : `${pendingCount}`}
-          subtitle="Awaiting admin review"
-        />
-
-        <StatCard
-          title="Approved Requests"
-          value={loading ? "..." : `${approvedCount}`}
-          subtitle="Activated packages"
-        />
-
-        <StatCard
-          title="Rejected Requests"
-          value={loading ? "..." : `${rejectedCount}`}
-          subtitle="Requires action"
+          title="Daily profit of Investement"
+          value={loading ? "..." : formatCurrency(balances.earnings)}
+          subtitle="Based on approved investments"
         />
 
         <StatCard
@@ -106,9 +109,9 @@ const DashboardPage: React.FC = () => {
         />
 
         <StatCard
-          title="Trading Bonus"
-          value="$0.00"
-          subtitle="Daily up to 2%"
+          title="Team Bonus"
+          value={loading ? "..." : formatCurrency(balances.bonus)}
+          subtitle="Referral team reward"
         />
       </div>
 
@@ -137,13 +140,6 @@ const DashboardPage: React.FC = () => {
               onClick={() => navigate(ROUTES.WITHDRAW)}
             >
               Withdraw
-            </button>
-            <button
-              type="button"
-              className="cursor-pointer rounded-lg border border-gray-700 px-5 py-2.5 text-sm text-gray-200 transition hover:border-yellow-500 hover:text-yellow-400"
-              onClick={() => navigate(ROUTES.SETTINGS)}
-            >
-              Settings
             </button>
           </div>
         </div>

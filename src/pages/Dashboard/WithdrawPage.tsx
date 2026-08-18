@@ -28,10 +28,16 @@ const WithdrawPage: React.FC = () => {
     setLoading(true);
     try {
       await toast.promise(
-        withdrawApi.withdraw({ amount, source }),
+        withdrawApi.withdraw({
+          amount,
+          source,
+          paymentMethod: "Bank transfer",
+          bankName: "",
+          iban: "",
+        }),
         {
           pending: "Submitting withdrawal...",
-          success: "Withdrawal request submitted successfully.",
+          success: "Withdrawal request submitted successfully and sent to admin for approval.",
           error: "Failed to submit withdrawal. Please try again.",
         }
       );
@@ -65,7 +71,7 @@ const WithdrawPage: React.FC = () => {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-xl font-semibold text-white">Withdraw Funds</h2>
-            <p className="text-sm text-gray-400">Withdraw from your earnings or trading bonus.</p>
+            <p className="text-sm text-gray-400">Withdraw from your earnings or team bonus.</p>
           </div>
         </div>
 
@@ -73,7 +79,7 @@ const WithdrawPage: React.FC = () => {
           <div>
             <label className="text-sm text-gray-300">Available Balance</label>
             <div className="mt-1 text-2xl font-bold text-white">${(earnings + bonus).toFixed(2)}</div>
-            <div className="mt-2 text-sm text-gray-400">Earnings: ${earnings.toFixed(2)} • Bonus: ${bonus.toFixed(2)}</div>
+            <div className="mt-2 text-sm text-gray-400">Earnings: ${earnings.toFixed(2)} • Team Bonus: ${bonus.toFixed(2)}</div>
           </div>
 
           <div>

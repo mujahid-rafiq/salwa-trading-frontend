@@ -5,6 +5,7 @@ export type PackageRequest = {
   profitRate: string;
   duration: string;
   transactionId?: string;
+  paymentScreenshotUrl?: string;
   notes?: string;
   status: string;
   user?: {
