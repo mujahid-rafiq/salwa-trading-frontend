@@ -3,34 +3,35 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import { ROUTES } from "./constants";
 
-import LoginPage from "../pages/Auth/LoginPage";
-import Signup from "../pages/Auth/SignupPage";
-import ProfilePage from "../pages/Auth/ProfilePage";
-import OtpVerificationPage from "../pages/Auth/VerifyOtpPage";
-import ForgotPassword from "../pages/Auth/ForgotPassword";
+// import LoginPage from "../pages/Auth/LoginPage";
+// import Signup from "../pages/Auth/SignupPage";
+// import ProfilePage from "../pages/Auth/ProfilePage";
+// import OtpVerificationPage from "../pages/Auth/VerifyOtpPage";
+// import ForgotPassword from "../pages/Auth/ForgotPassword";
 import AdminRequestsPage from "../pages/admin/AdminRequestsPage";
 import Packages from "../pages/Packages/Packages";
 import PackageDetails from "../pages/PackageDetails/PackageDetails";
 import MedicalInvestmentPage from "../pages/investments/MedicalInvestmentPage";
 import PropertyInvestmentPage from "../pages/investments/PropertyInvestmentPage";
 import TradingInvestmentPage from "../pages/investments/TradingInvestmentPage";
-import Layout from "../components/Layout/Layout";
+// import Layout from "../components/Layout/Layout";
 import RequireAuth from "../components/auth/RequireAuth";
 import RequireRole from "../components/auth/RequireRole";
 import { Role } from "../enums/Role";
-<<<<<<< Updated upstream
-import ResetPasswordPage from "../pages/Auth/ResetPassword";
-import DashboardPage from "../pages/Dashboard/DashboardPage";
-import AdminDashboardPage from "../pages/Dashboard/AdminDashboardPage";
+// import ResetPasswordPage from "../pages/Auth/ResetPassword";
+// import DashboardPage from "../pages/Dashboard/DashboardPage";
+// import AdminDashboardPage from "../pages/Dashboard/AdminDashboardPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import WithdrawPage from "../pages/withdraw/WithdrawPage";
-=======
 import ResetPasswordPage from "../pages/auth/ResetPassword";
+import Layout from "../components/layout/Layout";
 import DashboardPage from "../pages/dashboard/DashboardPage";
 import AdminDashboardPage from "../pages/dashboard/AdminDashboardPage";
-import WithdrawPage from "../pages/dashboard/WithdrawPage";
-
->>>>>>> Stashed changes
+import Signup from "../pages/auth/SignupPage";
+import OtpVerificationPage from "../pages/auth/VerifyOtpPage";
+import ForgotPassword from "../pages/auth/ForgotPassword";
+import LoginPage from "../pages/auth/LoginPage";
+import ProfilePage from "../pages/auth/ProfilePage";
 
 const AppRoutes: React.FC = () => {
   return (
