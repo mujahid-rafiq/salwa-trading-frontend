@@ -76,11 +76,13 @@ const WithdrawPage: React.FC = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4 max-w-md">
+          {/* Available Balance (commented out per request)
           <div>
             <label className="text-sm text-gray-300">Available Balance</label>
             <div className="mt-1 text-2xl font-bold text-white">${(earnings + bonus).toFixed(2)}</div>
             <div className="mt-2 text-sm text-gray-400">Earnings: ${earnings.toFixed(2)} • Team Bonus: ${bonus.toFixed(2)}</div>
           </div>
+          */}
 
           <div>
             <label className="block text-sm text-gray-300">Source</label>

@@ -73,6 +73,7 @@ const Sidebar: React.FC<{ onClose?: () => void; hideHeader?: boolean; fullWidth?
             <div className="space-y-1">
               <NavItem to={ROUTES.ADMIN_DASHBOARD} label="Admin Dashboard" onClick={onClose} />
               <NavItem to={ROUTES.ADMIN_REQUESTS} label="Pending Requests" onClick={onClose} />
+              <NavItem to={ROUTES.ADMIN_PAYMENTS} label="Payment Request" onClick={onClose} />
             </div>
           </div>
         )}

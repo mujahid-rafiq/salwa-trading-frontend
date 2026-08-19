@@ -125,12 +125,14 @@ const WithdrawPage: React.FC = () => {
 
       <div className="rounded-2xl border border-gray-800 bg-[#0f1724] p-6">
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          {/* Available balance (commented out per request)
           <div>
             <label className="mb-2 block text-sm text-gray-300">Available balance</label>
             <div className="rounded-lg border border-gray-700 bg-[#111827] px-4 py-3 text-xl font-semibold text-white">
               $0.00
             </div>
           </div>
+          */}
 
           <div>
             <label className="mb-2 block text-sm text-gray-300">Withdrawal method</label>
@@ -163,12 +165,12 @@ const WithdrawPage: React.FC = () => {
           ))}
 
           <div className="flex flex-col">
-            <label className="mb-2 block text-sm text-gray-300">Amount</label>
+            <label className="mb-2 block text-sm text-gray-300">Amount ({selectedMethod === 'USDT' ? 'USD' : 'PKR'})</label>
             <input
               type="number"
               value={formData.amount}
               onChange={(event) => updateField("amount", event.target.value)}
-              placeholder="Enter amount"
+              placeholder={selectedMethod === 'USDT' ? 'Enter amount in USD' : 'Enter amount in PKR'}
               className="w-full rounded-lg border border-gray-700 bg-[#111827] px-4 py-3 text-sm text-white placeholder:text-gray-500 outline-none focus:border-yellow-500"
             />
           </div>
