@@ -5,6 +5,7 @@ import { ROUTES } from "./constants";
 
 
 import AdminRequestsPage from "../pages/admin/AdminRequestsPage";
+import AdminPaymentsPage from "../pages/admin/AdminPaymentsPage";
 import Packages from "../pages/Packages/Packages";
 import PackageDetails from "../pages/PackageDetails/PackageDetails";
 import MedicalInvestmentPage from "../pages/investments/MedicalInvestmentPage";
@@ -66,6 +67,18 @@ const AppRoutes: React.FC = () => {
             <RequireRole role={Role.ADMIN}>
               <Layout>
                 <AdminRequestsPage />
+              </Layout>
+            </RequireRole>
+          </RequireAuth>
+        }
+      />
+      <Route
+        path={ROUTES.ADMIN_PAYMENTS}
+        element={
+          <RequireAuth>
+            <RequireRole role={Role.ADMIN}>
+              <Layout>
+                <AdminPaymentsPage />
               </Layout>
             </RequireRole>
           </RequireAuth>
