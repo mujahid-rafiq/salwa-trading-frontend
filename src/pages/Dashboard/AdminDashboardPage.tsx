@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ROUTES } from "../../app-routes/constants";
 import PackageRequestApi from "../../services/PackageRequestApi";
+import WithdrawApi from "../../services/WithdrawApi";
 import AuthApi from "../../services/AuthApi";
 
 const authApi = new AuthApi();
@@ -10,6 +11,12 @@ const authApi = new AuthApi();
 const AdminDashboardPage: React.FC = () => {
   const navigate = useNavigate();
   const [stats, setStats] = useState<{
+    pendingCount: number;
+    approvedCount: number;
+    rejectedCount: number;
+    totalCount: number;
+  } | null>(null);
+  const [withdrawalStats, setWithdrawalStats] = useState<{
     pendingCount: number;
     approvedCount: number;
     rejectedCount: number;
@@ -26,13 +33,19 @@ const AdminDashboardPage: React.FC = () => {
     confirmPassword: "",
   });
   const packageRequestApi = new PackageRequestApi();
+  const withdrawApi = new WithdrawApi();
 
   useEffect(() => {
     const loadStats = async () => {
       setLoading(true);
       try {
-        const data = await packageRequestApi.getAdminDashboard();
-        setStats(data);
+        const [requestData, withdrawalData] = await Promise.all([
+          packageRequestApi.getAdminDashboard(),
+          withdrawApi.getAdminDashboard(),
+        ]);
+
+        setStats(requestData);
+        setWithdrawalStats(withdrawalData);
       } catch (error) {
         console.error(error);
         toast.error("Failed to load admin request stats.");
@@ -99,7 +112,7 @@ const AdminDashboardPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
         <div className="rounded-2xl border border-gray-800 bg-[#0f1724] p-6">
           <div className="text-xs text-gray-400">Total Package Requests</div>
           <div className="mt-2 text-3xl font-bold text-white">{loading ? "..." : stats?.totalCount ?? 0}</div>
@@ -111,6 +124,10 @@ const AdminDashboardPage: React.FC = () => {
         <div className="rounded-2xl border border-gray-800 bg-[#0f1724] p-6">
           <div className="text-xs text-gray-400">Pending Approvals</div>
           <div className="mt-2 text-3xl font-bold text-white">{loading ? "..." : stats?.pendingCount ?? 0}</div>
+        </div>
+        <div className="rounded-2xl border border-gray-800 bg-[#0f1724] p-6">
+          <div className="text-xs text-gray-400">Pending Withdrawals</div>
+          <div className="mt-2 text-3xl font-bold text-white">{loading ? "..." : withdrawalStats?.pendingCount ?? 0}</div>
         </div>
       </div>
 

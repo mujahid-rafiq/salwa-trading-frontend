@@ -6,6 +6,7 @@ export type CreatePackageRequestDto = {
   profitRate: string;
   duration: string;
   transactionId?: string;
+  paymentScreenshotUrl?: string;
   notes?: string;
 };
 
@@ -14,6 +15,14 @@ export default class PackageRequestApi extends BaseAPIService {
 
   constructor() {
     super();
+  }
+
+  async uploadPaymentImage(file: File) {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const { data } = await this.post("/uploads/payment-image", formData);
+    return data;
   }
 
   async submitRequest(dto: CreatePackageRequestDto) {

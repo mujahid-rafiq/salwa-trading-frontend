@@ -1,3 +1,4 @@
+import { Eye } from "lucide-react";
 import type { PackageRequest } from "../../types/PackageRequest";
 
 interface AdminRequestCardProps {
@@ -29,6 +30,21 @@ const AdminRequestCard: React.FC<AdminRequestCardProps> = ({ request, actionLoad
       <div className="flex items-center justify-between rounded-2xl bg-[#0f1724] p-3">
         <span>Transaction</span>
         <span>{request.transactionId || "N/A"}</span>
+      </div>
+      <div className="flex items-center justify-between rounded-2xl bg-[#0f1724] p-3">
+        <span>Receipt</span>
+        {request.paymentScreenshotUrl ? (
+          <a
+            href={request.paymentScreenshotUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 text-yellow-300"
+          >
+            <Eye size={14} /> View
+          </a>
+        ) : (
+          <span>N/A</span>
+        )}
       </div>
       <div className="flex items-center justify-between rounded-2xl bg-[#0f1724] p-3">
         <span>User</span>
