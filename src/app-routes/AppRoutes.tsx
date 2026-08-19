@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import { ROUTES } from "./constants";
 
@@ -28,11 +28,12 @@ import ForgotPassword from "../pages/Auth/ForgotPassword";
 import DashboardPage from "../pages/Dashboard/DashboardPage";
 import AdminDashboardPage from "../pages/Dashboard/AdminDashboardPage";
 import Signup from "../pages/Auth/SignupPage";
+import LandingPage from "../pages/Landing/LandingPage";
 
 const AppRoutes: React.FC = () => {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to={ROUTES.LOGIN} replace />} />
+      <Route path={ROUTES.HOME} element={<LandingPage />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage/>} />
       <Route path={ROUTES.SIGNUP} element={<Signup />} />
       <Route path={ROUTES.VERIFYOTP} element={<OtpVerificationPage />} />
