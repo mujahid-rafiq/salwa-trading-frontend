@@ -146,7 +146,7 @@ const Packages = () => {
           <button
             type="button"
             onClick={handleGoBack}
-            className="inline-flex items-center gap-2 rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white transition hover:bg-gray-800"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white transition hover:bg-gray-800"
           >
             ← Go back
           </button>

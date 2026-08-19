@@ -28,7 +28,7 @@ const CopyButton: React.FC<CopyButtonProps> = ({ value }) => {
   return (
     <button
       onClick={handleCopy}
-      className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 cursor-pointer
+      className={`flex w-full items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 cursor-pointer sm:w-auto
       ${
         copied
           ? "bg-green-500 text-white"

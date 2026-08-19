@@ -38,7 +38,7 @@ const Sidebar: React.FC<{ onClose?: () => void; hideHeader?: boolean; fullWidth?
     } finally {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("persist:root");
-      navigate(ROUTES.LOGIN);
+      navigate(ROUTES.HOME);
     }
   };
 
