@@ -1,6 +1,7 @@
 import { useEffect, useState, type KeyboardEvent, type FormEvent } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Loader2 } from "lucide-react";
 import { useVerifyOtpMutation, useActivateAccountMutation, useResetPasswordMutation } from "../../mutation/useAuth";
 import { ROUTES } from "../../app-routes/constants";
 
@@ -16,6 +17,7 @@ const OtpVerificationPage = () => {
   const verifyOtpMutation = useVerifyOtpMutation();
   const activateAccountMutation = useActivateAccountMutation();
   const resetPasswordMutation = useResetPasswordMutation();
+  const isSubmitting = verifyOtpMutation.isPending || resetPasswordMutation.isPending || activateAccountMutation.isPending;
 
   useEffect(() => {
     if (!email) {
@@ -24,6 +26,7 @@ const OtpVerificationPage = () => {
   }, [email, mode, navigate]);
 
   const handleChange = (index: number, value: string) => {
+    if (isSubmitting) return;
     if (!/\d?/.test(value)) return;
 
     const nextOtp = [...otp];
@@ -37,6 +40,7 @@ const OtpVerificationPage = () => {
   };
 
   const handleKeyDown = (index: number, e: KeyboardEvent<HTMLInputElement>) => {
+    if (isSubmitting) return;
     if (e.key === "Backspace" && !otp[index] && index > 0) {
       const prevOtp = [...otp];
       prevOtp[index - 1] = "";
@@ -142,7 +146,8 @@ const OtpVerificationPage = () => {
                 value={digit}
                 onChange={(e) => handleChange(index, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(index, e)}
-                className="h-14 w-14 rounded-xl border border-gray-700 bg-[#1E1E1E] text-center text-xl font-bold text-white outline-none transition-all duration-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-yellow-500/20"
+                disabled={isSubmitting}
+                className="h-14 w-14 rounded-xl border border-gray-700 bg-[#1E1E1E] text-center text-xl font-bold text-white outline-none transition-all duration-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-yellow-500/20 disabled:cursor-not-allowed disabled:opacity-60"
               />
             ))}
 
@@ -151,10 +156,13 @@ const OtpVerificationPage = () => {
           <form onSubmit={isActivation ? handleVerifyOtp : (isVerified ? handleResetPassword : handleVerifyOtp)} className="space-y-6">
             <button
               type="submit"
-              className="mt-8 w-full rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] py-3 font-semibold text-black shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-yellow-500/30 cursor-pointer"
-              disabled={verifyOtpMutation.isPending || resetPasswordMutation.isPending || activateAccountMutation.isPending}
+              className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] py-3 font-semibold text-black shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-yellow-500/30 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100 disabled:hover:shadow-none"
+              disabled={isSubmitting}
             >
-              {isActivation
+              {isSubmitting ? <Loader2 className="h-5 w-5 animate-spin" /> : null}
+              {isSubmitting
+                ? (isVerified ? "Resetting password..." : "Verifying OTP...")
+                : isActivation
                 ? (activateAccountMutation.isPending ? "Verifying OTP..." : "Verify Account")
                 : isVerified
                 ? (resetPasswordMutation.isPending ? "Resetting password..." : "Reset Password")

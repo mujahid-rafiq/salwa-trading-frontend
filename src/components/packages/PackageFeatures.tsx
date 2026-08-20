@@ -13,7 +13,7 @@ interface PackageFeaturesProps {
 }
 
 const iconMap: Record<string, React.ReactNode> = {
-  "Daily Profit": <TrendingUp size={18} className="text-green-400" />,
+  "Period Profit": <TrendingUp size={18} className="text-green-400" />,
   "Instant Activation": (
     <CheckCircle size={18} className="text-yellow-400" />
   ),

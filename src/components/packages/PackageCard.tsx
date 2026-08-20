@@ -49,7 +49,7 @@ const PackageCard: React.FC<PackageCardProps> = ({
         <div className="mt-8 space-y-4">
           <div className="flex items-center justify-between rounded-xl bg-black/20 px-4 py-3">
             <span className="text-sm text-gray-400">
-              Monthly Profit
+              Period Profit
             </span>
 
             <span className="font-semibold text-green-400">

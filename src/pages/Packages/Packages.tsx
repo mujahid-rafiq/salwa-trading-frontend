@@ -9,10 +9,10 @@ const packageData = [
     id: 1,
     name: "Silver",
     price: 100,
-    profit: "8% Monthly",
+    profit: "8% over 24 days",
     duration: "24 Days",
     features: [
-      "Monthly Profit",
+      "8% profit over 24 days",
       "24/7 Support",
       "Fast Withdraw",
       "Priority Support",
@@ -22,10 +22,10 @@ const packageData = [
     id: 2,
     name: "Gold",
     price: 500,
-    profit: "8% Monthly",
+    profit: "8% over 24 days",
     duration: "24 Days",
     features: [
-      "Monthly Profit",
+      "8% profit over 24 days",
       "VIP Support",
       "Fast Withdraw",
       "High ROI",
@@ -35,7 +35,7 @@ const packageData = [
     id: 3,
     name: "Platinum",
     price: 1000,
-    profit: "8% Monthly",
+    profit: "8% over 24 days",
     duration: "24 Days",
     features: [
       "Maximum ROI",
@@ -48,7 +48,7 @@ const packageData = [
     id: 4,
     name: "Diamond",
     price: 1500,
-    profit: "8% Monthly",
+    profit: "8% over 24 days",
     duration: "24 Days",
     features: [
       "Higher Returns",
@@ -61,7 +61,7 @@ const packageData = [
     id: 5,
     name: "Elite",
     price: 2000,
-    profit: "8% Monthly",
+    profit: "8% over 24 days",
     duration: "24 Days",
     features: [
       "Premium ROI",
@@ -74,7 +74,7 @@ const packageData = [
     id: 6,
     name: "Supreme",
     price: 2500,
-    profit: "8% Monthly",
+    profit: "8% over 24 days",
     duration: "24 Days",
     features: [
       "Top Tier Returns",
@@ -87,7 +87,7 @@ const packageData = [
     id: 7,
     name: "Executive",
     price: 3000,
-    profit: "8% Monthly",
+    profit: "8% over 24 days",
     duration: "24 Days",
     features: [
       "Maximum ROI",
@@ -100,7 +100,7 @@ const packageData = [
     id: 8,
     name: "Ultimate",
     price: 4000,
-    profit: "8% Monthly",
+    profit: "8% over 24 days",
     duration: "24 Days",
     features: [
       "Elite Returns",
@@ -113,7 +113,7 @@ const packageData = [
     id: 9,
     name: "VIP",
     price: 5000,
-    profit: "8% Monthly",
+    profit: "8% over 24 days",
     duration: "24 Days",
     features: [
       "Highest ROI",

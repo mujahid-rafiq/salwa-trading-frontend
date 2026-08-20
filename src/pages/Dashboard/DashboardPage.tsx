@@ -93,25 +93,21 @@ const DashboardPage: React.FC = () => {
         <StatCard
           title="Deposit Amount"
           value={loading ? "..." : formatCurrency(depositAmount)}
-          subtitle="Total deposits"
         />
 
         <StatCard
-          title="Daily profit of Investement"
+          title="Investment Profit"
           value={loading ? "..." : formatCurrency(balances.earnings)}
-          subtitle="Based on approved investments"
         />
 
         <StatCard
           title="Total Requests"
           value={loading ? "..." : `${requests.length}`}
-          subtitle="Package submissions"
         />
 
         <StatCard
           title="Team Bonus"
           value={loading ? "..." : formatCurrency(balances.bonus)}
-          subtitle="Referral team reward"
         />
       </div>
 
@@ -127,7 +123,7 @@ const DashboardPage: React.FC = () => {
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            <span className="text-sm text-gray-400">{loading ? "Loading..." : `${requests.length} total`}</span>
+            {/* <span className="text-sm text-gray-400">{loading ? "Loading..." : `${requests.length} total`}</span> */}
             <button
               type="button"
               className="cursor-pointer rounded-lg bg-yellow-500 px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-yellow-400"
