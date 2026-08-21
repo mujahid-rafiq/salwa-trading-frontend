@@ -25,7 +25,7 @@ const PurchaseSuccessModal: React.FC<PurchaseSuccessModalProps> = ({ open, onClo
         <button
           type="button"
           onClick={onClose}
-          className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-yellow-400 to-amber-500 px-6 py-3 font-semibold text-black transition hover:scale-[1.02]"
+          className="inline-flex cursor-pointer items-center justify-center rounded-xl bg-gradient-to-r from-yellow-400 to-amber-500 px-6 py-3 font-semibold text-black transition hover:scale-[1.02]"
         >
           Continue
         </button>

@@ -1,6 +1,7 @@
 import type { PackageRequest } from "../../types/PackageRequest";
 import { Eye } from "lucide-react";
 import AdminRequestCard from "./AdminRequestCard";
+import { getAssetUrl } from "../../lib/asset-url";
 
 interface AdminRequestsTableProps {
   requests: PackageRequest[];
@@ -51,7 +52,7 @@ const AdminRequestsTable = ({
                 <td className="px-4 py-4 text-gray-300">
                   {request.paymentScreenshotUrl ? (
                     <a
-                      href={request.paymentScreenshotUrl}
+                      href={getAssetUrl(request.paymentScreenshotUrl)}
                       target="_blank"
                       rel="noreferrer"
                       className="inline-flex items-center gap-2 rounded-lg border border-yellow-500/40 bg-yellow-500/10 px-2.5 py-1.5 text-yellow-300 hover:bg-yellow-500/20"

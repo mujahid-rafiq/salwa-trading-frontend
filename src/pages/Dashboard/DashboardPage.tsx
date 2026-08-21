@@ -132,7 +132,7 @@ const DashboardPage: React.FC = () => {
               Buy Package
             </button>
             <button
-              className="rounded-lg border border-gray-700 px-5 py-2.5 text-sm text-gray-200 transition hover:border-yellow-500 hover:text-yellow-400"
+              className="cursor-pointer rounded-lg border border-gray-700 px-5 py-2.5 text-sm text-gray-200 transition hover:border-yellow-500 hover:text-yellow-400"
               onClick={() => navigate(ROUTES.WITHDRAW)}
             >
               Withdraw

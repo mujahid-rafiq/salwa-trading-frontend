@@ -21,7 +21,7 @@ const Modal: React.FC<ModalProps> = ({ open, title, description, onClose, childr
           </div>
           <button
             type="button"
-            className="rounded-full p-2 text-gray-400 transition hover:bg-gray-800 hover:text-white"
+            className="cursor-pointer rounded-full p-2 text-gray-400 transition hover:bg-gray-800 hover:text-white"
             onClick={onClose}
           >
             ×
