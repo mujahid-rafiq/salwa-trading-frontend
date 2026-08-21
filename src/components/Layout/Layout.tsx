@@ -29,7 +29,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   return (
     <div className="min-h-screen bg-[#0B0B0B] text-white flex">
-      {/* Desktop sidebar */}
+      {/* Desktop sidebar .*/}
       {!isMobile && <Sidebar />}
 
       <div className="flex-1 min-h-screen">
