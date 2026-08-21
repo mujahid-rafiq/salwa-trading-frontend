@@ -69,7 +69,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ value, onChange, error, touched
 
           <button
             type="button"
-            className="mt-6 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-6 py-2 font-semibold text-black"
+            className="mt-6 cursor-pointer rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-6 py-2 font-semibold text-black"
           >
             Browse File
           </button>
@@ -95,7 +95,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ value, onChange, error, touched
             <button
               type="button"
               onClick={removeFile}
-              className="rounded-lg bg-red-500 p-3 text-white transition hover:bg-red-600"
+              className="cursor-pointer rounded-lg bg-red-500 p-3 text-white transition hover:bg-red-600"
               aria-label="Remove screenshot"
             >
               <Trash2 size={18} />

@@ -115,7 +115,7 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="rounded-full p-2 text-gray-400 transition hover:bg-gray-800 hover:text-white"
+            className="cursor-pointer rounded-full p-2 text-gray-400 transition hover:bg-gray-800 hover:text-white"
           >
             <X size={22} />
           </button>
@@ -173,14 +173,14 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="rounded-xl border border-gray-700 px-6 py-3 text-white transition hover:border-gray-500"
+              className="cursor-pointer rounded-xl border border-gray-700 px-6 py-3 text-white transition hover:border-gray-500"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={formik.isSubmitting}
-              className="rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-6 py-3 font-semibold text-black transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60"
+              className="cursor-pointer rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-6 py-3 font-semibold text-black transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60"
             >
               {formik.isSubmitting ? "Submitting..." : "Submit Purchase"}
             </button>

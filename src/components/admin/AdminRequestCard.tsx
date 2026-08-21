@@ -1,5 +1,6 @@
 import { Eye } from "lucide-react";
 import type { PackageRequest } from "../../types/PackageRequest";
+import { getAssetUrl } from "../../lib/asset-url";
 
 interface AdminRequestCardProps {
   request: PackageRequest;
@@ -35,7 +36,7 @@ const AdminRequestCard: React.FC<AdminRequestCardProps> = ({ request, actionLoad
         <span>Receipt</span>
         {request.paymentScreenshotUrl ? (
           <a
-            href={request.paymentScreenshotUrl}
+            href={getAssetUrl(request.paymentScreenshotUrl)}
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-2 text-yellow-300"
