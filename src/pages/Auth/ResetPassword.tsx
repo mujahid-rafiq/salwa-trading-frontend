@@ -142,7 +142,7 @@ const ResetPasswordPage = () => {
           </div>
 
           <div className="mt-8 border-t border-gray-800 pt-5 text-center text-xs text-gray-500">
-            © 2026 Salwa Trading. All Rights Reserved.
+            © 2026 Noovacor. All Rights Reserved.
           </div>
         </div>
       </div>

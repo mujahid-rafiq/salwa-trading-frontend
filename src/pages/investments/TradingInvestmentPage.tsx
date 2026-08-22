@@ -76,7 +76,7 @@ const steps = [
   },
   {
     title: "Make Your Investment",
-    description: "Complete the investment process through your Salwa Trading account.",
+    description: "Complete the investment process through your Noovacor Trading account.",
   },
   {
     title: "Trading Activity",
@@ -118,7 +118,7 @@ const expectations = [
   },
   {
     title: "Simple Experience",
-    description: "An easy-to-understand investment experience through your Salwa account.",
+    description: "An easy-to-understand investment experience through your Noovacor account.",
   },
   {
     title: "Trading-Focused Approach",
@@ -176,7 +176,7 @@ const faqItems = [
   },
   {
     question: "Can I track my investment?",
-    answer: "Yes. Investment activity and account information can be monitored through your Salwa Trading dashboard.",
+    answer: "Yes. Investment activity and account information can be monitored through your Noovacor Trading dashboard.",
   },
   {
     question: "Is trading risk-free?",
@@ -243,7 +243,7 @@ const TradingInvestmentPage: React.FC = () => {
                 Financial markets operate around the clock across currencies, commodities, indices and other instruments. Trading creates opportunities by analyzing market movements and identifying potential entry and exit points.
               </p>
               <p>
-                Salwa Trading provides users with a structured environment to explore trading investment opportunities while keeping the experience simple and accessible.
+                Noovacor Trading provides users with a structured environment to explore trading investment opportunities while keeping the experience simple and accessible.
               </p>
             </div>
           </div>
@@ -391,7 +391,7 @@ const TradingInvestmentPage: React.FC = () => {
                   <h3 className="text-xl font-semibold text-white">Potential for Growth</h3>
                 </div>
                 <p className="mt-4 text-sm leading-7 text-gray-300">
-                  Participate in market opportunities while monitoring your investment through your Salwa Trading account.
+                  Participate in market opportunities while monitoring your investment through your Noovacor Trading account.
                 </p>
                 <button className="cursor-pointer mt-6 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-6 py-3 text-sm font-semibold text-black transition duration-300 hover:shadow-[0_0_24px_rgba(212,175,55,0.24)]" onClick={handleExploreInvestment}>
                   Explore Investment Options
@@ -475,7 +475,7 @@ const TradingInvestmentPage: React.FC = () => {
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-yellow-300">Trading Opportunity</p>
               <h2 className="mt-4 text-3xl font-semibold text-white sm:text-4xl">Ready to Explore Trading Opportunities?</h2>
               <p className="mx-auto max-w-5xl text-base leading-8 text-gray-300 sm:text-lg">
-                Discover trading investment opportunities with Salwa Trading and take the next step toward putting your capital to work in global financial markets.
+                Discover trading investment opportunities with Noovacor Trading and take the next step toward putting your capital to work in global financial markets.
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <button className=" cursor-pointer inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-8 py-3 text-sm font-semibold text-black transition duration-300 hover:shadow-[0_0_24px_rgba(212,175,55,0.24)]" onClick={handleExploreInvestment}>
