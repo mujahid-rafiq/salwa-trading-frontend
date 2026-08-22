@@ -129,7 +129,7 @@ const steps = [
   },
   {
     title: "Track",
-    description: "Monitor your investment activity and status through your Salwa dashboard.",
+    description: "Monitor your investment activity and status through your Noovacor dashboard.",
   },
 ];
 
@@ -145,11 +145,11 @@ const faqItems = [
   },
   {
     question: "How can I start?",
-    answer: "Review the available investment options and follow the investment process provided through your Salwa account.",
+    answer: "Review the available investment options and follow the investment process provided through your Noovacor account.",
   },
   {
     question: "How can I track my investment?",
-    answer: "Investment activity can be monitored through your Salwa dashboard.",
+    answer: "Investment activity can be monitored through your Noovacor dashboard.",
   },
   {
     question: "Can I withdraw my investment?",
