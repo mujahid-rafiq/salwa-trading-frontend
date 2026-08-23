@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { ROUTES } from "../../app-routes/constants";
 import PackageRequestApi from "../../services/PackageRequestApi";
 import WithdrawApi from "../../services/WithdrawApi";
 import StatusBadge from "../../components/packages/StatusBadge";
+import type { RootState } from "../../redux/store";
 
 const StatCard: React.FC<{
   title: string;
@@ -21,6 +23,7 @@ const StatCard: React.FC<{
 
 const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
+  const user = useSelector((state: RootState) => state.auth.user);
   const [requests, setRequests] = useState<{
     id: number;
     packageName: string;
@@ -60,6 +63,7 @@ const DashboardPage: React.FC = () => {
   }, []);
 
   const depositAmount = requests.reduce((sum, request) => sum + Number(request.amount || 0), 0);
+  const displayName = user?.fullName || "User";
 
   const formatCurrency = (value: number) =>
     `$${Number(value || 0).toLocaleString(undefined, {
@@ -74,7 +78,7 @@ const DashboardPage: React.FC = () => {
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <h2 className="text-2xl font-bold text-white">
-              Welcome back, Mujahid
+              Welcome back, {displayName}
             </h2>
 
             <p className="mt-1 text-sm text-gray-300">

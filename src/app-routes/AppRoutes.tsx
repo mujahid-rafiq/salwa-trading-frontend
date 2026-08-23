@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import { ROUTES } from "./constants";
 
@@ -111,6 +111,7 @@ const AppRoutes: React.FC = () => {
       } />
       <Route path={ROUTES.PACKAGE_DETAILS} element={<RequireAuth><PackageDetails /></RequireAuth>} />
       <Route path={ROUTES.WITHDRAW} element={<RequireAuth><Layout><WithdrawPage /></Layout></RequireAuth>} />
+      <Route path="*" element={<Navigate to={ROUTES.HOME} replace />} />
     </Routes>
   );
 };
