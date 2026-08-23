@@ -100,24 +100,24 @@ const OtpVerificationPage = () => {
   const isActivation = mode === "activation";
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#0B0B0B] px-4">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#0B0B0B] px-3 py-5 sm:px-4 sm:py-6">
 
       {/* Background Glow */}
-      <div className="absolute left-0 top-0 h-96 w-96 rounded-full bg-yellow-500/10 blur-3xl"></div>
-      <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-amber-400/10 blur-3xl"></div>
+      <div className="absolute left-0 top-0 h-72 w-72 rounded-full bg-yellow-500/10 blur-3xl sm:h-96 sm:w-96"></div>
+      <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-amber-400/10 blur-3xl sm:h-96 sm:w-96"></div>
 
-      <div className="relative w-full max-w-md">
+      <div className="relative w-full max-w-[20rem] sm:max-w-md">
 
-        <div className="rounded-3xl border border-yellow-500/20 bg-[#151515]/90 p-8 shadow-[0_0_60px_rgba(212,175,55,0.08)] backdrop-blur-xl">
+        <div className="rounded-[24px] border border-yellow-500/20 bg-[#151515]/90 p-4 shadow-[0_0_60px_rgba(212,175,55,0.08)] backdrop-blur-xl sm:rounded-[28px] sm:p-8">
 
           {/* Logo */}
-          <Link to={ROUTES.HOME} className="flex justify-center hover:opacity-80 transition">
-            <img src={noovacorLogo} alt="Noovacor Logo" className="h-20 w-20 object-contain" />
+          <Link to={ROUTES.HOME} className="flex justify-center transition hover:opacity-80">
+            <img src={noovacorLogo} alt="Noovacor Logo" className="h-16 w-16 object-contain sm:h-20 sm:w-20" />
           </Link>
 
           {/* Heading */}
           <div className="mt-6 text-center">
-            <h1 className="text-3xl font-bold text-white">
+            <h1 className="text-2xl font-bold text-white sm:text-3xl">
               OTP Verification
             </h1>
 
@@ -125,13 +125,13 @@ const OtpVerificationPage = () => {
               {isActivation ? "We've sent a 6-digit verification code to" : "We've sent a 6-digit verification code to"}
             </p>
 
-            <p className="font-medium text-[#D4AF37]">
+            <p className="break-all font-medium text-[#D4AF37]">
               {email}
             </p>
           </div>
 
           {/* OTP Inputs */}
-          <div className="mt-10 flex justify-between gap-3">
+          <div className="mt-8 grid grid-cols-6 gap-2 sm:gap-3">
 
             {otp.map((digit, index) => (
               <input
@@ -144,16 +144,16 @@ const OtpVerificationPage = () => {
                 onChange={(e) => handleChange(index, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(index, e)}
                 disabled={isSubmitting}
-                className="h-14 w-14 rounded-xl border border-gray-700 bg-[#1E1E1E] text-center text-xl font-bold text-white outline-none transition-all duration-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-yellow-500/20 disabled:cursor-not-allowed disabled:opacity-60"
+                className="h-12 w-full min-w-0 rounded-xl border border-gray-700 bg-[#1E1E1E] text-center text-base font-bold text-white outline-none transition-all duration-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-yellow-500/20 disabled:cursor-not-allowed disabled:opacity-60 sm:h-14 sm:text-xl"
               />
             ))}
 
           </div>
 
-          <form onSubmit={isActivation ? handleVerifyOtp : (isVerified ? handleResetPassword : handleVerifyOtp)} className="space-y-6">
+          <form onSubmit={isActivation ? handleVerifyOtp : (isVerified ? handleResetPassword : handleVerifyOtp)} className="mt-8 space-y-5">
             <button
               type="submit"
-              className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] py-3 font-semibold text-black shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-yellow-500/30 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100 disabled:hover:shadow-none"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] py-3.5 font-semibold text-black shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-yellow-500/30 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100 disabled:hover:shadow-none"
               disabled={isSubmitting}
             >
               {isSubmitting ? <Loader2 className="h-5 w-5 animate-spin" /> : null}
