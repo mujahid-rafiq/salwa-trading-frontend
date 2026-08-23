@@ -5,6 +5,7 @@ import useResponsive from "../../hooks/useResponsive";
 import { CloseIcon } from "../../svg";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
+import noovacorLogo from "../../assets/noovacorLogo.png";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { pathname } = useLocation();
@@ -49,9 +50,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           <div className="absolute inset-0 bg-[#0f1724] md:p-4 overflow-y-auto">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-yellow-400 to-amber-600 flex items-center justify-center text-black font-bold">S</div>
+                <img src={noovacorLogo} alt="Noovacor Logo" className="h-10 w-10 object-contain" />
                 <div>
-                  <div className="text-sm font-semibold text-white">Salwa Trading</div>
+                  <div className="text-sm font-semibold text-white">Noovacor</div>
                   <div className="text-xs text-gray-400">Dashboard</div>
                 </div>
               </div>

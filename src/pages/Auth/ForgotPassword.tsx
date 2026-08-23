@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ROUTES } from "../../app-routes/constants";
 import { useForgotPasswordMutation } from "../../mutation/useAuth";
+import noovacorLogo from "../../assets/noovacorLogo.png";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -48,13 +49,9 @@ const ForgotPassword = () => {
         <div className="rounded-3xl border border-yellow-500/20 bg-[#151515]/90 p-8 shadow-[0_0_60px_rgba(212,175,55,0.08)] backdrop-blur-xl">
 
           {/* Logo */}
-          <div className="flex justify-center">
-            <div className="flex h-20 w-20 items-center justify-center rounded-full border border-yellow-500 bg-[#1F1F1F] shadow-lg">
-              <span className="text-4xl font-bold text-[#D4AF37]">
-                S
-              </span>
-            </div>
-          </div>
+          <Link to={ROUTES.HOME} className="flex justify-center hover:opacity-80 transition">
+            <img src={noovacorLogo} alt="Noovacor Logo" className="h-20 w-20 object-contain" />
+          </Link>
 
           {/* Heading */}
           <div className="mt-6 text-center">
@@ -116,7 +113,7 @@ const ForgotPassword = () => {
 
           {/* Footer.. */}
           <div className="mt-8 border-t border-gray-800 pt-5 text-center text-xs text-gray-500">
-            © 2026 Salwa Trading. All Rights Reserved.
+            © 2026 Noovacor. All Rights Reserved.
           </div>
 
         </div>

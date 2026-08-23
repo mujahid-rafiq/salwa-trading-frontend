@@ -7,6 +7,7 @@ import AuthApi from "../../services/AuthApi";
 import type { RootState } from "../../redux/store";
 import { Role } from "../../enums/Role";
 import { CloseIcon } from "../../svg";
+import noovacorLogo from "../../assets/noovacorLogo.png";
 
 const NavItem: React.FC<{ to: string; label: string; onClick?: () => void }> = ({ to, label, onClick }) => (
   <NavLink
@@ -48,7 +49,7 @@ const Sidebar: React.FC<{ onClose?: () => void; hideHeader?: boolean; fullWidth?
 >
       {!hideHeader && (
         <div className="mb-8 flex items-center gap-3 px-2">
-          <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-yellow-400 to-amber-600 flex items-center justify-center text-black font-bold">S</div>
+          <img src={noovacorLogo} alt="Noovacor Logo" className="h-10 w-10 object-contain" />
           <div className="ml-auto md:hidden">
             {onClose && (
               <button onClick={onClose} aria-label="Close menu" className="text-gray-300 p-2 cursor-pointer">
@@ -57,7 +58,7 @@ const Sidebar: React.FC<{ onClose?: () => void; hideHeader?: boolean; fullWidth?
             )}
           </div>
           <div>
-            <div className="text-sm font-semibold text-white">Salwa Trading</div>
+            <div className="text-sm font-semibold text-white">Noovacor</div>
             <div className="text-xs text-gray-400">Dashboard</div>
           </div>
         </div>

@@ -190,7 +190,7 @@ const faqItems = [
   },
   {
     question: "Can I track my investment?",
-    answer: "Yes. Investment activity can be monitored through your Salwa Trading dashboard.",
+    answer: "Yes. Investment activity can be monitored through your Noovacor dashboard.",
   },
   {
     question: "Is property investment risk-free?",
@@ -240,7 +240,7 @@ const PropertyInvestmentPage: React.FC = () => {
               Real estate has long been an important part of diversified investment strategies. Property can provide opportunities connected to ownership, development, rental activity and long-term asset value.
             </p>
             <p>
-              Salwa Property Investment gives users an accessible way to explore property-focused investment opportunities through a structured digital experience.
+              Noovacor Property Investment gives users an accessible way to explore property-focused investment opportunities through a structured digital experience.
             </p>
           </div>
         </div>
@@ -344,7 +344,7 @@ const PropertyInvestmentPage: React.FC = () => {
               },
               {
                 title: "Invest",
-                description: "Complete the investment process through your Salwa account.",
+                description: "Complete the investment process through your Noovacor account.",
               },
               {
                 title: "Track",
@@ -557,7 +557,7 @@ const PropertyInvestmentPage: React.FC = () => {
             <div className="w-full max-w-3xl rounded-[2rem] border border-white/10  p-10 ">
               <h2 className="text-3xl font-semibold text-white sm:text-4xl">Ready to Explore Property Investment?</h2>
               <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-white sm:text-lg">
-                Discover real estate investment opportunities with Salwa and take the next step toward building exposure to real assets.
+                Discover real estate investment opportunities with Noovacor and take the next step toward building exposure to real assets.
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <button className="cursor-pointer inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-8 py-3 text-sm font-semibold text-black transition duration-300 hover:shadow-[0_0_24px_rgba(212,175,55,0.24)]" onClick={handleExploreInvestment}>
