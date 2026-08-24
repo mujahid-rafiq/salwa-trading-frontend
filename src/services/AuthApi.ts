@@ -10,6 +10,7 @@ export type RegisterDto = {
   email: string;
   phoneNumber: string;
   password: string;
+  referralCode?: string;
 };
 
 export type ForgotPasswordDto = {

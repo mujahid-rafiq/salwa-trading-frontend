@@ -13,6 +13,7 @@ const Signup = () => {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const referralCode = new URLSearchParams(window.location.search).get("referralCode") || "";
   const registerMutation = useRegisterMutation();
 
   const formik = useFormik<RegisterDto>({
@@ -22,6 +23,7 @@ const Signup = () => {
       phoneNumber: "",
       password: "",
       confirmPassword: "",
+      referralCode,
     },
     validationSchema: RegisterDto.yupSchema(),
     onSubmit: async (values: RegisterDto, { setSubmitting }: FormikHelpers<RegisterDto>) => {
@@ -33,6 +35,7 @@ const Signup = () => {
             email: values?.email,
             phoneNumber: values?.phoneNumber,
             password: values?.password,
+            referralCode: values?.referralCode || undefined,
           }),
           {
             pending: "Creating account...",
@@ -78,6 +81,19 @@ const Signup = () => {
 
           {/* Form */}
           <form onSubmit={formik.handleSubmit} className="mt-8 space-y-5">
+
+            <div>
+              <label className="mb-2 block text-sm text-gray-300">Referral Code (optional)</label>
+              <input
+                name="referralCode"
+                type="text"
+                placeholder="Enter referral code"
+                value={formik.values.referralCode}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className="w-full rounded-xl border border-gray-700 bg-[#1E1E1E] px-4 py-3 text-white placeholder:text-gray-500 outline-none transition duration-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-yellow-500/20"
+              />
+            </div>
 
             <div>
               <label className="mb-2 block text-sm text-gray-300">Full Name</label>

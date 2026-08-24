@@ -10,6 +10,7 @@ export const ROUTES = {
   PACKAGES: "/packages",
   PACKAGE_DETAILS: "/packages/:id",
   WITHDRAW: "/withdraw",
+  REFERRALS: "/referrals",
   SETTINGS: "/settings",
   MEDICAL_INVESTMENT: "/investments/medical",
   PROPERTY_INVESTMENT: "/investments/property",
