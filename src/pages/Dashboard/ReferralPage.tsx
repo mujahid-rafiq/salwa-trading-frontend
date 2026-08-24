@@ -8,6 +8,9 @@ const ReferralPage: React.FC = () => {
   const [details, setDetails] = useState<ReferralDetails | null>(null);
   const [loading, setLoading] = useState(true);
   const referralApi = new ReferralApi();
+  const referralLink = details?.referralCode
+    ? `${window.location.origin}/signup?referralCode=${details.referralCode}`
+    : "";
 
   useEffect(() => {
     referralApi.getMine()
@@ -17,8 +20,8 @@ const ReferralPage: React.FC = () => {
   }, []);
 
   const copyLink = async () => {
-    if (!details?.referralLink) return;
-    await navigator.clipboard.writeText(details.referralLink);
+    if (!referralLink) return;
+    await navigator.clipboard.writeText(referralLink);
     toast.success("Referral link copied.");
   };
 
@@ -41,13 +44,13 @@ const ReferralPage: React.FC = () => {
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <input
             readOnly
-            value={loading ? "Loading..." : details?.referralLink || ""}
+            value={loading ? "Loading..." : referralLink}
             className="min-w-0 flex-1 rounded-lg border border-gray-700 bg-[#0b1220] px-3 py-2 text-sm text-gray-200"
           />
           <button
             type="button"
             onClick={copyLink}
-            disabled={!details?.referralLink}
+            disabled={!referralLink}
             className="rounded-lg bg-yellow-500 px-4 py-2 text-sm font-semibold text-black disabled:opacity-50"
           >
             Copy Link
