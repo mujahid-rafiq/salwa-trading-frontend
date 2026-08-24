@@ -6,6 +6,7 @@ export class RegisterDto {
   phoneNumber!: string;
   password!: string;
   confirmPassword!: string;
+  referralCode?: string;
 
   static yupSchema() {
     return yup.object().shape({

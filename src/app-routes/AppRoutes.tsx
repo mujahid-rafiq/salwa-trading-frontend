@@ -29,6 +29,7 @@ import DashboardPage from "../pages/Dashboard/DashboardPage";
 import AdminDashboardPage from "../pages/Dashboard/AdminDashboardPage";
 import Signup from "../pages/Auth/SignupPage";
 import LandingPage from "../pages/Landing/LandingPage";
+import ReferralPage from "../pages/Dashboard/ReferralPage";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -88,6 +89,7 @@ const AppRoutes: React.FC = () => {
       <Route path={ROUTES.PROFILEPAGE} element={<RequireAuth><ProfilePage /></RequireAuth>} />
       <Route path={ROUTES.PACKAGES} element={<RequireAuth><Packages /></RequireAuth>} />
       <Route path={ROUTES.WITHDRAW} element={<RequireAuth><Layout><WithdrawPage /></Layout></RequireAuth>} />
+      <Route path={ROUTES.REFERRALS} element={<RequireAuth><Layout><ReferralPage /></Layout></RequireAuth>} />
       <Route path={ROUTES.MEDICAL_INVESTMENT} element={
         <RequireAuth>
           <Layout>
