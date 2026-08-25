@@ -1,6 +1,6 @@
 import { useFormik, type FormikHelpers } from "formik";
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { useRegisterMutation } from "../../mutation/useAuth";
 import { RegisterDto } from "../../dto/register.dto";
 import { toast } from "react-toastify";
@@ -10,10 +10,11 @@ import noovacorLogo from "../../assets/noovacorLogo.png";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const referralCode = new URLSearchParams(window.location.search).get("referralCode") || "";
+  const referralCode = searchParams.get("referralCode")?.trim() || "";
   const registerMutation = useRegisterMutation();
 
   const formik = useFormik<RegisterDto>({

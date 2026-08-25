@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../app-routes/constants";
 // import { RootState } from "../../redux/store";
 import AuthApi from "../../services/AuthApi";
@@ -11,6 +11,7 @@ import { MenuIcon } from "../../svg";
 
 const Topbar: React.FC<{ onToggle?: () => void }> = ({ onToggle }) => {
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
   const user = useSelector((state: RootState) => state.auth.user);
   const authApi = new AuthApi();
 
@@ -43,7 +44,9 @@ const Topbar: React.FC<{ onToggle?: () => void }> = ({ onToggle }) => {
         <button onClick={onToggle} aria-label="Toggle menu" className="text-gray-300 md:hidden p-2 cursor-pointer">
           <MenuIcon className="h-6 w-6 text-gray-300" />
         </button>
-        <div className="text-lg font-semibold text-white">Dashboard</div>
+        {!pathname.startsWith("/admin") && (
+          <div className="text-lg font-semibold text-white">Dashboard</div>
+        )}
       </div>
 
       <div className="flex items-center gap-4">
