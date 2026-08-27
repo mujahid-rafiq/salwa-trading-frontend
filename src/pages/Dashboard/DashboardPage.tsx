@@ -62,7 +62,11 @@ const DashboardPage: React.FC = () => {
     loadDashboardData();
   }, []);
 
-  const depositAmount = requests.reduce((sum, request) => sum + Number(request.amount || 0), 0);
+  const approvedRequests = requests.filter((request) => request.status === "Approved");
+  const depositAmount = approvedRequests.reduce(
+    (sum, request) => sum + Number(request.amount || 0),
+    0,
+  );
   const displayName = user?.fullName || "User";
 
   const formatCurrency = (value: number) =>
@@ -106,7 +110,7 @@ const DashboardPage: React.FC = () => {
 
         <StatCard
           title="Total Requests"
-          value={loading ? "..." : `${requests.length}`}
+          value={loading ? "..." : `${approvedRequests.length}`}
         />
 
         <StatCard
