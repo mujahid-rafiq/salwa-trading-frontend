@@ -43,7 +43,7 @@ const PackageDetails = () => {
         {/* Body */}
         <div className="grid gap-6 p-6 md:grid-cols-2">
 
-          {/* Left column: package + transaction + status */}
+          {/* Left column: package + transaction + status.. */}
           <div className="space-y-5">
             {/* Selected Package - compact */}
             <div className="rounded-xl border border-yellow-500/20 bg-gradient-to-r from-yellow-500/10 to-yellow-500/5 p-4">
