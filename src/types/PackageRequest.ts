@@ -2,6 +2,7 @@ export type PackageRequest = {
   id: number;
   packageName: string;
   amount: number;
+  paymentMethod?: string;
   profitRate: string;
   duration: string;
   transactionId?: string;

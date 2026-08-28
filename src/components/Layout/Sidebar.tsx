@@ -7,7 +7,7 @@ import AuthApi from "../../services/AuthApi";
 import type { RootState } from "../../redux/store";
 import { Role } from "../../enums/Role";
 import { CloseIcon } from "../../svg";
-import noovacorLogo from "../../assets/noovacorLogo.png";
+import noovacorLogo from "../../assets/newLogo.jpeg";
 
 const NavItem: React.FC<{ to: string; label: string; onClick?: () => void }> = ({ to, label, onClick }) => (
   <NavLink
@@ -66,6 +66,7 @@ const Sidebar: React.FC<{ onClose?: () => void; hideHeader?: boolean; fullWidth?
 
       <nav className="flex-1 space-y-1">
         <NavItem to={ROUTES.DASHBOARD} label="Dashboard" onClick={onClose} />
+        <NavItem to={ROUTES.DEPOSIT_HISTORY} label="Profit History" onClick={onClose} />
         <NavItem to={ROUTES.REFERRALS} label="Referrals" onClick={onClose} />
         {user?.role === Role.ADMIN && (
           <div className="rounded-3xl border border-yellow-500/10 bg-yellow-500/5 p-3">

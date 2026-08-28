@@ -6,7 +6,11 @@ import scanImage from "../../assets/scan.jpeg";
 
 const walletAddress = "0xb1e5701a80679eafbb2d470505a56fa5e6ed4dffce7a0cf2737ca9ab80b4232f";
 
-const PaymentInfo = () => {
+interface PaymentInfoProps {
+  amount?: number;
+}
+
+const PaymentInfo: React.FC<PaymentInfoProps> = ({ amount }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopyAddress = async () => {
@@ -25,7 +29,7 @@ const PaymentInfo = () => {
       <div className="mb-6">
         <h3 className="text-xl font-semibold text-white">Deposit Information</h3>
         <p className="mt-1 text-sm text-gray-400">
-          Send the exact package amount to one of the following accounts.
+          Send the exact {amount ? `$${amount.toFixed(2)}` : "deposit"} amount to the payment account below.
         </p>
       </div>
 

@@ -1,7 +1,7 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../app-routes/constants";
-import noovacorLogo from "../../assets/noovacorLogo.png";
+import noovacorLogo from "../../assets/newLogo.jpeg";
 
 const LandingFooter = () => (
   <footer className="border-t border-white/10 bg-[#080808] px-6 py-12 lg:px-10">

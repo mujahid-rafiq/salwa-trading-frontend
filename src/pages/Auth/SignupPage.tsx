@@ -6,7 +6,7 @@ import { RegisterDto } from "../../dto/register.dto";
 import { toast } from "react-toastify";
 import { EyeIcon, EyeOffIcon } from "../../svg";
 import { ROUTES } from "../../app-routes/constants";
-import noovacorLogo from "../../assets/noovacorLogo.png";
+import noovacorLogo from "../../assets/newLogo.jpeg";
 
 const Signup = () => {
   const navigate = useNavigate();

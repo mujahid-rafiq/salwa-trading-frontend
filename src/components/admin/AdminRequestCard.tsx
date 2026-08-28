@@ -33,6 +33,10 @@ const AdminRequestCard: React.FC<AdminRequestCardProps> = ({ request, actionLoad
         <span>{request.transactionId || "N/A"}</span>
       </div>
       <div className="flex items-center justify-between rounded-2xl bg-[#0f1724] p-3">
+        <span>Payment method</span>
+        <span>{request.paymentMethod || "N/A"}</span>
+      </div>
+      <div className="flex items-center justify-between rounded-2xl bg-[#0f1724] p-3">
         <span>Receipt</span>
         {request.paymentScreenshotUrl ? (
           <a

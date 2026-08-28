@@ -5,7 +5,7 @@ import useResponsive from "../../hooks/useResponsive";
 import { CloseIcon } from "../../svg";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
-import noovacorLogo from "../../assets/noovacorLogo.png";
+import noovacorLogo from "../../assets/newLogo.jpeg";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { pathname } = useLocation();

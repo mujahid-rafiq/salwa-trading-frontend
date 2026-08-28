@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ROUTES } from "../../app-routes/constants";
 import { useForgotPasswordMutation } from "../../mutation/useAuth";
-import noovacorLogo from "../../assets/noovacorLogo.png";
+import noovacorLogo from "../../assets/newLogo.jpeg";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();

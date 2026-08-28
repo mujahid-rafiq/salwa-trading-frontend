@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { EyeIcon, EyeOffIcon } from "../../svg";
 import { setAuth } from "../../redux/slices/authSlice";
 import { Role } from "../../enums/Role";
-import noovacorLogo from "../../assets/noovacorLogo.png";
+import noovacorLogo from "../../assets/newLogo.jpeg";
 
 const Login = () => {
   const navigate = useNavigate();

@@ -3,6 +3,7 @@ import { BaseAPIService } from "./baseApi.service";
 export type CreatePackageRequestDto = {
   packageName: string;
   amount: number;
+  paymentMethod: string;
   profitRate: string;
   duration: string;
   transactionId?: string;
@@ -32,6 +33,11 @@ export default class PackageRequestApi extends BaseAPIService {
 
   async getMyRequests() {
     const { data } = await this.get(`${this.baseUrl}/me`);
+    return data;
+  }
+
+  async getProfitHistory() {
+    const { data } = await this.get(`${this.baseUrl}/me/profit-history`);
     return data;
   }
 
