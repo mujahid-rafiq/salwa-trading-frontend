@@ -36,6 +36,7 @@ const AdminRequestsTable = ({
               <th className="px-4 py-3">Profit</th>
               <th className="px-4 py-3">Duration</th>
               <th className="px-4 py-3">Transaction ID</th>
+              <th className="px-4 py-3">Payment Method</th>
               <th className="px-4 py-3">Receipt</th>
               <th className="px-4 py-3">User</th>
               <th className="px-4 py-3">Actions</th>
@@ -49,6 +50,7 @@ const AdminRequestsTable = ({
                 <td className="px-4 py-4 text-gray-300">{request.profitRate}</td>
                 <td className="px-4 py-4 text-gray-300">{request.duration}</td>
                 <td className="px-4 py-4 text-gray-300">{request.transactionId || "N/A"}</td>
+                <td className="px-4 py-4 text-gray-300">{request.paymentMethod || "N/A"}</td>
                 <td className="px-4 py-4 text-gray-300">
                   {request.paymentScreenshotUrl ? (
                     <a

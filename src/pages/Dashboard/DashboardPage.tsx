@@ -155,31 +155,61 @@ const DashboardPage: React.FC = () => {
               No package requests yet. Buy a package to start the approval flow.
             </div>
           ) : (
-            <div className="mt-6 overflow-x-auto rounded-2xl border border-gray-700 bg-[#111827]">
-              <table className="min-w-full border-collapse text-left text-sm">
-                <thead>
-                  <tr className="border-b border-gray-800 bg-[#111827] text-gray-400">
-                    <th className="px-4 py-3">Package</th>
-                    <th className="px-4 py-3">Amount</th>
-                    <th className="px-4 py-3">Duration</th>
-                    <th className="px-4 py-3">Transaction ID</th>
-                    <th className="px-4 py-3">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {requests.map((request) => (
-                    <tr key={request.id} className="border-b border-gray-800 hover:bg-[#121827]">
-                      <td className="px-4 py-4 text-white">{request.packageName}</td>
-                      <td className="px-4 py-4 text-gray-300">${request.amount.toLocaleString()}</td>
-                      <td className="px-4 py-4 text-gray-300">{request.duration}</td>
-                      <td className="px-4 py-4 text-gray-300">{request.transactionId || "n/a"}</td>
-                      <td className="px-4 py-4">
-                        <StatusBadge status={request.status as "Pending" | "Approved" | "Rejected"} />
-                      </td>
+            <div className="mt-6">
+              <div className="space-y-3 md:hidden">
+                {requests.map((request) => (
+                  <article key={request.id} className="rounded-xl border border-gray-700 bg-[#111827] p-4">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-xs text-gray-400">Package</p>
+                        <p className="mt-1 font-semibold text-white">{request.packageName}</p>
+                      </div>
+                      <StatusBadge status={request.status as "Pending" | "Approved" | "Rejected"} />
+                    </div>
+                    <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
+                      <div>
+                        <dt className="text-xs text-gray-500">Amount</dt>
+                        <dd className="mt-1 text-gray-200">${request.amount.toLocaleString()}</dd>
+                      </div>
+                      <div>
+                        <dt className="text-xs text-gray-500">Duration</dt>
+                        <dd className="mt-1 text-gray-200">{request.duration}</dd>
+                      </div>
+                      <div className="col-span-2 min-w-0">
+                        <dt className="text-xs text-gray-500">Transaction ID</dt>
+                        <dd className="mt-1 break-all text-gray-200">{request.transactionId || "n/a"}</dd>
+                      </div>
+                    </dl>
+                  </article>
+                ))}
+              </div>
+
+              <div className="hidden overflow-x-auto rounded-2xl border border-gray-700 bg-[#111827] md:block">
+                <table className="min-w-full border-collapse text-left text-sm">
+                  <thead>
+                    <tr className="border-b border-gray-800 bg-[#111827] text-gray-400">
+                      <th className="px-4 py-3">Package</th>
+                      <th className="px-4 py-3">Amount</th>
+                      <th className="px-4 py-3">Duration</th>
+                      <th className="px-4 py-3">Transaction ID</th>
+                      <th className="px-4 py-3">Status</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {requests.map((request) => (
+                      <tr key={request.id} className="border-b border-gray-800 hover:bg-[#121827]">
+                        <td className="px-4 py-4 text-white">{request.packageName}</td>
+                        <td className="px-4 py-4 text-gray-300">${request.amount.toLocaleString()}</td>
+                        <td className="px-4 py-4 text-gray-300">{request.duration}</td>
+                        <td className="px-4 py-4 text-gray-300">{request.transactionId || "n/a"}</td>
+                        <td className="px-4 py-4">
+                          <StatusBadge status={request.status as "Pending" | "Approved" | "Rejected"} />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           )}
         </div>

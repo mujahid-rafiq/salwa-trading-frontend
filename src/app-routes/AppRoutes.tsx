@@ -7,7 +7,6 @@ import { ROUTES } from "./constants";
 import AdminRequestsPage from "../pages/admin/AdminRequestsPage";
 import AdminPaymentsPage from "../pages/admin/AdminPaymentsPage";
 import Packages from "../pages/Packages/Packages";
-import PackageDetails from "../pages/PackageDetails/PackageDetails";
 import MedicalInvestmentPage from "../pages/investments/MedicalInvestmentPage";
 import PropertyInvestmentPage from "../pages/investments/PropertyInvestmentPage";
 import TradingInvestmentPage from "../pages/investments/TradingInvestmentPage";
@@ -30,6 +29,7 @@ import AdminDashboardPage from "../pages/Dashboard/AdminDashboardPage";
 import Signup from "../pages/Auth/SignupPage";
 import LandingPage from "../pages/Landing/LandingPage";
 import ReferralPage from "../pages/Dashboard/ReferralPage";
+import DepositHistoryPage from "../pages/Dashboard/DepositHistoryPage";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -90,6 +90,7 @@ const AppRoutes: React.FC = () => {
       <Route path={ROUTES.PACKAGES} element={<RequireAuth><Packages /></RequireAuth>} />
       <Route path={ROUTES.WITHDRAW} element={<RequireAuth><Layout><WithdrawPage /></Layout></RequireAuth>} />
       <Route path={ROUTES.REFERRALS} element={<RequireAuth><Layout><ReferralPage /></Layout></RequireAuth>} />
+      <Route path={ROUTES.DEPOSIT_HISTORY} element={<RequireAuth><Layout><DepositHistoryPage /></Layout></RequireAuth>} />
       <Route path={ROUTES.MEDICAL_INVESTMENT} element={
         <RequireAuth>
           <Layout>
@@ -111,7 +112,6 @@ const AppRoutes: React.FC = () => {
           </Layout>
         </RequireAuth>
       } />
-      <Route path={ROUTES.PACKAGE_DETAILS} element={<RequireAuth><PackageDetails /></RequireAuth>} />
       <Route path={ROUTES.WITHDRAW} element={<RequireAuth><Layout><WithdrawPage /></Layout></RequireAuth>} />
       <Route path="*" element={<Navigate to={ROUTES.HOME} replace />} />
     </Routes>

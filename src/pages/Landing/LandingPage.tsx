@@ -11,7 +11,7 @@ import businessmanTrading from "../../assets/businessmanTrading.jpg";
 import candleStick from "../../assets/candleStick.jpg";
 import tabTrading from "../../assets/tabTrading.jpg";
 import tradingChart from "../../assets/TradingChart.jpg";
-import noovacorLogo from "../../assets/noovacorLogo.png";
+import noovacorLogo from "../../assets/newLogo.jpeg";
 
 const opportunities = [
   {

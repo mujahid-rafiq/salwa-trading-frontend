@@ -24,6 +24,8 @@ interface BuyPackageModalProps {
 }
 
 interface PurchaseFormValues {
+  amount: string;
+  paymentMethod: string;
   transactionId: string;
   paymentScreenshot: File | null;
 }
@@ -39,10 +41,16 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
 
   const formik = useFormik<PurchaseFormValues>({
     initialValues: {
+      amount: "",
+      paymentMethod: "Online USDT Deposit",
       transactionId: "",
       paymentScreenshot: null,
     },
     validationSchema: Yup.object({
+      amount: Yup.number()
+        .typeError("Please enter a valid amount")
+        .required("Amount is required")
+        .min(100, "Minimum deposit is $100"),
       transactionId: Yup.string()
         .trim()
         .required("Transaction ID is required")
@@ -61,6 +69,7 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
     }),
     onSubmit: async (values) => {
       try {
+        const amount = Number(values.amount);
         let paymentScreenshotUrl: string | undefined;
 
         if (values.paymentScreenshot) {
@@ -70,7 +79,8 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
 
         const dto: CreatePackageRequestDto = {
           packageName: selectedPackage?.name ?? "",
-          amount: selectedPackage?.price ?? 0,
+          amount,
+          paymentMethod: values.paymentMethod,
           profitRate: selectedPackage?.profit ?? "",
           duration: selectedPackage?.duration ?? "",
           transactionId: values.transactionId.trim(),
@@ -125,14 +135,35 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
           <div className="rounded-2xl border border-yellow-500/20 bg-yellow-500/5 p-5">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm text-gray-400">Selected Package</p>
-                <h3 className="mt-2 text-2xl font-bold text-yellow-400">{selectedPackage.name}</h3>
-                <p className="text-sm text-gray-300">{selectedPackage.profit} • {selectedPackage.duration}</p>
+                <p className="text-sm text-gray-400">Custom deposit</p>
+                <h3 className="mt-2 text-2xl font-bold text-yellow-400">Choose your amount</h3>
+                <p className="text-sm text-gray-300">Minimum deposit: $100</p>
               </div>
-              <div className="text-right">
-                <p className="text-sm text-gray-400">Investment</p>
-                <h2 className="mt-2 text-4xl font-bold text-white">${selectedPackage.price}</h2>
+            </div>
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label className="mb-2 block text-sm text-gray-300">Payment method</label>
+              <div className="w-full rounded-xl border border-yellow-500 bg-[#1D1D1D] px-4 py-3 text-white">
+                Online USDT Deposit
               </div>
+            </div>
+
+            <div>
+              <label className="mb-2 block text-sm text-gray-300">Enter amount (USDT)</label>
+              <input
+                name="amount"
+                value={formik.values.amount}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                type="number"
+                min="100"
+                step="0.01"
+                placeholder="Minimum $100"
+                className="w-full rounded-xl border border-gray-700 bg-[#1D1D1D] px-4 py-3 text-white outline-none transition focus:border-yellow-500"
+              />
+              {formik.touched.amount && formik.errors.amount ? <p className="mt-2 text-xs text-red-400">{formik.errors.amount}</p> : null}
             </div>
           </div>
 
@@ -152,7 +183,7 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
             ) : null}
           </div>
 
-          <PaymentInfo />
+          <PaymentInfo amount={Number(formik.values.amount) || undefined} />
           <FileUpload
             value={formik.values.paymentScreenshot}
             onChange={(file) => {

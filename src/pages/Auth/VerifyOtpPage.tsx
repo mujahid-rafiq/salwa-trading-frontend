@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { Loader2 } from "lucide-react";
 import { useVerifyOtpMutation, useActivateAccountMutation, useResetPasswordMutation } from "../../mutation/useAuth";
 import { ROUTES } from "../../app-routes/constants";
-import noovacorLogo from "../../assets/noovacorLogo.png";
+import noovacorLogo from "../../assets/newLogo.jpeg";
 
 const OtpVerificationPage = () => {
   const location = useLocation();
