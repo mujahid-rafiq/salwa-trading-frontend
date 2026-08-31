@@ -66,16 +66,16 @@ const WithdrawPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="space-y-6">
-      <div className="rounded-2xl border border-gray-800 bg-[#0f1724] p-6">
+    <div className="space-y-4 md:space-y-6">
+      <div className="rounded-2xl border border-gray-800 bg-[#0f1724] p-4 md:p-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-semibold text-white">Withdraw Funds</h2>
-            <p className="text-sm text-gray-400">Withdraw from your earnings or team bonus.</p>
+            <h2 className="text-lg font-semibold text-white md:text-xl">Withdraw Funds</h2>
+            <p className="text-xs text-gray-400 md:text-sm">Withdraw from your earnings or team bonus.</p>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="mt-6 space-y-4 max-w-md">
+        <form onSubmit={handleSubmit} className="mt-6 w-full max-w-md space-y-4">
           {/* Available Balance (commented out per request)
           <div>
             <label className="text-sm text-gray-300">Available Balance</label>
@@ -86,7 +86,7 @@ const WithdrawPage: React.FC = () => {
 
           <div>
             <label className="block text-sm text-gray-300">Source</label>
-            <div className="mt-2 flex gap-4">
+            <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:gap-4">
               <label className="inline-flex items-center gap-2 text-sm text-gray-200">
                 <input type="radio" name="source" value="earnings" checked={source === "earnings"} onChange={() => setSource("earnings")} />
                 Earnings
@@ -106,25 +106,25 @@ const WithdrawPage: React.FC = () => {
               step="0.01"
               value={amount ?? ""}
               onChange={(e) => setAmount(e.target.value ? Number(e.target.value) : undefined)}
-              className="mt-2 w-full rounded-md bg-[#0b1220] border border-gray-700 px-3 py-2 text-white"
+              className="mt-2 w-full rounded-md border border-gray-700 bg-[#0b1220] px-3 py-2 text-white"
               placeholder="Enter amount to withdraw"
             />
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <button
               type="submit"
               disabled={
                 loading || !amount || amount <= 0 || (source === "earnings" ? amount > earnings : amount > bonus)
               }
-              className="rounded-lg cursor-pointer bg-yellow-500 px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-yellow-400 disabled:opacity-60"
+              className="rounded-lg bg-yellow-500 px-4 py-2.5 text-sm font-semibold text-black transition hover:bg-yellow-400 disabled:opacity-60 sm:px-5"
             >
               {loading ? "Submitting..." : "Withdraw"}
             </button>
 
             <button
               type="button"
-              className="rounded-lg border border-gray-700 px-5 py-2.5 text-sm text-gray-200"
+              className="rounded-lg border border-gray-700 px-4 py-2.5 text-sm text-gray-200 sm:px-5"
               onClick={() => navigate(-1)}
             >
               Cancel

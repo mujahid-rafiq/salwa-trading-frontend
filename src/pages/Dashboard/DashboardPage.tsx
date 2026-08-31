@@ -13,11 +13,11 @@ const StatCard: React.FC<{
   value: string;
   subtitle?: string;
 }> = ({ title, value, subtitle }) => (
-  <div className="rounded-2xl border border-gray-800 bg-gradient-to-tr from-[#111827] to-[#0b1220] p-6 shadow-lg transition-all duration-300 hover:border-yellow-500/30 hover:shadow-yellow-500/10">
-    <div className="text-xs text-gray-400">{title}</div>
-    <div className="mt-2 text-3xl font-bold text-white">{value}</div>
+  <div className="rounded-2xl border border-gray-800 bg-gradient-to-tr from-[#111827] to-[#0b1220] p-4 shadow-lg transition-all duration-300 hover:border-yellow-500/30 hover:shadow-yellow-500/10 sm:p-6">
+    <div className="text-[10px] text-gray-400 sm:text-xs">{title}</div>
+    <div className="mt-2 text-2xl font-bold text-white sm:text-3xl">{value}</div>
     {subtitle && (
-      <div className="mt-1 text-xs text-gray-400">{subtitle}</div>
+      <div className="mt-1 text-[10px] text-gray-400 sm:text-xs">{subtitle}</div>
     )}
   </div>
 );
@@ -77,21 +77,21 @@ const DashboardPage: React.FC = () => {
     })}`;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {/* Welcome Card */}
-      <div className="rounded-2xl border border-yellow-500/10 bg-gradient-to-r from-yellow-500/10 to-amber-700/5 p-6">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+      <div className="rounded-2xl border border-yellow-500/10 bg-gradient-to-r from-yellow-500/10 to-amber-700/5 p-4 md:p-6">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <h2 className="text-2xl font-bold text-white">
+            <h2 className="text-xl font-bold text-white md:text-2xl">
               Welcome back, {displayName}
             </h2>
 
-            <p className="mt-1 text-sm text-gray-300">
+            <p className="mt-1 text-xs text-gray-300 md:text-sm">
               Here's what's happening with your account today.
             </p>
           </div>
 
-          <div className="text-sm text-gray-400">
+          <div className="text-xs text-gray-400 md:text-sm">
             Current Date — {new Date().toLocaleString()}
           </div>
         </div>
@@ -113,20 +113,20 @@ const DashboardPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="dashboard-offer-card rounded-2xl border border-yellow-500/20 bg-[#0f1724] p-4 text-white shadow-lg shadow-yellow-500/5 sm:p-5">
-        <div className="dashboard-offer-title text-center text-[10px] font-semibold uppercase tracking-[0.1em] text-yellow-300 sm:text-sm sm:tracking-[0.18em]">
+      <div className="dashboard-offer-card rounded-2xl border border-yellow-500/20 bg-[#0f1724] p-3 text-white shadow-lg shadow-yellow-500/5 sm:p-5">
+        <div className="dashboard-offer-title text-center text-[9px] font-semibold uppercase tracking-[0.08em] text-yellow-300 sm:text-sm sm:tracking-[0.18em]">
           NOOVACOR — SIXER OFFER
         </div>
 
-        <p className="dashboard-offer-text mt-3 text-xs leading-5 text-gray-200 sm:text-sm sm:leading-7">
+        <p className="dashboard-offer-text mt-3 text-[11px] leading-5 text-gray-200 sm:text-sm sm:leading-7">
           Open an account with $100+, bring 6 members in 6 days, and get $100 cash.
         </p>
 
-        <div className="dashboard-offer-prize mt-3 rounded-xl border border-yellow-500/20 bg-gradient-to-r from-yellow-500/10 to-amber-500/5 px-2 py-2 text-center text-sm font-bold text-yellow-300 sm:text-lg">
+        <div className="dashboard-offer-prize mt-3 rounded-xl border border-yellow-500/20 bg-gradient-to-r from-yellow-500/10 to-amber-500/5 px-2 py-2 text-center text-xs font-bold text-yellow-300 sm:text-lg">
           🎁 $100 CASH GIFT
         </div>
 
-        <div className="dashboard-offer-points mt-3 text-[11px] text-gray-200 sm:flex-row sm:justify-center sm:gap-6 sm:text-sm">
+        <div className="dashboard-offer-points mt-3 flex flex-col gap-1 text-center text-[10px] text-gray-200 sm:flex-row sm:justify-center sm:gap-6 sm:text-sm">
           <span>🔥 6 Members = $100 Gift</span>
           <span>⏰ 6 Days Only</span>
           <span>💰 $100+ Each Member</span>
@@ -164,24 +164,23 @@ const DashboardPage: React.FC = () => {
       <div className="grid grid-cols-1 gap-6">
         
         {/* My Package Requests */}
-        <div className="rounded-2xl border border-gray-800 bg-[#0f1724] p-6">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h3 className="text-lg font-semibold text-white">My Package Requests</h3>
-            <p className="text-sm text-gray-400">Track your deposit requests and admin review status.</p>
+        <div className="rounded-2xl border border-gray-800 bg-[#0f1724] p-3 md:p-6">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="min-w-0">
+            <h3 className="text-base font-semibold text-white md:text-lg">My Package Requests</h3>
+            <p className="text-xs text-gray-400 md:text-sm">Track your deposit requests and admin review status.</p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
-            {/* <span className="text-sm text-gray-400">{loading ? "Loading..." : `${requests.length} total`}</span> */}
+          <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
             <button
               type="button"
-              className="cursor-pointer rounded-lg bg-yellow-500 px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-yellow-400"
+              className="cursor-pointer rounded-lg bg-yellow-500 px-4 py-2 text-xs font-semibold text-black transition hover:bg-yellow-400 sm:text-sm sm:px-5 sm:py-2.5"
               onClick={() => navigate(ROUTES.PACKAGES)}
             >
               Buy Package
             </button>
             <button
-              className="cursor-pointer rounded-lg border border-gray-700 px-5 py-2.5 text-sm text-gray-200 transition hover:border-yellow-500 hover:text-yellow-400"
+              className="cursor-pointer rounded-lg border border-gray-700 px-4 py-2 text-xs text-gray-200 transition hover:border-yellow-500 hover:text-yellow-400 sm:text-sm sm:px-5 sm:py-2.5"
               onClick={() => navigate(ROUTES.WITHDRAW)}
             >
               Withdraw
