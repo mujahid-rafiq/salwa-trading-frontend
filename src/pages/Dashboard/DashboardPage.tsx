@@ -6,6 +6,7 @@ import PackageRequestApi from "../../services/PackageRequestApi";
 import WithdrawApi from "../../services/WithdrawApi";
 import StatusBadge from "../../components/packages/StatusBadge";
 import type { RootState } from "../../redux/store";
+import "./DashboardPage.css";
 
 const StatCard: React.FC<{
   title: string;
@@ -94,6 +95,46 @@ const DashboardPage: React.FC = () => {
             Current Date — {new Date().toLocaleString()}
           </div>
         </div>
+      </div>
+
+      <div className="dashboard-promo-marquee">
+        <div className="dashboard-promo-line" />
+        <div className="dashboard-promo-track">
+          <span>SIXER OFFER</span>
+          <span>🎁 $100 CASH</span>
+          <span>6 MEMBERS</span>
+          <span>6 DAYS</span>
+          <span>JOIN NOW</span>
+          <span>SIXER OFFER</span>
+          <span>🎁 $100 CASH</span>
+          <span>6 MEMBERS</span>
+          <span>6 DAYS</span>
+          <span>JOIN NOW</span>
+        </div>
+      </div>
+
+      <div className="dashboard-offer-card rounded-2xl border border-yellow-500/20 bg-[#0f1724] p-4 text-white shadow-lg shadow-yellow-500/5 sm:p-5">
+        <div className="dashboard-offer-title text-center text-[10px] font-semibold uppercase tracking-[0.1em] text-yellow-300 sm:text-sm sm:tracking-[0.18em]">
+          NOOVACOR — SIXER OFFER
+        </div>
+
+        <p className="dashboard-offer-text mt-3 text-xs leading-5 text-gray-200 sm:text-sm sm:leading-7">
+          Open an account with $100+, bring 6 members in 6 days, and get $100 cash.
+        </p>
+
+        <div className="dashboard-offer-prize mt-3 rounded-xl border border-yellow-500/20 bg-gradient-to-r from-yellow-500/10 to-amber-500/5 px-2 py-2 text-center text-sm font-bold text-yellow-300 sm:text-lg">
+          🎁 $100 CASH GIFT
+        </div>
+
+        <div className="dashboard-offer-points mt-3 text-[11px] text-gray-200 sm:flex-row sm:justify-center sm:gap-6 sm:text-sm">
+          <span>🔥 6 Members = $100 Gift</span>
+          <span>⏰ 6 Days Only</span>
+          <span>💰 $100+ Each Member</span>
+        </div>
+
+        {/* <p className="mt-4 text-center text-sm text-gray-300">
+          This special promotion is called the “SIXER OFFER.” 🎯
+        </p> */}
       </div>
 
       {/* Wallet Cards */}
