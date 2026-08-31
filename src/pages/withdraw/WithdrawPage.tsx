@@ -70,6 +70,11 @@ const WithdrawPage: React.FC = () => {
       return;
     }
 
+    if (amount < 20) {
+      toast.error("Minimum withdrawal amount is $20.");
+      return;
+    }
+
     if (selectedMethod === "Bank transfer" && (!formData.bankName || !formData.iban || !formData.mobileNumber)) {
       toast.error("Please enter bank name, IBAN, and mobile number.");
       return;

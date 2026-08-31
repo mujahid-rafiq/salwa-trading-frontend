@@ -67,6 +67,7 @@ const Sidebar: React.FC<{ onClose?: () => void; hideHeader?: boolean; fullWidth?
       <nav className="flex-1 space-y-1">
         <NavItem to={ROUTES.DASHBOARD} label="Dashboard" onClick={onClose} />
         <NavItem to={ROUTES.DEPOSIT_HISTORY} label="Profit History" onClick={onClose} />
+        <NavItem to={ROUTES.WITHDRAWAL_HISTORY} label="Withdrawal History" onClick={onClose} />
         <NavItem to={ROUTES.REFERRALS} label="Referrals" onClick={onClose} />
         {user?.role === Role.ADMIN && (
           <div className="rounded-3xl border border-yellow-500/10 bg-yellow-500/5 p-3">

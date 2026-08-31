@@ -30,6 +30,7 @@ import Signup from "../pages/Auth/SignupPage";
 import LandingPage from "../pages/Landing/LandingPage";
 import ReferralPage from "../pages/Dashboard/ReferralPage";
 import DepositHistoryPage from "../pages/Dashboard/DepositHistoryPage";
+import WithdrawalHistoryPage from "../pages/Dashboard/WithdrawalHistoryPage";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -90,6 +91,7 @@ const AppRoutes: React.FC = () => {
       <Route path={ROUTES.PACKAGES} element={<RequireAuth><Packages /></RequireAuth>} />
       <Route path={ROUTES.WITHDRAW} element={<RequireAuth><Layout><WithdrawPage /></Layout></RequireAuth>} />
       <Route path={ROUTES.REFERRALS} element={<RequireAuth><Layout><ReferralPage /></Layout></RequireAuth>} />
+      <Route path={ROUTES.WITHDRAWAL_HISTORY} element={<RequireAuth><Layout><WithdrawalHistoryPage /></Layout></RequireAuth>} />
       <Route path={ROUTES.DEPOSIT_HISTORY} element={<RequireAuth><Layout><DepositHistoryPage /></Layout></RequireAuth>} />
       <Route path={ROUTES.MEDICAL_INVESTMENT} element={
         <RequireAuth>
