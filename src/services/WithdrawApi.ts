@@ -28,6 +28,11 @@ export default class WithdrawApi extends BaseAPIService {
     return data;
   }
 
+  async getMyHistory() {
+    const { data } = await this.get(`${this.baseUrl}/me/history`);
+    return data;
+  }
+
   async getPendingWithdrawals() {
     const { data } = await this.get(`${this.baseUrl}/admin/pending`);
     return data;
