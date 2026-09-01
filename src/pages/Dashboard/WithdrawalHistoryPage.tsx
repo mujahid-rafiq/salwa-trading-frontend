@@ -27,7 +27,11 @@ const WithdrawalHistoryPage: React.FC = () => {
   useEffect(() => {
     withdrawApi
       .getMyHistory()
-      .then((data) => setHistory(data ?? []))
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setHistory(data);
+        }
+      })
       .catch(() => toast.error("Failed to load withdrawal history."))
       .finally(() => setLoading(false));
   }, []);
@@ -57,44 +61,92 @@ const WithdrawalHistoryPage: React.FC = () => {
             No withdrawal requests yet.
           </div>
         ) : (
-          <div className="mt-6 overflow-x-auto rounded-xl border border-gray-700">
-            <table className="min-w-[640px] w-full border-collapse text-left text-[11px] md:text-sm">
-              <thead>
-                <tr className="border-b border-gray-800 bg-[#111827] text-gray-400">
-                  <th className="px-2 py-3 md:px-4">Date</th>
-                  <th className="px-2 py-3 md:px-4">Source</th>
-                  <th className="px-2 py-3 md:px-4">Method</th>
-                  <th className="px-2 py-3 md:px-4">Amount</th>
-                  <th className="px-2 py-3 md:px-4">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {history.map((entry) => (
-                  <tr key={entry.id} className="border-b border-gray-800 text-gray-300 hover:bg-[#121827]">
-                    <td className="whitespace-nowrap px-2 py-3 md:px-4">{new Date(entry.createdAt).toLocaleString()}</td>
-                    <td className="px-2 py-3 text-white capitalize md:px-4">{entry.source}</td>
-                    <td className="px-2 py-3 md:px-4">{entry.paymentMethod || "N/A"}</td>
-                    <td className="px-2 py-3 font-semibold text-white md:px-4">{formatCurrency(entry.amount)}</td>
-                    <td className="px-2 py-3 md:px-4">
-                      <span
-                        className={
-                          `inline-flex rounded-full px-2 py-1 text-[10px] font-medium md:px-2.5 md:text-xs ${
-                            entry.status === "Completed"
-                              ? "bg-emerald-500/15 text-emerald-300"
-                              : entry.status === "Rejected"
-                                ? "bg-red-500/15 text-red-300"
-                                : "bg-yellow-500/15 text-yellow-300"
-                          }`
-                        }
-                      >
-                        {entry.status}
-                      </span>
-                    </td>
+          <>
+            <div className="mt-6 space-y-3 md:hidden">
+              {history.map((entry) => (
+                <div key={entry.id} className="rounded-xl border border-gray-700 bg-[#111827] p-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-[10px] uppercase tracking-wide text-gray-400">Request</span>
+                    <span
+                      className={
+                        `inline-flex rounded-full px-2 py-1 text-[10px] font-medium ${
+                          entry.status === "Completed"
+                            ? "bg-emerald-500/15 text-emerald-300"
+                            : entry.status === "Rejected"
+                              ? "bg-red-500/15 text-red-300"
+                              : "bg-yellow-500/15 text-yellow-300"
+                        }`
+                      }
+                    >
+                      {entry.status}
+                    </span>
+                  </div>
+
+                  <div className="mt-3 grid grid-cols-2 gap-2 text-[11px]">
+                    <div>
+                      <p className="text-gray-500">Date</p>
+                      <p className="mt-1 text-gray-200">{new Date(entry.createdAt).toLocaleDateString()}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500">Amount</p>
+                      <p className="mt-1 font-semibold text-white">{formatCurrency(entry.amount)}</p>
+                    </div>
+                    <div className="col-span-2">
+                      <p className="text-gray-500">Source</p>
+                      <p className="mt-1 text-white capitalize">{entry.source}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500">Method</p>
+                      <p className="mt-1 text-gray-200">{entry.paymentMethod || "N/A"}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500">Status</p>
+                      <p className="mt-1 font-medium text-white">{entry.status}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-6 hidden overflow-x-auto rounded-xl border border-gray-700 md:block">
+              <table className="min-w-[640px] w-full border-collapse text-left text-[11px] md:text-sm">
+                <thead>
+                  <tr className="border-b border-gray-800 bg-[#111827] text-gray-400">
+                    <th className="px-2 py-3 md:px-4">Date</th>
+                    <th className="px-2 py-3 md:px-4">Source</th>
+                    <th className="px-2 py-3 md:px-4">Method</th>
+                    <th className="px-2 py-3 md:px-4">Amount</th>
+                    <th className="px-2 py-3 md:px-4">Status</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {history.map((entry) => (
+                    <tr key={entry.id} className="border-b border-gray-800 text-gray-300 hover:bg-[#121827]">
+                      <td className="whitespace-nowrap px-2 py-3 md:px-4">{new Date(entry.createdAt).toLocaleString()}</td>
+                      <td className="px-2 py-3 text-white capitalize md:px-4">{entry.source}</td>
+                      <td className="px-2 py-3 md:px-4">{entry.paymentMethod || "N/A"}</td>
+                      <td className="px-2 py-3 font-semibold text-white md:px-4">{formatCurrency(entry.amount)}</td>
+                      <td className="px-2 py-3 md:px-4">
+                        <span
+                          className={
+                            `inline-flex rounded-full px-2 py-1 text-[10px] font-medium md:px-2.5 md:text-xs ${
+                              entry.status === "Completed"
+                                ? "bg-emerald-500/15 text-emerald-300"
+                                : entry.status === "Rejected"
+                                  ? "bg-red-500/15 text-red-300"
+                                  : "bg-yellow-500/15 text-yellow-300"
+                            }`
+                          }
+                        >
+                          {entry.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
       </div>
     </div>
