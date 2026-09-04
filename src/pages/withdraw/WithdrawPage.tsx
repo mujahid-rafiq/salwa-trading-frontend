@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ROUTES } from "../../app-routes/constants";
@@ -53,6 +53,7 @@ const WithdrawPage: React.FC = () => {
   const navigate = useNavigate();
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethod>("Bank transfer");
   const [formData, setFormData] = useState<FormState>(initialFormState);
+  const [availableBalance, setAvailableBalance] = useState(0);
   const [submitting, setSubmitting] = useState(false);
 
   const activeFields = useMemo(() => methodFields[selectedMethod], [selectedMethod]);
@@ -72,6 +73,11 @@ const WithdrawPage: React.FC = () => {
 
     if (amount < 20) {
       toast.error("Minimum withdrawal amount is $20.");
+      return;
+    }
+
+    if (amount > availableBalance) {
+      toast.error("Withdrawal amount exceeds your available balance.");
       return;
     }
 
@@ -95,7 +101,7 @@ const WithdrawPage: React.FC = () => {
     try {
       await withdrawApi.withdraw({
         amount,
-        source: "earnings",
+        source: "combined",
         paymentMethod: selectedMethod,
         bankName: selectedMethod === "Bank transfer" ? formData.bankName : undefined,
         iban: selectedMethod === "Bank transfer" ? formData.iban : undefined,
@@ -115,6 +121,19 @@ const WithdrawPage: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    const loadBalance = async () => {
+      try {
+        const balance = await withdrawApi.getBalances();
+        setAvailableBalance(Number(balance?.total ?? Number(balance?.earnings ?? 0) + Number(balance?.bonus ?? 0)));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    loadBalance();
+  }, []);
+
   return (
     <div className="space-y-6">
       <div className="rounded-2xl border border-yellow-500/10 bg-gradient-to-r from-yellow-500/10 to-amber-700/5 p-6">
@@ -129,6 +148,12 @@ const WithdrawPage: React.FC = () => {
       </div>
 
       <div className="rounded-2xl border border-gray-800 bg-[#0f1724] p-6">
+        <div className="mb-6 rounded-lg border border-gray-700 bg-[#111827] px-4 py-3">
+          <div className="text-sm text-gray-400">Available balance</div>
+          <div className="mt-1 text-xl font-semibold text-white">${availableBalance.toFixed(2)}</div>
+          <div className="mt-1 text-xs text-gray-500">Investment profit and team bonus combined</div>
+        </div>
+
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {/* Available balance (commented out per request)
           <div>

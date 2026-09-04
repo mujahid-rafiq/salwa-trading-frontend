@@ -167,15 +167,17 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
             </div>
           </div>
 
+          <PaymentInfo amount={Number(formik.values.amount) || undefined} />
+
           <div>
-            <label className="mb-2 block text-sm text-gray-300">Transaction ID</label>
+            <label className="mb-2 block text-sm text-gray-300">Deposit Transaction ID</label>
             <input
               name="transactionId"
               value={formik.values.transactionId}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               type="text"
-              placeholder="Enter transaction ID"
+              placeholder="Enter deposit transaction ID"
               className="w-full rounded-xl border border-gray-700 bg-[#1D1D1D] px-4 py-3 text-white outline-none transition focus:border-yellow-500"
             />
             {formik.touched.transactionId && formik.errors.transactionId ? (
@@ -183,7 +185,6 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
             ) : null}
           </div>
 
-          <PaymentInfo amount={Number(formik.values.amount) || undefined} />
           <FileUpload
             value={formik.values.paymentScreenshot}
             onChange={(file) => {
@@ -213,7 +214,7 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
               disabled={formik.isSubmitting}
               className="cursor-pointer rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-6 py-3 font-semibold text-black transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {formik.isSubmitting ? "Submitting..." : "Submit Purchase"}
+              {formik.isSubmitting ? "Submitting..." : "Submit Deposit Request"}
             </button>
           </div>
         </form>

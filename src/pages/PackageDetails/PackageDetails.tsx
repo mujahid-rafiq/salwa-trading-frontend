@@ -102,7 +102,7 @@ const PackageDetails = () => {
             Cancel
           </button>
           <button className="rounded-lg bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-6 py-2.5 text-sm font-semibold text-black transition-all hover:scale-[1.03]">
-            Submit Purchase
+            Submit Deposit Request
           </button>
         </div>
       </div>
