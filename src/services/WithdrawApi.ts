@@ -2,7 +2,7 @@ import { BaseAPIService } from "./baseApi.service";
 
 export type WithdrawDto = {
   amount: number;
-  source: "earnings" | "bonus";
+  source: "earnings" | "bonus" | "combined";
   paymentMethod: "Bank transfer" | "EasyPaisa" | "JazzCash" | "USDT";
   bankName?: string;
   iban?: string;

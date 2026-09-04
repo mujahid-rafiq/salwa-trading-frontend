@@ -173,13 +173,6 @@ const DashboardPage: React.FC = () => {
 
           <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
             <button
-              type="button"
-              className="cursor-pointer rounded-lg bg-yellow-500 px-4 py-2 text-xs font-semibold text-black transition hover:bg-yellow-400 sm:text-sm sm:px-5 sm:py-2.5"
-              onClick={() => navigate(ROUTES.PACKAGES)}
-            >
-              Buy Package
-            </button>
-            <button
               className="cursor-pointer rounded-lg border border-gray-700 px-4 py-2 text-xs text-gray-200 transition hover:border-yellow-500 hover:text-yellow-400 sm:text-sm sm:px-5 sm:py-2.5"
               onClick={() => navigate(ROUTES.WITHDRAW)}
             >
