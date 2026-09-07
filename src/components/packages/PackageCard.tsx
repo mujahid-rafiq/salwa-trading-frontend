@@ -97,7 +97,7 @@ const PackageCard: React.FC<PackageCardProps> = ({
           }}
           className="mt-auto flex w-full items-center justify-between rounded-2xl border border-yellow-300/30 bg-gradient-to-r from-[#E4BE45] via-[#D4AF37] to-[#B8860B] px-5 py-3.5 text-sm font-bold text-black shadow-[0_8px_20px_rgba(212,175,55,0.16)] transition-all duration-300 hover:brightness-110 hover:shadow-[0_12px_28px_rgba(212,175,55,0.28)] active:scale-[0.98] cursor-pointer"
         >
-          <span>Buy Package</span>
+          <span>Submit Deposit Request</span>
           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black/15 transition-transform duration-300 group-hover:rotate-45">
             <ArrowUpRight className="h-5 w-5" />
           </span>

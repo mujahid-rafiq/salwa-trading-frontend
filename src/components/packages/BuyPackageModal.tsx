@@ -1,7 +1,6 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
-import { X } from "lucide-react";
 import { toast } from "react-toastify";
 import PaymentInfo from "./PaymentInfo";
 import FileUpload from "./FileUpload";
@@ -118,17 +117,11 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 p-4 backdrop-blur-sm">
       <div className="mx-auto flex min-h-[calc(100vh-2rem)] w-full max-w-5xl flex-col overflow-hidden rounded-3xl border border-yellow-500/20 bg-[#151515] shadow-[0_0_40px_rgba(212,175,55,0.18)]">
-        <div className="flex flex-col gap-3 border-b border-gray-800 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
+        <div className="border-b border-gray-800 px-6 py-5">
           <div>
             <h2 className="text-2xl font-bold text-white">Buy Investment Package</h2>
             <p className="mt-1 text-sm text-gray-400">Submit your deposit details for admin verification.</p>
           </div>
-          <button
-            onClick={onClose}
-            className="cursor-pointer rounded-full p-2 text-gray-400 transition hover:bg-gray-800 hover:text-white"
-          >
-            <X size={22} />
-          </button>
         </div>
 
         <form onSubmit={formik.handleSubmit} className="space-y-8 p-8">
