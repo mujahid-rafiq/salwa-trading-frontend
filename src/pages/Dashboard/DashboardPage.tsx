@@ -142,7 +142,7 @@ const DashboardPage: React.FC = () => {
         />
 
         <StatCard
-          title="Investment Profit"
+          title="Remaining Investment Profit"
           value={loading ? "..." : formatCurrency(balances.earnings)}
         />
 
@@ -152,7 +152,7 @@ const DashboardPage: React.FC = () => {
         />
 
         <StatCard
-          title="Team Bonus"
+          title="Remaining Team Bonus"
           value={loading ? "..." : formatCurrency(balances.bonus)}
         />
       </div>
