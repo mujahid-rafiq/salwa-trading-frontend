@@ -34,7 +34,7 @@ const DashboardPage: React.FC = () => {
     transactionId?: string;
     status: string;
   }[]>([]);
-  const [balances, setBalances] = useState({ earnings: 0, bonus: 0 });
+  const [balances, setBalances] = useState({ earnings: 0, bonus: 0, total: 0 });
   const [loading, setLoading] = useState(true);
   const packageRequestApi = new PackageRequestApi();
   const withdrawApi = new WithdrawApi();
@@ -52,6 +52,7 @@ const DashboardPage: React.FC = () => {
         setBalances({
           earnings: Number(balanceData?.earnings ?? 0),
           bonus: Number(balanceData?.bonus ?? 0),
+          total: Number(balanceData?.total ?? 0),
         });
       } catch (error) {
         console.error(error);
@@ -64,10 +65,6 @@ const DashboardPage: React.FC = () => {
   }, []);
 
   const approvedRequests = requests.filter((request) => request.status === "Approved");
-  const depositAmount = approvedRequests.reduce(
-    (sum, request) => sum + Number(request.amount || 0),
-    0,
-  );
   const displayName = user?.fullName || "User";
 
   const formatCurrency = (value: number) =>
@@ -140,8 +137,8 @@ const DashboardPage: React.FC = () => {
       {/* Wallet Cards */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard
-          title="Deposit Amount"
-          value={loading ? "..." : formatCurrency(depositAmount)}
+          title="Available Balance"
+          value={loading ? "..." : formatCurrency(balances.total)}
         />
 
         <StatCard
