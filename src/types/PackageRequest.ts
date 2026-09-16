@@ -1,5 +1,6 @@
 export type PackageRequest = {
   id: number;
+  requestType?: "Investment" | "Registration";
   packageName: string;
   amount: number;
   paymentMethod?: string;

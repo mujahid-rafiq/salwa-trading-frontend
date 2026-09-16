@@ -20,6 +20,7 @@ interface BuyPackageModalProps {
   open: boolean;
   onClose: () => void;
   selectedPackage: SelectedPackage | null;
+  requestType?: "investment" | "registration";
 }
 
 interface PurchaseFormValues {
@@ -35,12 +36,15 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
   open,
   onClose,
   selectedPackage,
+  requestType = "investment",
 }) => {
   const [successOpen, setSuccessOpen] = useState(false);
+  const isRegistration = requestType === "registration";
 
   const formik = useFormik<PurchaseFormValues>({
+    enableReinitialize: true,
     initialValues: {
-      amount: "",
+      amount: isRegistration ? "10" : "",
       paymentMethod: "Online USDT Deposit",
       transactionId: "",
       paymentScreenshot: null,
@@ -49,7 +53,7 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
       amount: Yup.number()
         .typeError("Please enter a valid amount")
         .required("Amount is required")
-        .min(100, "Minimum deposit is $100"),
+        .min(isRegistration ? 10 : 100, isRegistration ? "Registration fee is $10" : "Minimum deposit is $100"),
       transactionId: Yup.string()
         .trim()
         .required("Transaction ID is required")
@@ -86,8 +90,12 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
           paymentScreenshotUrl,
         };
 
-        await packageRequestApi.submitRequest(dto);
-        toast.success("Package request sent to admin for verification.");
+        if (isRegistration) {
+          await packageRequestApi.submitRegistrationRequest(dto);
+        } else {
+          await packageRequestApi.submitRequest(dto);
+        }
+        toast.success(`${isRegistration ? "Registration" : "Package"} request sent to admin for verification.`);
         setSuccessOpen(true);
       } catch (error) {
         console.error(error);
@@ -120,8 +128,8 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
       <div className="mx-auto flex min-h-[calc(100vh-2rem)] w-full max-w-5xl flex-col overflow-hidden rounded-3xl border border-yellow-500/20 bg-[#151515] shadow-[0_0_40px_rgba(212,175,55,0.18)]">
         <div className="border-b border-gray-800 px-6 py-5">
           <div>
-            <h2 className="text-2xl font-bold text-white">Buy Investment Package</h2>
-            <p className="mt-1 text-sm text-gray-400">Submit your deposit details for admin verification.</p>
+            <h2 className="text-2xl font-bold text-white">{isRegistration ? "Account Registration" : "Buy Investment Package"}</h2>
+            <p className="mt-1 text-sm text-gray-400">Submit your payment details for admin verification.</p>
           </div>
         </div>
 
@@ -129,9 +137,9 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
           <div className="rounded-2xl border border-yellow-500/20 bg-yellow-500/5 p-5">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm text-gray-400">Custom deposit</p>
-                <h3 className="mt-2 text-2xl font-bold text-yellow-400">Choose your amount</h3>
-                <p className="text-sm text-gray-300">Minimum deposit: $100</p>
+                <p className="text-sm text-gray-400">{isRegistration ? "Account creation fee" : "Custom deposit"}</p>
+                <h3 className="mt-2 text-2xl font-bold text-yellow-400">{isRegistration ? "$10 registration fee" : "Choose your amount"}</h3>
+                <p className="text-sm text-gray-300">{isRegistration ? "Pay the one-time fee to activate your referral account." : "Minimum deposit: $100"}</p>
               </div>
             </div>
           </div>
@@ -145,16 +153,17 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
             </div>
 
             <div>
-              <label className="mb-2 block text-sm text-gray-300">Enter amount (USDT)</label>
+              <label className="mb-2 block text-sm text-gray-300">{isRegistration ? "Registration fee (USDT)" : "Enter amount (USDT)"}</label>
               <input
                 name="amount"
                 value={formik.values.amount}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 type="number"
-                min="100"
+                min={isRegistration ? "10" : "100"}
                 step="0.01"
-                placeholder="Minimum $100"
+                readOnly={isRegistration}
+                placeholder={isRegistration ? "$10" : "Minimum $100"}
                 className="w-full rounded-xl border border-gray-700 bg-[#1D1D1D] px-4 py-3 text-white outline-none transition focus:border-yellow-500"
               />
               {formik.touched.amount && formik.errors.amount ? <p className="mt-2 text-xs text-red-400">{formik.errors.amount}</p> : null}
@@ -164,14 +173,14 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
           <PaymentInfo amount={Number(formik.values.amount) || undefined} />
 
           <div>
-            <label className="mb-2 block text-sm text-gray-300">Deposit Transaction ID</label>
+            <label className="mb-2 block text-sm text-gray-300">Payment Transaction ID</label>
             <input
               name="transactionId"
               value={formik.values.transactionId}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               type="text"
-              placeholder="Enter deposit transaction ID"
+              placeholder="Enter payment transaction ID"
               className="w-full rounded-xl border border-gray-700 bg-[#1D1D1D] px-4 py-3 text-white outline-none transition focus:border-yellow-500"
             />
             {formik.touched.transactionId && formik.errors.transactionId ? (
@@ -191,7 +200,9 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
 
           <div className="rounded-xl border border-blue-500/20 bg-blue-500/10 p-4">
             <p className="text-sm leading-6 text-blue-300">
-              After submission, your request is sent to admin for verification. Once approved, your dashboard and package status will update.
+              {isRegistration
+                ? "After approval, your account registration will be activated and your referral earnings can begin."
+                : "After submission, your request is sent to admin for verification. Once approved, your dashboard and package status will update."}
             </p>
           </div>
 
@@ -208,7 +219,7 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
               disabled={formik.isSubmitting}
               className="cursor-pointer rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] px-6 py-3 font-semibold text-black transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {formik.isSubmitting ? "Submitting..." : "Submit Deposit Request"}
+              {formik.isSubmitting ? "Submitting..." : isRegistration ? "Submit Registration Request" : "Submit Deposit Request"}
             </button>
           </div>
         </form>
