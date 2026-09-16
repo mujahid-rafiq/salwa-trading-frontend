@@ -31,6 +31,11 @@ export default class PackageRequestApi extends BaseAPIService {
     return data;
   }
 
+  async submitRegistrationRequest(dto: CreatePackageRequestDto) {
+    const { data } = await this.post(`${this.baseUrl}/registration`, dto);
+    return data;
+  }
+
   async getMyRequests() {
     const { data } = await this.get(`${this.baseUrl}/me`);
     return data;
@@ -51,6 +56,11 @@ export default class PackageRequestApi extends BaseAPIService {
     return data;
   }
 
+  async getPendingRegistrationRequests() {
+    const { data } = await this.get(`${this.baseUrl}/admin/registration-pending`);
+    return data;
+  }
+
   async approveRequest(id: number) {
     const { data } = await this.post(`${this.baseUrl}/admin/${id}/approve`, {});
     return data;
@@ -58,6 +68,16 @@ export default class PackageRequestApi extends BaseAPIService {
 
   async rejectRequest(id: number, reason?: string) {
     const { data } = await this.post(`${this.baseUrl}/admin/${id}/reject`, { reason });
+    return data;
+  }
+
+  async approveRegistrationRequest(id: number) {
+    const { data } = await this.post(`${this.baseUrl}/admin/registration/${id}/approve`, {});
+    return data;
+  }
+
+  async rejectRegistrationRequest(id: number, reason?: string) {
+    const { data } = await this.post(`${this.baseUrl}/admin/registration/${id}/reject`, { reason });
     return data;
   }
 }

@@ -5,6 +5,7 @@ import { ROUTES } from "../../app-routes/constants";
 import PackageRequestApi from "../../services/PackageRequestApi";
 import WithdrawApi from "../../services/WithdrawApi";
 import StatusBadge from "../../components/packages/StatusBadge";
+import BuyPackageModal, { type SelectedPackage } from "../../components/packages/BuyPackageModal";
 import type { RootState } from "../../redux/store";
 import "./DashboardPage.css";
 
@@ -36,6 +37,7 @@ const DashboardPage: React.FC = () => {
   }[]>([]);
   const [balances, setBalances] = useState({ earnings: 0, bonus: 0, total: 0 });
   const [loading, setLoading] = useState(true);
+  const [registrationOpen, setRegistrationOpen] = useState(false);
   const packageRequestApi = new PackageRequestApi();
   const withdrawApi = new WithdrawApi();
 
@@ -66,6 +68,13 @@ const DashboardPage: React.FC = () => {
 
   const approvedRequests = requests.filter((request) => request.status === "Approved");
   const displayName = user?.fullName || "User";
+  const registrationPackage: SelectedPackage = {
+    id: -1,
+    name: "Account Registration",
+    price: 10,
+    profit: "0%",
+    duration: "Account access",
+  };
 
   const formatCurrency = (value: number) =>
     `$${Number(value || 0).toLocaleString(undefined, {
@@ -170,6 +179,12 @@ const DashboardPage: React.FC = () => {
 
             <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
               <button
+                className="cursor-pointer rounded-lg border border-yellow-500/50 px-4 py-2 text-xs font-semibold text-yellow-300 transition hover:bg-yellow-500/10 sm:text-sm sm:px-5 sm:py-2.5"
+                onClick={() => setRegistrationOpen(true)}
+              >
+                Account Registration
+              </button>
+              <button
                 className="cursor-pointer rounded-lg border border-gray-700 px-4 py-2 text-xs text-gray-200 transition hover:border-yellow-500 hover:text-yellow-400 sm:text-sm sm:px-5 sm:py-2.5"
                 onClick={() => navigate(ROUTES.WITHDRAW)}
               >
@@ -253,6 +268,13 @@ const DashboardPage: React.FC = () => {
         {/* Quick Actions */}
      
       </div>
+
+      <BuyPackageModal
+        open={registrationOpen}
+        onClose={() => setRegistrationOpen(false)}
+        selectedPackage={registrationPackage}
+        requestType="registration"
+      />
     </div>
   );
 };

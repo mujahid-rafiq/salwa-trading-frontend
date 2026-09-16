@@ -19,5 +19,6 @@ export const ROUTES = {
   TRADING_INVESTMENT: "/investments/trading",
   ADMIN_DASHBOARD: "/admin/dashboard",
   ADMIN_REQUESTS: "/admin/requests",
+  ADMIN_REGISTRATIONS: "/admin/registrations",
   ADMIN_PAYMENTS: "/admin/payments",
 };
