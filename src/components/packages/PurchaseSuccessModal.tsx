@@ -5,9 +5,10 @@ interface PurchaseSuccessModalProps {
   open: boolean;
   onClose: () => void;
   packageName: string;
+  amount: number;
 }
 
-const PurchaseSuccessModal: React.FC<PurchaseSuccessModalProps> = ({ open, onClose, packageName }) => {
+const PurchaseSuccessModal: React.FC<PurchaseSuccessModalProps> = ({ open, onClose, packageName, amount }) => {
   return (
     <Modal
       open={open}
@@ -21,6 +22,9 @@ const PurchaseSuccessModal: React.FC<PurchaseSuccessModalProps> = ({ open, onClo
         </div>
         <div className="rounded-3xl border border-green-500/20 bg-green-500/10 p-5 text-green-200">
           <p className="text-lg font-semibold">{packageName} purchase request submitted successfully.</p>
+          <p className="mt-2 text-base font-medium text-green-300">
+            Deposit amount: {amount.toLocaleString("en-US", { style: "currency", currency: "USD" })}
+          </p>
         </div>
         <button
           type="button"
