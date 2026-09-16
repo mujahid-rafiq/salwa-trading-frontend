@@ -110,6 +110,7 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
         open={successOpen}
         onClose={handleSuccessClose}
         packageName={selectedPackage.name}
+        amount={Number(formik.values.amount)}
       />
     );
   }
@@ -216,6 +217,7 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
         open={successOpen}
         onClose={handleSuccessClose}
         packageName={selectedPackage.name}
+        amount={Number(formik.values.amount)}
       />
     </div>
   );
