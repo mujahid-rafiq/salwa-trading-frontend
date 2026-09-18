@@ -36,6 +36,31 @@
   box-shadow: 0 0 18px rgba(250, 204, 21, 0.8);
 }
 
+.dashboard-profit-notice {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(250, 204, 21, 0.5);
+  background: rgba(250, 204, 21, 0.1);
+  color: #fde68a;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  box-shadow: 0 0 18px rgba(250, 204, 21, 0.12);
+  animation: dashboard-profit-blink 1.4s ease-in-out infinite;
+}
+
+.dashboard-profit-dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: #facc15;
+  box-shadow: 0 0 10px rgba(250, 204, 21, 0.8);
+}
+
 .dashboard-offer-card {
   width: 100%;
   max-width: 100%;
@@ -112,6 +137,20 @@
   .dashboard-offer-points {
     gap: 0.35rem;
     font-size: 0.68rem !important;
+  }
+}
+
+@keyframes dashboard-profit-blink {
+  0%,
+  100% {
+    opacity: 0.8;
+    transform: scale(1);
+    box-shadow: 0 0 12px rgba(250, 204, 21, 0.12);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+    box-shadow: 0 0 18px rgba(250, 204, 21, 0.28);
   }
 }
 
