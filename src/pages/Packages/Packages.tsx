@@ -6,7 +6,7 @@ const customDeposit: SelectedPackage = {
   id: 0,
   name: "Custom Deposit",
   price: 100,
-  profit: "8% over 30 days",
+  profit: "12% over 30 days",
   duration: "30 Days",
 };
 
