@@ -67,6 +67,7 @@ const DashboardPage: React.FC = () => {
   }, []);
 
   const approvedRequests = requests.filter((request) => request.status === "Approved");
+  const totalDeposits = approvedRequests.reduce((sum, r) => sum + Number(r.amount || 0), 0);
   const displayName = user?.fullName || "User";
   const registrationPackage: SelectedPackage = {
     id: -1,
@@ -149,7 +150,12 @@ const DashboardPage: React.FC = () => {
       </div>
 
       {/* Wallet Cards */}
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-5">
+        <StatCard
+          title="Deposit Amount"
+          value={loading ? "..." : formatCurrency(totalDeposits)}
+        />
+
         <StatCard
           title="Available Balance"
           value={loading ? "..." : formatCurrency(balances.total)}
