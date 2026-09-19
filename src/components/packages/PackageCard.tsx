@@ -68,7 +68,7 @@ const PackageCard: React.FC<PackageCardProps> = ({
           </div>
         </div>
 
-        {/* Features are */}
+        {/* Features are... */}
         <div className="mt-8 space-y-3.5">
           {features.map((feature, index) => (
             <div
