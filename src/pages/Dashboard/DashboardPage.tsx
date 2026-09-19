@@ -144,12 +144,10 @@ const DashboardPage: React.FC = () => {
           <span>💰 $100+ Each Member</span>
         </div>
 
-        {/* <p className="mt-4 text-center text-sm text-gray-300">
-          This special promotion is called the “SIXER OFFER.” 🎯
-        </p> */}
+       
       </div>
 
-      {/* Wallet Cards */}
+      {/* Wallet Cards.............. */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-5">
         <StatCard
           title="Deposit Amount"
