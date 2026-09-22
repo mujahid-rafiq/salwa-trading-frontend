@@ -5,6 +5,7 @@ import { ROUTES } from "../../app-routes/constants";
 import PackageRequestApi from "../../services/PackageRequestApi";
 import WithdrawApi from "../../services/WithdrawApi";
 import AuthApi from "../../services/AuthApi";
+import PhoneNumberField from "../../components/auth/PhoneNumberField";
 
 const authApi = new AuthApi();
 
@@ -179,16 +180,11 @@ const AdminDashboardPage: React.FC = () => {
                 className="w-full rounded-xl border border-gray-700 bg-[#111827] px-3 py-2.5 text-sm text-white outline-none focus:border-yellow-500 md:px-4 md:py-3"
               />
             </div>
-            <div>
-              <label className="mb-2 block text-xs text-gray-300 md:text-sm">Phone Number</label>
-              <input
-                type="tel"
-                required
-                value={adminForm.phoneNumber}
-                onChange={(event) => setAdminForm((current) => ({ ...current, phoneNumber: event.target.value }))}
-                className="w-full rounded-xl border border-gray-700 bg-[#111827] px-3 py-2.5 text-sm text-white outline-none focus:border-yellow-500 md:px-4 md:py-3"
-              />
-            </div>
+            <PhoneNumberField
+              value={adminForm.phoneNumber}
+              onChange={(phoneNumber) => setAdminForm((current) => ({ ...current, phoneNumber }))}
+              inputClassName="w-full rounded-xl border border-gray-700 bg-[#111827] px-3 py-2.5 text-sm text-white outline-none focus:border-yellow-500 md:px-4 md:py-3"
+            />
             <div>
               <label className="mb-2 block text-xs text-gray-300 md:text-sm">Password</label>
               <input

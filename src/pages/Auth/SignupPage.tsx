@@ -7,6 +7,8 @@ import { toast } from "react-toastify";
 import { EyeIcon, EyeOffIcon } from "../../svg";
 import { ROUTES } from "../../app-routes/constants";
 import noovacorLogo from "../../assets/newLogo.jpeg";
+import PhoneNumberField from "../../components/auth/PhoneNumberField";
+import { normalizePhoneNumber } from "../../lib/phone";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -34,7 +36,7 @@ const Signup = () => {
           registerMutation?.mutateAsync({
             fullName: values?.fullName,
             email: values?.email,
-            phoneNumber: values?.phoneNumber,
+            phoneNumber: normalizePhoneNumber(values?.phoneNumber),
             password: values?.password,
             referralCode: values?.referralCode || undefined,
           }),
@@ -128,21 +130,12 @@ const Signup = () => {
               ) : null}
             </div>
 
-            <div>
-              <label className="mb-2 block text-sm text-gray-300">Phone Number</label>
-              <input
-                name="phoneNumber"
-                type="tel"
-                placeholder="+92 300 1234567"
-                value={formik.values.phoneNumber}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                className="w-full rounded-xl border border-gray-700 bg-[#1E1E1E] px-4 py-3 text-white placeholder:text-gray-500 outline-none transition duration-300 focus:border-[#D4AF37] focus:ring-2 focus:ring-yellow-500/20"
-              />
-              {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
-                <p className="mt-2 text-xs text-red-400">{formik.errors.phoneNumber}</p>
-              ) : null}
-            </div>
+            <PhoneNumberField
+              value={formik.values.phoneNumber}
+              onChange={(phoneNumber) => formik.setFieldValue("phoneNumber", phoneNumber)}
+              onBlur={() => formik.setFieldTouched("phoneNumber", true)}
+              error={formik.touched.phoneNumber ? formik.errors.phoneNumber : undefined}
+            />
 
             <div>
               <label className="mb-2 block text-sm text-gray-300">Password</label>
