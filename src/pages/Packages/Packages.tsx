@@ -5,9 +5,9 @@ import type { SelectedPackage } from "../../components/packages/BuyPackageModal"
 const customDeposit: SelectedPackage = {
   id: 0,
   name: "Custom Deposit",
-  price: 100,
-  profit: "12% over 30 days",
-  duration: "30 Days",
+  price: 20,
+  profit: "1% daily for 100 days, total 2×",
+  duration: "100 Days",
 };
 
 const Packages = () => {
@@ -32,7 +32,7 @@ const Packages = () => {
         </div>
 
         <p className="mt-4 max-w-2xl text-sm leading-6 text-black/75">
-          Choose a payment method and deposit any amount from $100. Submit your payment details for admin verification and activation.
+          Choose a payment method and deposit any amount from $20. Profit is 1% daily for 100 days, so the total is 2×. Submit your payment details for admin verification and activation.
         </p>
       </div>
 

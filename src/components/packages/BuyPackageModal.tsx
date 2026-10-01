@@ -53,7 +53,7 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
       amount: Yup.number()
         .typeError("Please enter a valid amount")
         .required("Amount is required")
-        .min(isRegistration ? 10 : 100, isRegistration ? "Registration fee is $10" : "Minimum deposit is $100"),
+        .min(isRegistration ? 10 : 20, isRegistration ? "Registration fee is $10" : "Minimum deposit is $20"),
       transactionId: Yup.string()
         .trim()
         .required("Transaction ID is required")
@@ -139,7 +139,7 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
               <div>
                 <p className="text-sm text-gray-400">{isRegistration ? "Account creation fee" : "Custom deposit"}</p>
                 <h3 className="mt-2 text-2xl font-bold text-yellow-400">{isRegistration ? "$10 registration fee" : "Choose your amount"}</h3>
-                <p className="text-sm text-gray-300">{isRegistration ? "Pay the one-time fee to activate your referral account." : "Minimum deposit: $100"}</p>
+                <p className="text-sm text-gray-300">{isRegistration ? "Pay the one-time fee to activate your referral account." : "Minimum deposit: $20 · 1% daily for 100 days · total 2×"}</p>
               </div>
             </div>
           </div>
@@ -160,10 +160,10 @@ const BuyPackageModal: React.FC<BuyPackageModalProps> = ({
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 type="number"
-                min={isRegistration ? "10" : "100"}
+                min={isRegistration ? "10" : "20"}
                 step="0.01"
                 readOnly={isRegistration}
-                placeholder={isRegistration ? "$10" : "Minimum $100"}
+                placeholder={isRegistration ? "$10" : "Minimum $20"}
                 className="w-full rounded-xl border border-gray-700 bg-[#1D1D1D] px-4 py-3 text-white outline-none transition focus:border-yellow-500"
               />
               {formik.touched.amount && formik.errors.amount ? <p className="mt-2 text-xs text-red-400">{formik.errors.amount}</p> : null}
