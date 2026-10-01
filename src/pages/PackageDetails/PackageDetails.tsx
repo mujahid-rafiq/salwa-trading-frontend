@@ -15,9 +15,9 @@ const PackageDetails = () => {
   const selectedPackage = {
     id: 1,
     name: "Gold Package",
-    price: 100,
-    profit: "12% over 30 days",
-    duration: "30 Days",
+    price: 20,
+    profit: "1% daily for 100 days, total 2×",
+    duration: "100 Days",
   };
 
   return (
