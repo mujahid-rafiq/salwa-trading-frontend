@@ -104,11 +104,6 @@ const DashboardPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="dashboard-profit-notice" role="status" aria-live="polite">
-        <span className="dashboard-profit-dot" />
-        Daily Profit: 1% for 100 days · total 2×
-      </div>
-
       <div className="dashboard-promo-marquee">
         <div className="dashboard-promo-line" />
         <div className="dashboard-promo-track">
