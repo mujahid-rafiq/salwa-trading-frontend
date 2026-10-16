@@ -34,8 +34,8 @@ import DepositHistoryPage from "../pages/Dashboard/DepositHistoryPage";
 import WithdrawalHistoryPage from "../pages/Dashboard/WithdrawalHistoryPage";
 import SiteBlockedPage from "../pages/SiteBlockedPage";
 
-// Set this to false to bring the full site back. No pages were removed...
-const SITE_TEMPORARILY_BLOCKED = true;
+
+const SITE_TEMPORARILY_BLOCKED = false;
 
 const AppRoutes: React.FC = () => {
   if (SITE_TEMPORARILY_BLOCKED) {
